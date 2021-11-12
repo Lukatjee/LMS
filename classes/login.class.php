@@ -23,7 +23,7 @@ class Login extends DBH {
 
             $stmt = null;
 
-            $_SESSION['error'] = "LOGIN_INVALID_USERNAME";
+            $_SESSION['error'] = "LOGIN_UNKNOWN_USER";
             header("location: ../index.php");
 
             exit();
@@ -61,17 +61,17 @@ class Login extends DBH {
 
             $stmt = null;
 
-            $_SESSION['error'] = "LOGIN_INVALID_USER";
+            $_SESSION['error'] = "LOGIN_INVALID_CREDENTIALS";
             header("location: ../index.php");
 
             exit();
 
         }
 
-        $credentials = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $cred = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $_SESSION["user_id"] = $credentials[0]["user_id"];
-        $_SESSION["user_uid"] = $credentials[0]["user_uid"];
+        $_SESSION["user_id"] = $cred[0]["user_id"];
+        $_SESSION["user_uid"] = $cred[0]["user_uid"];
 
         $stmt = null;
 
