@@ -2,19 +2,22 @@
 
 session_start();
 
-class LoginController extends Login {
+class LoginController extends Login
+{
 
     private $uid, $pwd;
     private $error;
 
-    public function __construct($uid, $pwd) {
+    public function __construct($uid, $pwd)
+    {
 
-            $this->uid = $uid;
-            $this->pwd = $pwd;
+        $this->uid = $uid;
+        $this->pwd = $pwd;
 
-        }
+    }
 
-    public function auth() {
+    public function auth()
+    {
 
         if ($this->isEmpty()) {
 
@@ -34,7 +37,8 @@ class LoginController extends Login {
      * @return bool
      */
 
-    private function isEmpty() {
+    private function isEmpty()
+    {
 
         if (empty(trim($this->uid)) && empty(trim($this->pwd))) {
 

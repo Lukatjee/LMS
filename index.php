@@ -1,72 +1,82 @@
 <?php
 
-    session_start()
+session_start();
+
+if (isset($_SESSION["logged_in"])) {
+
+    if ($_SESSION["logged_in"])
+        header("location: ./dashboard/index.php");
+    else
+        session_destroy();
+
+}
 
 ?>
 
 <!doctype html>
 
-    <html lang="en">
+<html lang="en">
 
-    <head>
+<head>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <title>My website</title>
+    <title>My website</title>
 
-        <style>
-            * {
-                font-family: Arial, serif;
-            }
-        </style>
+    <style>
+        * {
+            font-family: Arial, serif;
+        }
+    </style>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-    <form action="includes/login.inc.php" method="post">
+<form action="includes/login.inc.php" method="post">
 
-        <label>
+    <label>
 
-            Username:
-            <br>
-            <input type="text" name="uid">
-
-        </label>
-
+        Username:
         <br>
+        <input type="text" name="uid">
+
+    </label>
+
+    <br>
+    <br>
+
+    <label>
+
+        Password:
         <br>
+        <input type="password" name="pwd">
 
-        <label>
+    </label>
 
-            Password:
-            <br>
-            <input type="password" name="pwd">
+    <br>
+    <br>
 
-        </label>
+    <input type="submit" value="Sign In" name="smt">
 
-        <br>
-        <br>
+    <br>
+    <br>
 
-        <input type="submit" value="Sign In" name="smt">
+    <?php
 
-        <br>
-        <br>
+    if (isset($_SESSION['error'])) {
 
-        <?php
+        echo "<span>" . $_SESSION['error'] . "<span>";
 
-            if (isset($_SESSION['error'])) {
+    }
 
-                echo "<span>" . $_SESSION['error'] . "<span>";
+    ?>
 
-            }
+</form>
 
-        ?>
+</body>
 
-    </form>
-
-    </body>
-
-    </html>
+</html>
