@@ -43,7 +43,6 @@ class Login extends DBH
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $match = password_verify($pwd, $res[0]["user_pwd"]);
 
-
         if ($match == false) {
 
             $stmt = null;
@@ -82,18 +81,12 @@ class Login extends DBH
         }
 
         $cred = $stmt->fetchAll(PDO::FETCH_ASSOC);
-<<<<<<< Updated upstream
-
-        $_SESSION["user_id"] = $cred[0]["user_id"];
-        $_SESSION["user_uid"] = $cred[0]["user_uid"];
-=======
 
         $_SESSION["logged_in"] = true;
         $_SESSION["user_id"] = $cred[0]["user_id"];
         $_SESSION["user_uid"] = $uid;
 
         header("location: ../dashboard/index.php");
->>>>>>> Stashed changes
 
         $stmt = null;
 

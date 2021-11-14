@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< Updated upstream
-session_start()
-=======
 session_start();
->>>>>>> Stashed changes
 
 if (isset($_SESSION["logged_in"])) {
 

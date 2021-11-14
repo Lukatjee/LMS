@@ -1,16 +1,10 @@
 <?php
 
-<<<<<<< Updated upstream
-class DBH {
-
-    protected function connect() {
-=======
 class DBH
 {
 
     protected function connect()
     {
->>>>>>> Stashed changes
 
         try {
 
