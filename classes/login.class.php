@@ -1,10 +1,18 @@
 <?php
 
-session_start();
+class Login extends DBH
+{
 
-class Login extends DBH {
+    /**
+     * Retrieves the user from the database if they exist.
+     * @param $uid
+     * @param $pwd
+     */
 
-    public function get($uid, $pwd) {
+    public function get($uid, $pwd)
+    {
+
+        // Query database to check if the user exists, to then grab their password
 
         $stmt = $this->connect()->prepare('SELECT user_pwd FROM users WHERE user_uid = ?;');
 
@@ -30,8 +38,11 @@ class Login extends DBH {
 
         }
 
+        // Check if the queried password matches the one the user entered
+
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $match = preg_match($res[0], $pwd);
+        $match = password_verify($pwd, $res[0]["user_pwd"]);
+
 
         if ($match == false) {
 
@@ -44,9 +55,11 @@ class Login extends DBH {
 
         }
 
+        // Get the user id, start a session and redirect the user to the dashboard
+
         $stmt = $this->connect()->prepare('SELECT user_id FROM users WHERE user_uid = ?;');
 
-        if (!$stmt->execute([$uid, $pwd])) {
+        if (!$stmt->execute([$uid])) {
 
             $stmt = null;
 
@@ -69,9 +82,18 @@ class Login extends DBH {
         }
 
         $cred = $stmt->fetchAll(PDO::FETCH_ASSOC);
+<<<<<<< Updated upstream
 
         $_SESSION["user_id"] = $cred[0]["user_id"];
         $_SESSION["user_uid"] = $cred[0]["user_uid"];
+=======
+
+        $_SESSION["logged_in"] = true;
+        $_SESSION["user_id"] = $cred[0]["user_id"];
+        $_SESSION["user_uid"] = $uid;
+
+        header("location: ../dashboard/index.php");
+>>>>>>> Stashed changes
 
         $stmt = null;
 
