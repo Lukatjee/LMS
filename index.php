@@ -11,6 +11,8 @@ if (isset($_SESSION["logged_in"])) {
 
 }
 
+include "custom/locale/en_UK.php"
+
 ?>
 
 <!doctype html>
@@ -69,7 +71,7 @@ if (isset($_SESSION["logged_in"])) {
 
     if (isset($_SESSION['error'])) {
 
-        echo "<span>" . $_SESSION['error'] . "<span>";
+        echo "<span>" . $lang[$_SESSION['error']] . "<span>";
 
     }
 
