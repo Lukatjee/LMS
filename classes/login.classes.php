@@ -38,7 +38,7 @@ class Login extends DBH
 
         }
 
-        // Check if the queried password matches the one the user entered
+        // Match the queried password with the one that the user has entered
 
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $match = password_verify($pwd, $res[0]["user_pwd"]);
@@ -54,9 +54,9 @@ class Login extends DBH
 
         }
 
-        // Get the user id, start a session and redirect the user to the dashboard
+        // Fetch the id to then start a new session and assign these variables to the session
 
-        $stmt = $this->connect()->prepare('SELECT user_id FROM users WHERE user_uid = ?;');
+        $stmt = $this->connect()->prepare('SELECT user_id, is_admin FROM users WHERE user_uid = ?;');
 
         if (!$stmt->execute([$uid])) {
 

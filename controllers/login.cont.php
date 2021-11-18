@@ -5,8 +5,8 @@ session_start();
 class LoginController extends Login
 {
 
-    private $uid, $pwd;
-    private $error;
+    private string $uid, $pwd;
+    private string $error;
 
     public function __construct($uid, $pwd)
     {
@@ -37,7 +37,7 @@ class LoginController extends Login
      * @return bool
      */
 
-    private function isEmpty()
+    private function isEmpty(): bool
     {
 
         if (empty(trim($this->uid)) && empty(trim($this->pwd))) {

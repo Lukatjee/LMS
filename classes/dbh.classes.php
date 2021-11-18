@@ -20,7 +20,7 @@ class DBH
 
         } catch (PDOException $e) {
 
-            print "Couldn't connect to database: " . $e->getMessage() . "<br>";
+            print "Couldn't connect to the database: " . $e->getMessage() . "<br>";
             die();
 
         }
