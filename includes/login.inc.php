@@ -10,7 +10,7 @@ if (isset($_POST['smt'])) {
 
     include "../controllers/login.cont.php";
 
-    $login = new LoginController($uid, $pwd);
-    $login->auth();
+    $sign_in = new LoginController($uid, $pwd);
+    $sign_in->authenticate();
 
 }

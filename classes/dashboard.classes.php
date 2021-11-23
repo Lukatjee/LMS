@@ -3,36 +3,20 @@
 class Dashboard extends DBH
 {
 
-    public function getAdmin($user_id)
+    /**
+     * Returns a boolean that indicates if the user is an administrator or not.
+     * @param $user_id
+     * @return bool
+     */
+
+    protected function is_admin($user_id): bool
     {
 
         $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');
 
-        if (!$stmt->execute([$user_id])) {
+        $res = $this->get_user($stmt, $user_id);
 
-            $stmt = null;
-
-            $_SESSION['error'] = "FAILED_CONNECTION";
-            header("location: ../index.php");
-
-            exit();
-
-        }
-
-        if ($stmt->rowCount() === 0) {
-
-            $stmt = null;
-
-            $_SESSION['error'] = "DASHBOARD_UNKNOWN_USER";
-            header("location: ../index.php");
-
-            exit();
-
-        }
-
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $res[0]["is_admin"];
+        return $res[0]["is_admin"] === 'true';
 
     }
 

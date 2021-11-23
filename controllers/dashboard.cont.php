@@ -1,28 +1,28 @@
 <?php
 
-class DashboardController extends Dashboard {
+class DashboardController extends Dashboard
+{
 
     private string $user_id;
 
+    /**
+     * Controller for the dashboard.
+     * @param $user_id
+     */
+
     public function __construct($user_id)
     {
-
         $this->user_id = $user_id;
-
     }
 
-    public function isAdmin(): bool
+    /**
+     * Show navigation button if user is an administrator.
+     */
+
+    public function display_admin()
     {
-
-        $isAdmin = $this->getAdmin($this->user_id);
-
-        if ($isAdmin === 'true')
-            echo '<a href="../dashboard/admin/index.php">Admin</a>';
-        else
-            return false;
-
-        return false;
-
+        if ($this->is_admin($this->user_id))
+            print('<a href="../dashboard/admin/index.php">Admin</a>');
     }
 
 }
