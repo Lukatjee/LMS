@@ -5,9 +5,14 @@ session_start();
 class LoginController extends Login
 {
 
-    private $uid, $pwd;
-    private $error;
+    private string $uid, $pwd;
+    private string $error;
 
+    /**
+     * Controller for the sign in system.
+     * @param $uid
+     * @param $pwd
+     */
     public function __construct($uid, $pwd)
     {
 
@@ -16,7 +21,10 @@ class LoginController extends Login
 
     }
 
-    public function auth()
+    /**
+     * Check the given credentials to sign the user in.
+     */
+    public function authenticate()
     {
 
         if ($this->isEmpty()) {
@@ -37,7 +45,7 @@ class LoginController extends Login
      * @return bool
      */
 
-    private function isEmpty()
+    private function isEmpty(): bool
     {
 
         if (empty(trim($this->uid)) && empty(trim($this->pwd))) {
