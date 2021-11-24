@@ -12,13 +12,11 @@ class Login extends DBH
     public function get($uid, $pwd)
     {
 
-        $stmt = $this->connect()->prepare('SELECT user_pwd FROM users WHERE user_uid = ?;');
+        $stmt = $this->connect()->prepare('SELECT user_pwd, user_id FROM users WHERE user_uid = ?;');
 
         $res = $this->get_user($stmt, $uid);
 
-        $match = password_verify($pwd, $res[0]["user_pwd"]);
-
-        if ($match == false) {
+        if (!password_verify($pwd,$res[0]["user_pwd"])) {
 
             unset($stmt);
 
@@ -29,12 +27,8 @@ class Login extends DBH
 
         }
 
-        $stmt = $this->connect()->prepare('SELECT user_id, is_admin FROM users WHERE user_uid = ?;');
-
-        $cred = $this->get_user($stmt, $uid);
-
         $_SESSION["logged_in"] = true;
-        $_SESSION["user_id"] = $cred[0]["user_id"];
+        $_SESSION["user_id"] = $res[0]["user_id"];
         $_SESSION["user_uid"] = $uid;
 
         header("location: ../dashboard/index.php");
