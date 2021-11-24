@@ -16,9 +16,7 @@ class Login extends DBH
 
         $res = $this->get_user($stmt, $uid);
 
-        $match = password_verify($pwd, $res[0]["user_pwd"]);
-
-        if ($match == false) {
+        if (!password_verify($pwd,$res[0]["user_pwd"])) {
 
             unset($stmt);
 
