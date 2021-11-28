@@ -1,7 +1,8 @@
 <?php
 
-class Login extends DBH
-{
+include "Classes/dbh.class.php";
+
+class login extends dbh {
 
     /**
      * Retrieves the user from the database if they exist.
@@ -16,14 +17,12 @@ class Login extends DBH
 
         $res = $this->get_user($stmt, $uid);
 
-        if (!password_verify($pwd,$res[0]["user_pwd"])) {
+        if (!password_verify($pwd, $res[0]["user_pwd"])) {
 
             unset($stmt);
 
             $_SESSION['error'] = "LOGIN_INVALID_PASSWORD";
-            header("location: ../index.php");
-
-            exit();
+            redirect("index.php");
 
         }
 
@@ -31,9 +30,7 @@ class Login extends DBH
         $_SESSION["user_id"] = $res[0]["user_id"];
         $_SESSION["user_uid"] = $uid;
 
-        header("location: ../dashboard/index.php");
-
-        unset($stmt);
+        redirect("Templates/Console/index.php");
 
     }
 

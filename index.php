@@ -1,42 +1,18 @@
 <?php
 
-session_start();
+include "Templates/Base/_header.php";
+include "Controllers/login.cont.php";
 
-if (isset($_SESSION["logged_in"])) {
+if (isset($_POST["smt"])) {
 
-    if ($_SESSION["logged_in"])
-        header("location: ./dashboard/index.php");
-    else
-        session_destroy();
+    $login = new login_controller($_POST['uid'], $_POST['pwd']);
+    $login->authenticate();
 
 }
 
 ?>
 
-<!doctype html>
-
-<html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Sign In</title>
-
-    <style>
-        * {
-            font-family: Arial, serif;
-        }
-    </style>
-
-</head>
-
-<body>
-
-<form action="includes/login.inc.php" method="post">
+<form method="post">
 
     <label>
 
@@ -65,19 +41,6 @@ if (isset($_SESSION["logged_in"])) {
     <br>
     <br>
 
-    <?php
-
-    if (isset($_SESSION['error'])) {
-
-        echo "<span>" . $_SESSION['error'] . "<span>";
-        session_unset();
-
-    }
-
-    ?>
-
 </form>
 
-</body>
-
-</html>
+<?php include "Templates/Base/_footer.php"; ?>
