@@ -1,8 +1,9 @@
 <?php
 
-include "Classes/dbh.class.php";
+include dirname(__FILE__) . "/../Classes/dbh.class.php";
 
-class login extends dbh {
+class signin extends dbh
+{
 
     /**
      * Retrieves the user from the database if they exist.

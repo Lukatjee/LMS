@@ -1,11 +1,12 @@
 <?php
 
-include "Templates/Base/_header.php";
-include "Controllers/login.cont.php";
+include dirname(__FILE__) . "/Templates/Base/_header.php";
+include dirname(__FILE__) . "/Controllers/Signin.cont.php";
 
-if (isset($_POST["smt"])) {
+if (isset($_POST["smt"]))
+{
 
-    $login = new login_controller($_POST['uid'], $_POST['pwd']);
+    $login = new signin_controller($_POST['uid'], $_POST['pwd']);
     $login->authenticate();
 
 }
@@ -43,4 +44,4 @@ if (isset($_POST["smt"])) {
 
 </form>
 
-<?php include "Templates/Base/_footer.php"; ?>
+<?php include dirname(__FILE__) . "/Templates/Base/_footer.php"; ?>

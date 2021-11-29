@@ -1,5 +1,13 @@
-<?php include "../Base/_header.php"; ?>
+<?php
+
+include dirname(__FILE__) . "/../Base/_header.php";
+
+?>
 
 <h1>Yes</h1>
 
-<?php include "../Base/_footer.php"; ?>
+<?php
+
+include dirname(__FILE__) . "/../Base/_footer.php";
+
+?>

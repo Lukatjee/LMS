@@ -1,10 +1,11 @@
 <?php
 
 session_start();
-include "Services/Confirmation.php";
-include "Classes/login.php";
 
-class login_controller extends login
+include dirname(__FILE__) . "/../Services/Confirmation.php";
+include dirname(__FILE__) . "/../Classes/Signin.class.php";
+
+class signin_controller extends signin
 {
 
     private string $uid, $pwd;
