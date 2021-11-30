@@ -4,7 +4,7 @@ include dirname(__FILE__) . "/../Classes/dbh.class.php";
 
 class commander_controller extends dbh {
 
-    private $uid;
+    private string $uid;
 
     public function __construct($uid) {
 
@@ -16,7 +16,7 @@ class commander_controller extends dbh {
 
         if ($this->is_admin($this->uid))
         {
-            echo '<a href="../Commander/index.php">Admin</a>';
+            echo '<a href="../Commander/index.php">Commander</a><br>';
         }
 
     }

@@ -13,7 +13,7 @@ class dbh
     protected function connect()
     {
 
-        $cred = parse_ini_file("config.ini");
+        $cred = parse_ini_file(dirname(__FILE__) . "/../config.ini");
 
         try {
 

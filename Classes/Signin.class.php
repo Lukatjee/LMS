@@ -31,7 +31,7 @@ class signin extends dbh
         $_SESSION["user_id"] = $res[0]["user_id"];
         $_SESSION["user_uid"] = $uid;
 
-        redirect("Templates/Console/index.php");
+        redirect("Templates/Commander/index.php");
 
     }
 
