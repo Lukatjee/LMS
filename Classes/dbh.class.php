@@ -1,6 +1,6 @@
 <?php
 
-include "Services/Redirect.php";
+include dirname(__FILE__) .  "/../Services/Redirect.php";
 
 class dbh
 {
