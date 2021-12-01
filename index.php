@@ -6,43 +6,42 @@ include_once dirname(__FILE__) . "/Controllers/Signin.cont.php";
 if (is_active())
     redirect("Templates/Console/index.php", false);
 
-if (isset($_POST["smt"]))
-{
+if (isset($_POST["smt"])) {
     $login = new signin_controller($_POST['uid'], $_POST['pwd']);
     $login->authenticate();
 }
 
 ?>
 
-<form method="post">
+    <form method="post">
 
-    <label>
+        <label>
 
-        Username:
+            Username:
+            <br>
+            <input type="text" name="uid">
+
+        </label>
+
         <br>
-        <input type="text" name="uid">
-
-    </label>
-
-    <br>
-    <br>
-
-    <label>
-
-        Password:
         <br>
-        <input type="password" name="pwd">
 
-    </label>
+        <label>
 
-    <br>
-    <br>
+            Password:
+            <br>
+            <input type="password" name="pwd">
 
-    <input type="submit" value="Sign In" name="smt">
+        </label>
 
-    <br>
-    <br>
+        <br>
+        <br>
 
-</form>
+        <input type="submit" value="Sign In" name="smt">
+
+        <br>
+        <br>
+
+    </form>
 
 <?php include_once dirname(__FILE__) . "/Templates/Base/_footer.php"; ?>

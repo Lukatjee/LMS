@@ -4,6 +4,23 @@ class dbh
 {
 
     /**
+     * Returns a boolean that indicates if the user is an administrator or not.
+     * @param $user_id
+     * @return bool
+     */
+
+    protected function is_commander($user_id): bool
+    {
+
+        $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');
+
+        $res = $this->get_user($stmt, $user_id);
+
+        return $res[0]["is_admin"] === 'true';
+
+    }
+
+    /**
      * Connect to the database.
      * @return PDO|void
      */
@@ -57,23 +74,6 @@ class dbh
         }
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    }
-
-    /**
-     * Returns a boolean that indicates if the user is an administrator or not.
-     * @param $user_id
-     * @return bool
-     */
-
-    protected function is_commander($user_id): bool
-    {
-
-        $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');
-
-        $res = $this->get_user($stmt, $user_id);
-
-        return $res[0]["is_admin"] === 'true';
 
     }
 

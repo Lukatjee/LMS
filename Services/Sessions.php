@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\NoReturn;
  * @return bool
  */
 
-function is_active() : bool
+function is_active(): bool
 {
 
     if (!isset($_SESSION["logged_in"]))
