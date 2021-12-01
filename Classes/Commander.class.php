@@ -6,7 +6,7 @@ class commander extends dbh
 {
 
     /**
-     * Creates a user if the requirements are met and the user does not exist yet.
+     * Creates a user if the requirements have been met and the user does not exist yet.
      * @param $uid
      * @param $pwd
      * @param $cmd

@@ -21,6 +21,7 @@ class commander_controller extends commander
      * @param $pwd
      * @param $cmd
      */
+
     public function create_user($uid, $pwd, $cmd)
     {
 
@@ -33,12 +34,12 @@ class commander_controller extends commander
 
         }
 
-        $pwd_hash = password_hash($pwd, PASSWORD_DEFAULT);
-        $cmd_val = "false";
+        $hashed_pwd = password_hash(trim($pwd), PASSWORD_DEFAULT);
+        $commander = "false";
 
-        if ($cmd === "on") $cmd_val = "true";
+        if ($cmd === "on") $commander = "true";
 
-        $this->create($uid, $pwd_hash, $cmd_val);
+        $this->create(trim($uid), $hashed_pwd, $commander);
 
     }
 
