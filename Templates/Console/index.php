@@ -1,13 +1,17 @@
 <?php
 
+session_start();
 
+include_once dirname(__FILE__) . "/../Base/_header.php";
+include_once dirname(__FILE__) . "/../../Controllers/Console.cont.php";
 
-?>
+if (!is_active())
+    redirect("index.php", true);
 
-<h1>Yes</h1>
+$uid = $_SESSION["user_id"];
 
-<?php
+$console_controller = new console_controller($uid);
+$console_controller->display_console();
 
-include dirname(__FILE__) . "/../Base/_footer.php";
-
-?>
+echo "Hi " . $_SESSION["user_uid"] . "<br><br>";
+echo "<a href='../../Services/Signout.php'>Sign Out</a>";

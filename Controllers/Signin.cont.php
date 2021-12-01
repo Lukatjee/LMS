@@ -1,9 +1,11 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 session_start();
 
-include dirname(__FILE__) . "/../Services/Confirmation.php";
-include dirname(__FILE__) . "/../Classes/Signin.class.php";
+include_once dirname(__FILE__) . "/../Services/Confirmation.php";
+include_once dirname(__FILE__) . "/../Classes/Signin.class.php";
 
 class signin_controller extends signin
 {
@@ -28,13 +30,13 @@ class signin_controller extends signin
      * Check the given credentials to sign the user in.
      */
 
-    public function authenticate()
+    #[NoReturn] public function authenticate()
     {
 
         $val = new validation();
 
         if (!$val->is_valid($this->uid, $this->pwd, "LOGIN"))
-            redirect("index.php");
+            redirect("index.php", false);
 
         $this->get($this->uid, $this->pwd);
 

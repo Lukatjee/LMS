@@ -1,6 +1,8 @@
 <?php
 
-include dirname(__FILE__) . "/../Classes/dbh.class.php";
+use JetBrains\PhpStorm\NoReturn;
+
+include_once dirname(__FILE__) . "/../Classes/dbh.class.php";
 
 class signin extends dbh
 {
@@ -11,7 +13,7 @@ class signin extends dbh
      * @param $pwd
      */
 
-    public function get($uid, $pwd)
+    #[NoReturn] public function get($uid, $pwd)
     {
 
         $stmt = $this->connect()->prepare('SELECT user_pwd, user_id FROM users WHERE user_uid = ?;');
@@ -23,7 +25,7 @@ class signin extends dbh
             unset($stmt);
 
             $_SESSION['error'] = "LOGIN_INVALID_PASSWORD";
-            redirect("index.php");
+            redirect("index.php", true);
 
         }
 
@@ -31,7 +33,7 @@ class signin extends dbh
         $_SESSION["user_id"] = $res[0]["user_id"];
         $_SESSION["user_uid"] = $uid;
 
-        redirect("Templates/Commander/index.php");
+        redirect("Templates/Console/index.php", false);
 
     }
 

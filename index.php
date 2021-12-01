@@ -1,14 +1,15 @@
 <?php
 
-include dirname(__FILE__) . "/Templates/Base/_header.php";
-include dirname(__FILE__) . "/Controllers/Signin.cont.php";
+include_once dirname(__FILE__) . "/Templates/Base/_header.php";
+include_once dirname(__FILE__) . "/Controllers/Signin.cont.php";
+
+if (is_active())
+    redirect("Templates/Console/index.php", false);
 
 if (isset($_POST["smt"]))
 {
-
     $login = new signin_controller($_POST['uid'], $_POST['pwd']);
     $login->authenticate();
-
 }
 
 ?>
@@ -44,4 +45,4 @@ if (isset($_POST["smt"]))
 
 </form>
 
-<?php include dirname(__FILE__) . "/Templates/Base/_footer.php"; ?>
+<?php include_once dirname(__FILE__) . "/Templates/Base/_footer.php"; ?>

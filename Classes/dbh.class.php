@@ -1,7 +1,5 @@
 <?php
 
-include dirname(__FILE__) .  "/../Services/Redirect.php";
-
 class dbh
 {
 
@@ -47,14 +45,14 @@ class dbh
         if (!$stmt->execute([$uid])) {
 
             $_SESSION['error'] = "FAILED_CONNECTION";
-            redirect("index.php");
+            redirect("index.php", true);
 
         }
 
         if ($stmt->rowCount() == 0) {
 
             $_SESSION['error'] = "UNKNOWN_USER";
-            redirect("index.php");
+            redirect("index.php", true);
 
         }
 
@@ -68,7 +66,7 @@ class dbh
      * @return bool
      */
 
-    protected function is_admin($user_id): bool
+    protected function is_commander($user_id): bool
     {
 
         $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');

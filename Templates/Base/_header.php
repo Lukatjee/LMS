@@ -1,3 +1,12 @@
+<?php
+
+$dir = dirname(__FILE__);
+
+include_once "$dir/../../Services/Sessions.php";
+include_once "$dir/../../Services/Redirect.php";
+
+?>
+
 <!DOCTYPE html>
 
 <head>
