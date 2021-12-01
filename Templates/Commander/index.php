@@ -75,6 +75,6 @@ if (isset($_POST["smt"])) {
 
     </form>
 
-    <?php echo $_SESSION["error"]; ?>
+<?php echo $_SESSION["error"]; ?>
 
 <?php include_once "$dir/../Base/_footer.php"; ?>

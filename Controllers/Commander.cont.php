@@ -1,7 +1,9 @@
 <?php
 
-include_once dirname(__FILE__) . "/../Classes/Commander.class.php";
-include_once dirname(__FILE__) . "/../Services/Confirmation.php";
+$dir = dirname(__FILE__);
+
+include_once "$dir/../Classes/Commander.class.php";
+include_once "$dir/../Services/Confirmation.php";
 
 class commander_controller extends commander
 {
@@ -13,7 +15,14 @@ class commander_controller extends commander
         $this->uid = $uid;
     }
 
-    public function create_user($uid, $pwd, $cmd) {
+    /**
+     * Check and convert the entered date before creating a new user.
+     * @param $uid
+     * @param $pwd
+     * @param $cmd
+     */
+    public function create_user($uid, $pwd, $cmd)
+    {
 
         $val = new validation();
 

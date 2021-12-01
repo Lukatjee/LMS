@@ -2,9 +2,18 @@
 
 include_once dirname(__FILE__) . "/../Classes/dbh.class.php";
 
-class commander extends dbh {
+class commander extends dbh
+{
 
-    public function create($uid, $pwd, $cmd) {
+    /**
+     * Creates a user if the requirements are met and the user does not exist yet.
+     * @param $uid
+     * @param $pwd
+     * @param $cmd
+     */
+
+    public function create($uid, $pwd, $cmd)
+    {
 
         $stmt = $this->connect()->prepare('SELECT user_pwd, user_id FROM users WHERE user_uid = ?;');
 
