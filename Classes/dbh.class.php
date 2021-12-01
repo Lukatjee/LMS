@@ -77,4 +77,38 @@ class dbh
 
     }
 
+    protected function exists($stmt, $uid): bool
+    {
+
+        if (!$stmt->execute([$uid])) {
+
+            $_SESSION['error'] = "FAILED_CONNECTION";
+            redirect("index.php", true);
+
+        }
+
+        if ($stmt->rowCount() == 0) {
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+    protected function add_user($stmt, $uid, $pwd, $cmd)
+    {
+
+        if (!$stmt->execute([$uid, $pwd, $cmd])) {
+
+            $_SESSION['error'] = "FAILED_CONNECTION";
+            redirect("index.php", true);
+
+        }
+
+        $_SESSION['error'] = "CREATED_USER";
+
+    }
+
 }

@@ -7,6 +7,9 @@ if (is_active())
     redirect("Templates/Console/index.php", false);
 
 if (isset($_POST["smt"])) {
+
+    unset($_SESSION['error']);
+
     $login = new signin_controller($_POST['uid'], $_POST['pwd']);
     $login->authenticate();
 }
