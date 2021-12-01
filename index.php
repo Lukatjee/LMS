@@ -1,83 +1,47 @@
 <?php
 
-session_start();
+include_once dirname(__FILE__) . "/Templates/Base/_header.php";
+include_once dirname(__FILE__) . "/Controllers/Signin.cont.php";
 
-if (isset($_SESSION["logged_in"])) {
+if (is_active())
+    redirect("Templates/Console/index.php", false);
 
-    if ($_SESSION["logged_in"])
-        header("location: ./dashboard/index.php");
-    else
-        session_destroy();
-
+if (isset($_POST["smt"])) {
+    $login = new signin_controller($_POST['uid'], $_POST['pwd']);
+    $login->authenticate();
 }
 
 ?>
 
-<!doctype html>
+    <form method="post">
 
-<html lang="en">
+        <label>
 
-<head>
+            Username:
+            <br>
+            <input type="text" name="uid">
 
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        </label>
 
-    <title>Sign In</title>
-
-    <style>
-        * {
-            font-family: Arial, serif;
-        }
-    </style>
-
-</head>
-
-<body>
-
-<form action="includes/login.inc.php" method="post">
-
-    <label>
-
-        Username:
         <br>
-        <input type="text" name="uid">
-
-    </label>
-
-    <br>
-    <br>
-
-    <label>
-
-        Password:
         <br>
-        <input type="password" name="pwd">
 
-    </label>
+        <label>
 
-    <br>
-    <br>
+            Password:
+            <br>
+            <input type="password" name="pwd">
 
-    <input type="submit" value="Sign In" name="smt">
+        </label>
 
-    <br>
-    <br>
+        <br>
+        <br>
 
-    <?php
+        <input type="submit" value="Sign In" name="smt">
 
-    if (isset($_SESSION['error'])) {
+        <br>
+        <br>
 
-        echo "<span>" . $_SESSION['error'] . "<span>";
-        session_unset();
+    </form>
 
-    }
-
-    ?>
-
-</form>
-
-</body>
-
-</html>
+<?php include_once dirname(__FILE__) . "/Templates/Base/_footer.php"; ?>

@@ -1,7 +1,24 @@
 <?php
 
-class DBH
+class dbh
 {
+
+    /**
+     * Returns a boolean that indicates if the user is an administrator or not.
+     * @param $user_id
+     * @return bool
+     */
+
+    protected function is_commander($user_id): bool
+    {
+
+        $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');
+
+        $res = $this->get_user($stmt, $user_id);
+
+        return $res[0]["is_admin"] === 'true';
+
+    }
 
     /**
      * Connect to the database.
@@ -11,7 +28,7 @@ class DBH
     protected function connect()
     {
 
-        $cred = parse_ini_file("../config.ini");
+        $cred = parse_ini_file(dirname(__FILE__) . "/../config.ini");
 
         try {
 
@@ -45,18 +62,14 @@ class DBH
         if (!$stmt->execute([$uid])) {
 
             $_SESSION['error'] = "FAILED_CONNECTION";
-            header("location: ../index.php");
-
-            exit();
+            redirect("index.php", true);
 
         }
 
         if ($stmt->rowCount() == 0) {
 
             $_SESSION['error'] = "UNKNOWN_USER";
-            header("location: ../index.php");
-
-            exit();
+            redirect("index.php", true);
 
         }
 

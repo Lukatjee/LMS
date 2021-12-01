@@ -1,6 +1,10 @@
 <?php
 
-class Login extends DBH
+use JetBrains\PhpStorm\NoReturn;
+
+include_once dirname(__FILE__) . "/../Classes/dbh.class.php";
+
+class signin extends dbh
 {
 
     /**
@@ -9,21 +13,19 @@ class Login extends DBH
      * @param $pwd
      */
 
-    public function get($uid, $pwd)
+    #[NoReturn] public function get($uid, $pwd)
     {
 
         $stmt = $this->connect()->prepare('SELECT user_pwd, user_id FROM users WHERE user_uid = ?;');
 
         $res = $this->get_user($stmt, $uid);
 
-        if (!password_verify($pwd,$res[0]["user_pwd"])) {
+        if (!password_verify($pwd, $res[0]["user_pwd"])) {
 
             unset($stmt);
 
             $_SESSION['error'] = "LOGIN_INVALID_PASSWORD";
-            header("location: ../index.php");
-
-            exit();
+            redirect("index.php", true);
 
         }
 
@@ -31,9 +33,7 @@ class Login extends DBH
         $_SESSION["user_id"] = $res[0]["user_id"];
         $_SESSION["user_uid"] = $uid;
 
-        header("location: ../dashboard/index.php");
-
-        unset($stmt);
+        redirect("Templates/Console/index.php", false);
 
     }
 
