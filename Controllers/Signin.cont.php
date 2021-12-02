@@ -2,12 +2,12 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-session_start();
+define("DIR", dirname(__FILE__));
 
-include_once dirname(__FILE__) . "/../Services/Confirmation.php";
-include_once dirname(__FILE__) . "/../Classes/Signin.class.php";
+include_once DIR . "/../Services/Confirmation.php";
+include_once DIR . "/../Classes/Signin.class.php";
 
-class signin_controller extends signin
+class sign_in_controller extends sign_in
 {
 
     private string $uid, $pwd;
@@ -27,10 +27,10 @@ class signin_controller extends signin
     }
 
     /**
-     * Check the given credentials to sign the user in.
+     * Check whether the credentials are valid.
      */
 
-    #[NoReturn] public function authenticate()
+    #[NoReturn] public function validate()
     {
 
         $val = new validation();
@@ -38,7 +38,7 @@ class signin_controller extends signin
         if (!$val->is_valid($this->uid, $this->pwd, "LOGIN"))
             redirect("index.php", false);
 
-        $this->get($this->uid, $this->pwd);
+        $this->auth(trim($this->uid), trim($this->pwd));
 
     }
 

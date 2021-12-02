@@ -1,50 +1,45 @@
 <?php
 
-include_once dirname(__FILE__) . "/Templates/Base/_header.php";
-include_once dirname(__FILE__) . "/Controllers/Signin.cont.php";
+// Initialization
+
+define("DIR", dirname(__FILE__));
+session_start();
+
+include_once DIR . "/Templates/Base/_header.php";
+include_once DIR . "/Controllers/Signin.cont.php";
 
 if (is_active())
     redirect("Templates/Console/index.php", false);
+
+// Handle form posts
 
 if (isset($_POST["smt"])) {
 
     unset($_SESSION['error']);
 
-    $login = new signin_controller($_POST['uid'], $_POST['pwd']);
-    $login->authenticate();
+    $sign_in = new sign_in_controller($_POST['uid'], $_POST['pwd']);
+    $sign_in->validate();
+
 }
 
 ?>
 
+<div class="container jumbotron position-absolute top-50 start-50 translate-middle">
+
     <form method="post">
 
-        <label>
+        <div class="mb-3">
+            <label for="uid" class="form-label">Gebruikersnaam</label>
+            <input type="text" id="uid" class="form-control" name="uid">
+        </div>
 
-            Username:
-            <br>
-            <input type="text" name="uid">
+        <div class="mb-3">
+            <label for="pwd" class="form-label">Paswoord</label>
+            <input type="password" id="pwd" class="form-control" name="pwd">
+        </div>
 
-        </label>
-
-        <br>
-        <br>
-
-        <label>
-
-            Password:
-            <br>
-            <input type="password" name="pwd">
-
-        </label>
-
-        <br>
-        <br>
-
-        <input type="submit" value="Sign In" name="smt">
-
-        <br>
-        <br>
+        <input type="submit" class="btn btn-success" value="Inloggen" name="smt">
 
     </form>
 
-<?php include_once dirname(__FILE__) . "/Templates/Base/_footer.php"; ?>
+</div>

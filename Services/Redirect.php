@@ -11,9 +11,9 @@ use JetBrains\PhpStorm\NoReturn;
 #[NoReturn] function redirect($uri, $unset)
 {
 
-    global $ROOT_DIR;
+    define("ROOT_DIR", "/");
 
-    header("location: $ROOT_DIR$uri");
+    header("location: " . ROOT_DIR . "$uri");
 
     if ($unset) {
         session_unset();

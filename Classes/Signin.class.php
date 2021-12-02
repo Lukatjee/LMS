@@ -2,18 +2,20 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-include_once dirname(__FILE__) . "/../Classes/dbh.class.php";
+define("DIR", dirname(__FILE__));
 
-class signin extends dbh
+include_once DIR . "/../Classes/dbh.class.php";
+
+class sign_in extends dbh
 {
 
     /**
-     * Retrieves the user from the database if they exist.
+     * Fetch user data if a record with the given ID exists.
      * @param $uid
      * @param $pwd
      */
 
-    #[NoReturn] public function get($uid, $pwd)
+    #[NoReturn] public function auth($uid, $pwd)
     {
 
         $stmt = $this->connect()->prepare('SELECT user_pwd, user_id FROM users WHERE user_uid = ?;');
