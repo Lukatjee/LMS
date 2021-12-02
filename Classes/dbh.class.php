@@ -3,6 +3,26 @@
 class dbh
 {
 
+    protected function exists($stmt, $uid): bool
+    {
+
+        if (!$stmt->execute([$uid])) {
+
+            $_SESSION['error'] = "FAILED_CONNECTION";
+            redirect("index.php", true);
+
+        }
+
+        if ($stmt->rowCount() == 0) {
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
     /**
      * Returns a boolean that indicates if the user is an administrator or not.
      * @param $user_id
@@ -16,7 +36,7 @@ class dbh
 
         $res = $this->get_user($stmt, $user_id);
 
-        return $res[0]["is_admin"] === 'true';
+        return $res[0]["is_admin"] === 1;
 
     }
 
@@ -77,25 +97,13 @@ class dbh
 
     }
 
-    protected function exists($stmt, $uid): bool
-    {
-
-        if (!$stmt->execute([$uid])) {
-
-            $_SESSION['error'] = "FAILED_CONNECTION";
-            redirect("index.php", true);
-
-        }
-
-        if ($stmt->rowCount() == 0) {
-
-            return false;
-
-        }
-
-        return true;
-
-    }
+    /**
+     * Insert data into the database to create a new user.
+     * @param $stmt
+     * @param $uid
+     * @param $pwd
+     * @param $cmd
+     */
 
     protected function add_user($stmt, $uid, $pwd, $cmd)
     {

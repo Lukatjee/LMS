@@ -1,9 +1,13 @@
 <?php
 
+// Initialization
+
 session_start();
 
-include_once dirname(__FILE__) . "/../Base/_header.php";
-include_once dirname(__FILE__) . "/../../Controllers/Console.cont.php";
+define("DIR", dirname(__FILE__));
+
+include_once DIR . "/../Base/_header.php";
+include_once DIR . "/../../Controllers/Console.cont.php";
 
 if (!is_active())
     redirect("index.php", true);
@@ -11,7 +15,7 @@ if (!is_active())
 $uid = $_SESSION["user_id"];
 
 $console_controller = new console_controller($uid);
-$console_controller->display_console();
+$console_controller->get_is_commander();
 
-echo "Hi " . $_SESSION["user_uid"] . "<br><br>";
-echo "<a href='../../Services/Signout.php'>Sign Out</a>";
+include_once DIR . "/../Base/_nav.php";
+

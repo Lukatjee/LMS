@@ -7,6 +7,11 @@ class console_controller extends dbh
 
     private string $uid;
 
+    /**
+     * Controller for the console page.
+     * @param $uid
+     */
+
     public function __construct($uid)
     {
 
@@ -14,13 +19,13 @@ class console_controller extends dbh
 
     }
 
-    public function display_console()
+    /**
+     * Returns true if the user is a commander.
+     */
+
+    public function get_is_commander()
     {
-
-        if ($this->is_commander($this->uid)) {
-            echo '<a href="../Commander/index.php">Commander</a><br>';
-        }
-
+        $_SESSION['is_commander'] = $this->is_commander($this->uid);
     }
 
 }

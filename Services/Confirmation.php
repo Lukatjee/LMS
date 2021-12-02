@@ -4,7 +4,7 @@ class validation
 {
 
     /**
-     * Returns true if data is empty.
+     * Returns true if data is invalid.
      * @param $uid
      * @param $pwd
      * @param $type
@@ -17,21 +17,24 @@ class validation
         $trimmed_uid = trim($uid);
         $trimmed_pwd = trim($pwd);
 
-        if (empty($trimmed_uid) && empty($trimmed_pwd)) {
+        if (empty($trimmed_uid) && empty($trimmed_pwd))
+        {
 
             $_SESSION["error"] = "EMPTY_INPUT";
             return false;
 
         }
 
-        if (empty(trim($uid))) {
+        if (empty($trimmed_uid))
+        {
 
             $_SESSION["error"] = "EMPTY_USERNAME";
             return false;
 
         }
 
-        if (empty(trim($pwd))) {
+        if (empty($trimmed_pwd))
+        {
 
             $_SESSION["error"] = "EMPTY_PASSWORD";
             return false;
@@ -46,7 +49,8 @@ class validation
 
         $length = strlen($trimmed_pwd) >= 8;
 
-        if ((!$length || !$uppercase || !$lowercase || !$decimal || !$special) && $type === "REGISTER") {
+        if ((!$length || !$uppercase || !$lowercase || !$decimal || !$special) && $type === "REGISTER")
+        {
 
             $_SESSION["error"] = "WEAK_PASSWORD";
             return false;
