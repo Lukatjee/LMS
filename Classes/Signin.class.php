@@ -2,9 +2,7 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-define("DIR", dirname(__FILE__));
-
-include_once DIR . "/../Classes/dbh.class.php";
+require __DIR__ . "/dbh.class.php";
 
 class sign_in extends dbh
 {

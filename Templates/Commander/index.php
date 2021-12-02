@@ -4,11 +4,9 @@
 
 session_start();
 
-define("DIR", dirname(__FILE__));
-
-include_once DIR . "/../Base/_header.php";
-include_once DIR . "/../Base/_nav.php";
-include_once DIR . "/../../Controllers/Commander.cont.php";
+require __DIR__ . "/../Base/_header.php";
+require __DIR__ . "/../Base/_nav.php";
+require __DIR__ . "/../../Controllers/Commander.cont.php";
 
 if (!is_active())
     redirect("index.php", true);

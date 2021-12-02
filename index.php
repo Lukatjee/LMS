@@ -2,14 +2,13 @@
 
 // Initialization
 
-define("DIR", dirname(__FILE__));
 session_start();
 
-include_once DIR . "/Templates/Base/_header.php";
-include_once DIR . "/Controllers/Signin.cont.php";
+require __DIR__ . "/Templates/Base/_header.php";
+require __DIR__ . "/Controllers/Signin.cont.php";
 
 if (is_active())
-    redirect("Templates/Console/index.php", false);
+    redirect("./Templates/Console/index.php", false);
 
 // Handle form posts
 

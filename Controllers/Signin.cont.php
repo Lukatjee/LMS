@@ -2,10 +2,8 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-define("DIR", dirname(__FILE__));
-
-include_once DIR . "/../Services/Confirmation.php";
-include_once DIR . "/../Classes/Signin.class.php";
+require __DIR__ . "/../Services/Confirmation.php";
+require __DIR__ . "/../Classes/Signin.class.php";
 
 class sign_in_controller extends sign_in
 {
