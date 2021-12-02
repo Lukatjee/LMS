@@ -1,6 +1,6 @@
 <?php
 
-include_once dirname(__FILE__) . "/../Classes/dbh.class.php";
+require __DIR__ . "/../Classes/dbh.class.php";
 
 class console_controller extends dbh
 {

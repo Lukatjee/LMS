@@ -1,8 +1,6 @@
 <?php
 
-define("DIR", dirname(__FILE__));
-
-include_once DIR . "/../Classes/dbh.class.php";
+require __DIR__ . "/dbh.class.php";
 
 class commander extends dbh
 {

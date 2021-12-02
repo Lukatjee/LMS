@@ -1,9 +1,7 @@
 <?php
 
-$dir = dirname(__FILE__);
-
-include_once "$dir/../Classes/Commander.class.php";
-include_once "$dir/../Services/Confirmation.php";
+require __DIR__ . "/../Classes/Commander.class.php";
+require __DIR__ . "/../Services/Confirmation.php";
 
 class commander_controller extends commander
 {
