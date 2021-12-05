@@ -1,6 +1,7 @@
 <?php
 
-require __DIR__ . "/Redirect.php";
+
+require __DIR__ . "/redirect.serv.php";
 
 session_start();
 session_destroy();
