@@ -2,14 +2,13 @@
 
 // Initialization
 
-define("DIR", dirname(__FILE__));
 session_start();
 
-include_once DIR . "/Templates/Base/_header.php";
-include_once DIR . "/Controllers/Signin.cont.php";
+require __DIR__ . "/Templates/Base/_header.php";
+require __DIR__ . "/Controllers/signin.cont.php";
 
 if (is_active())
-    redirect("Templates/Console/index.php", false);
+    redirect("./Templates/Console/index.php", false);
 
 // Handle form posts
 
@@ -24,7 +23,7 @@ if (isset($_POST["smt"])) {
 
 ?>
 
-<div class="container jumbotron position-absolute top-50 start-50 translate-middle">
+<div class="container position-absolute top-50 start-50 translate-middle">
 
     <form method="post">
 
@@ -41,5 +40,7 @@ if (isset($_POST["smt"])) {
         <input type="submit" class="btn btn-success" value="Inloggen" name="smt">
 
     </form>
+
+    <?php echo $_SESSION['error'] ?>
 
 </div>

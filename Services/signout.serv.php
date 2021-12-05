@@ -1,6 +1,7 @@
 <?php
 
-include_once dirname(__FILE__) . "/Redirect.php";
+
+require __DIR__ . "/redirect.serv.php";
 
 session_start();
 session_destroy();

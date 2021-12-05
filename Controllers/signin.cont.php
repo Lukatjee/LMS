@@ -2,10 +2,9 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
-define("DIR", dirname(__FILE__));
 
-include_once DIR . "/../Services/Confirmation.php";
-include_once DIR . "/../Classes/Signin.class.php";
+require __DIR__ . "/../Services/confirmation.serv.php";
+require __DIR__ . "/../Classes/signin.class.php";
 
 class sign_in_controller extends sign_in
 {
@@ -35,7 +34,7 @@ class sign_in_controller extends sign_in
 
         $val = new validation();
 
-        if (!$val->is_valid($this->uid, $this->pwd, "LOGIN"))
+        if (!$val->is_valid(null, $this->uid, $this->pwd, null, "LOGIN"))
             redirect("index.php", false);
 
         $this->auth(trim($this->uid), trim($this->pwd));
