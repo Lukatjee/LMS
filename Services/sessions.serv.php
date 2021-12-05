@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
-
 /**
  * Check if the user is logged in.
  * @return bool

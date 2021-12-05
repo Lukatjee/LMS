@@ -94,8 +94,6 @@ if (isset($_POST["smt"])) {
 
                 </div>
 
-                <hr>
-
             </div>
 
             <div class="w-100"></div>
