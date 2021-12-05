@@ -15,9 +15,8 @@ use JetBrains\PhpStorm\NoReturn;
 
     header("location: " . ROOT_DIR . "$uri");
 
-    if ($unset) {
+    if ($unset)
         session_unset();
-    }
 
     exit();
 
