@@ -1,23 +1,30 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 class dbh
 {
 
-    protected function exists($stmt, $uid): bool
+    /**
+     * Check if a user id already exists.
+     * @param $stmt
+     * @param $uid
+     * @param $eml
+     * @return bool
+     */
+
+    protected function exists($stmt, $uid, $eml): bool
     {
 
-        if (!$stmt->execute([$uid])) {
+        if (!$stmt->execute([$uid, $eml])) {
 
             $_SESSION['error'] = "FAILED_CONNECTION";
             redirect("index.php", true);
 
         }
 
-        if ($stmt->rowCount() == 0) {
-
+        if ($stmt->rowCount() == 0)
             return false;
-
-        }
 
         return true;
 
@@ -98,24 +105,49 @@ class dbh
     }
 
     /**
-     * Insert data into the database to create a new user.
+     * Fetch all users from the database.
      * @param $stmt
-     * @param $uid
-     * @param $pwd
-     * @param $cmd
+     * @return array
      */
 
-    protected function add_user($stmt, $uid, $pwd, $cmd)
+    protected function get_users($stmt): array
     {
 
-        if (!$stmt->execute([$uid, $pwd, $cmd])) {
+        if (!$stmt->execute()) {
 
             $_SESSION['error'] = "FAILED_CONNECTION";
             redirect("index.php", true);
 
         }
 
-        $_SESSION['error'] = "CREATED_USER";
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    /**
+     * Insert data into the database to create a new user.
+     * @param $stmt
+     * @param $eml
+     * @param $uid
+     * @param $pwd
+     * @param $role
+     * @param $cls
+     */
+
+    #[NoReturn] protected function create_user($stmt, $eml, $uid, $pwd, $role, $cls)
+    {
+
+        try {
+
+            $stmt->execute([$eml, $uid, $pwd, $role, $cls]);
+
+            redirect("Templates/Commander/Users/_fetchusers.php", false);
+
+        } catch (PDOException $exception) {
+
+            $_SESSION['error'] = $exception->getMessage();
+
+        }
 
     }
 

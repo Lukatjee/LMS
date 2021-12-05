@@ -1,36 +1,52 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 require __DIR__ . "/dbh.class.php";
 
 class commander extends dbh
 {
 
     /**
-     * Creates a user if the requirements have been met and the user does not exist yet.
-     * @param $uid
-     * @param $pwd
-     * @param $cmd
+     * Fetch all the users from the database.
+     * @return array
      */
 
-    public function create($uid, $pwd, $cmd)
+    public function fetch(): array
     {
 
-        $stmt = $this->connect()->prepare('SELECT user_pwd, user_id FROM users WHERE user_uid = ?;');
+        $stmt = $this->connect()->prepare('SELECT * FROM users;');
 
-        $res = $this->exists($stmt, $uid);
+        return $this->get_users($stmt);
+
+    }
+
+    /**
+     * Creates a user if the requirements have been met and the user does not exist yet.
+     * @param $eml
+     * @param $uid
+     * @param $pwd
+     * @param $role
+     * @param $cls
+     */
+
+    #[NoReturn] public function create($eml, $uid, $pwd, $role, $cls)
+    {
+
+        $stmt = $this->connect()->prepare('SELECT user_id FROM users WHERE user_uid = ? OR email = ?;');
+
+        $res = $this->exists($stmt, $uid, $eml);
 
         if ($res) {
 
             $_SESSION["error"] = "USER_EXISTS";
-            header("location: ./index.php");
-
-            exit();
+            redirect("Templates/Commander/Users/_adduser.php", false);
 
         }
 
-        $stmt = $this->connect()->prepare('INSERT INTO users (user_uid, user_pwd, is_admin) VALUES (?, ?, ?);');
+        $stmt = $this->connect()->prepare('INSERT INTO users(email, user_uid, user_pwd, role, class) VALUES(?, ?, ?, ?, ?);');
 
-        $this->add_user($stmt, $uid, $pwd, $cmd);
+        $this->create_user($stmt, $eml, $uid, $pwd, $role, $cls);
 
     }
 

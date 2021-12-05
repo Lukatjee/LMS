@@ -1,7 +1,9 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 require __DIR__ . "/../Classes/Commander.class.php";
-require __DIR__ . "/../Services/Confirmation.php";
+require __DIR__ . "/../Services/confirmation.serv.php";
 
 class commander_controller extends commander
 {
@@ -20,29 +22,28 @@ class commander_controller extends commander
 
     /**
      * Check and convert the given data before creating a new user.
+     * @param $eml
      * @param $uid
      * @param $pwd
-     * @param $cmd
+     * @param $role
+     * @param $cls
      */
 
-    public function create_user($uid, $pwd, $cmd)
+    #[NoReturn] public function new($eml, $uid, $pwd, $role, $cls)
     {
 
         $val = new validation();
 
-        if (!$val->is_valid($uid, $pwd, "REGISTER")) {
+        if (!$val->is_valid($eml, $uid, $pwd, $cls, "REGISTER")) {
 
-            header("location: ./index.php");
+            header("location: ./_adduser.php");
             exit();
 
         }
 
         $hashed_pwd = password_hash(trim($pwd), PASSWORD_DEFAULT);
-        $commander = 0;
 
-        if ($cmd === "on") $commander = 1;
-
-        $this->create(trim($uid), $hashed_pwd, $commander);
+        $this->create($eml, trim($uid), $hashed_pwd, $role, $cls);
 
     }
 
