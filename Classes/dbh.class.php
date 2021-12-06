@@ -6,48 +6,6 @@ class dbh
 {
 
     /**
-     * Check if a user id already exists.
-     * @param $stmt
-     * @param $uid
-     * @param $eml
-     * @return bool
-     */
-
-    protected function exists($stmt, $uid, $eml): bool
-    {
-
-        if (!$stmt->execute([$uid, $eml])) {
-
-            $_SESSION['error'] = "FAILED_CONNECTION";
-            redirect("index.php", true);
-
-        }
-
-        if ($stmt->rowCount() == 0)
-            return false;
-
-        return true;
-
-    }
-
-    /**
-     * Returns a boolean that indicates if the user is an administrator or not.
-     * @param $user_id
-     * @return bool
-     */
-
-    protected function is_commander($user_id): bool
-    {
-
-        $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');
-
-        $res = $this->get_user($stmt, $user_id);
-
-        return $res[0]["is_admin"] === 1;
-
-    }
-
-    /**
      * Connect to the database.
      * @return PDO|void
      */
@@ -73,6 +31,31 @@ class dbh
             die();
 
         }
+
+    }
+
+    /**
+     * Check if a user id already exists.
+     * @param $stmt
+     * @param $uid
+     * @param $eml
+     * @return bool
+     */
+
+    protected function exists($stmt, $uid, $eml): bool
+    {
+
+        if (!$stmt->execute([$uid, $eml])) {
+
+            $_SESSION['error'] = "FAILED_CONNECTION";
+            redirect("index.php", true);
+
+        }
+
+        if ($stmt->rowCount() == 0)
+            return false;
+
+        return true;
 
     }
 
@@ -148,6 +131,23 @@ class dbh
             $_SESSION['error'] = $exception->getMessage();
 
         }
+
+    }
+
+    /**
+     * Returns a boolean that indicates if the user is an administrator or not.
+     * @param $user_id
+     * @return bool
+     */
+
+    protected function is_commander($user_id): bool
+    {
+
+        $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');
+
+        $res = $this->get_user($stmt, $user_id);
+
+        return $res[0]["is_admin"] === 1;
 
     }
 

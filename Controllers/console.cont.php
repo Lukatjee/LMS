@@ -14,9 +14,7 @@ class console_controller extends dbh
 
     public function __construct($uid)
     {
-
         $this->uid = $uid;
-
     }
 
     /**

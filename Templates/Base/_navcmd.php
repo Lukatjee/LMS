@@ -2,7 +2,7 @@
 
     <div class="container">
 
-        <a class="navbar-brand" href="./index.php">
+        <a class="navbar-brand" href="#">
 
             Zorion-LMS
 
