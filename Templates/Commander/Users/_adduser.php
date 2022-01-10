@@ -6,7 +6,7 @@ session_start();
 
 require __DIR__ . "/../../Base/_header.php";
 require __DIR__ . "/../../Base/_navcmd.php";
-require __DIR__ . "/../../../Controllers/commander.cont.php";
+require __DIR__ . "/../../../Controllers/user.cont.php";
 
 if (!is_active())
     redirect("index.php", true);
@@ -24,7 +24,7 @@ if (isset($_POST["smt"])) {
 
     unset($_SESSION['error']);
 
-    $commander_controller->new($_POST['eml'], $_POST['uid'], $_POST['pwd'], $_POST['role'], $_POST['cls']);
+    $commander_controller->createUser($_POST['eml'], $_POST['uid'], $_POST['pwd'], $_POST['role'], $_POST['cls']);
 
 }
 

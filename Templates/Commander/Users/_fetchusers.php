@@ -6,7 +6,7 @@ unset($_SESSION['error']);
 
 require __DIR__ . "/../../Base/_header.php";
 require __DIR__ . "/../../Base/_navcmd.php";
-require __DIR__ . "/../../../Controllers/commander.cont.php";
+require __DIR__ . "/../../../Controllers/user.cont.php";
 
 if (!is_active())
     redirect("index.php", true);

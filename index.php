@@ -5,10 +5,7 @@
 session_start();
 
 require __DIR__ . "/Templates/Base/_header.php";
-require __DIR__ . "/Controllers/signin.cont.php";
-
-if (is_active())
-    redirect("./Templates/Console/index.php", false);
+require __DIR__ . "/Controllers/SignInController.php";
 
 // Handle form posts
 
@@ -16,8 +13,8 @@ if (isset($_POST["smt"])) {
 
     unset($_SESSION['error']);
 
-    $sign_in = new sign_in_controller($_POST['uid'], $_POST['pwd']);
-    $sign_in->validate();
+    $cont = new sign_in_controller($_POST['uid'], $_POST['pwd']);
+    $cont->sign_in();
 
 }
 

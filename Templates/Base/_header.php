@@ -1,8 +1,5 @@
 <?php
 
-require __DIR__ . "/../../Services/sessions.serv.php";
-require __DIR__ . "/../../Services/redirect.serv.php";
-
 ?>
 
 <!DOCTYPE html>

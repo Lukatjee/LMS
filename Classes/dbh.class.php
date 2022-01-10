@@ -1,14 +1,7 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
-
 class dbh
 {
-
-    /**
-     * Connect to the database.
-     * @return PDO|void
-     */
 
     protected function connect()
     {
@@ -17,38 +10,27 @@ class dbh
 
         try {
 
-            $hostname = $cred["hostname"];
-            $database = $cred["database"];
-            $username = $cred["username"];
-            $password = $cred["password"];
-            $charset = "utf8mb4";
-
-            return new PDO("mysql:host=$hostname;dbname=$database;charset=$charset", $username, $password);
+            return new PDO("mysql:host=" . $cred["hostname"] . ";dbname=" . $cred["database"] . ";charset=utf8mb4", $cred["username"], $cred["password"]);
 
         } catch (PDOException $e) {
 
-            print "Couldn't connect to the database: " . $e->getMessage() . "<br>";
+            echo "Couldn't connect to the database: " . $e->getMessage() . "<br>";
             die();
 
         }
 
     }
 
-    /**
-     * Check if a user id already exists.
-     * @param $stmt
-     * @param $uid
-     * @param $eml
-     * @return bool
-     */
-
-    protected function exists($stmt, $uid, $eml): bool
+    protected function exists($stmt, $uid, $eml) : bool
     {
 
-        if (!$stmt->execute([$uid, $eml])) {
+        try {
 
-            $_SESSION['error'] = "FAILED_CONNECTION";
-            redirect("index.php", true);
+            $stmt->execute([$uid, $eml]);
+
+        } catch (PDOException $e) {
+
+            echo "Couldn't execute statement: " . $e->getMessage() . "<br>";
 
         }
 
@@ -59,95 +41,54 @@ class dbh
 
     }
 
-    /**
-     * Fetch credentials from the user table.
-     * @param $stmt
-     * @param $uid
-     * @return array
-     */
-
-    protected function get_user($stmt, $uid): array
-    {
-
-        if (!$stmt->execute([$uid])) {
-
-            $_SESSION['error'] = "FAILED_CONNECTION";
-            redirect("index.php", true);
-
-        }
-
-        if ($stmt->rowCount() == 0) {
-
-            $_SESSION['error'] = "UNKNOWN_USER";
-            redirect("index.php", true);
-
-        }
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    }
-
-    /**
-     * Fetch all users from the database.
-     * @param $stmt
-     * @return array
-     */
-
-    protected function get_users($stmt): array
-    {
-
-        if (!$stmt->execute()) {
-
-            $_SESSION['error'] = "FAILED_CONNECTION";
-            redirect("index.php", true);
-
-        }
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    }
-
-    /**
-     * Insert data into the database to create a new user.
-     * @param $stmt
-     * @param $eml
-     * @param $uid
-     * @param $pwd
-     * @param $role
-     * @param $cls
-     */
-
-    #[NoReturn] protected function create_user($stmt, $eml, $uid, $pwd, $role, $cls)
+    protected function getUser($stmt, $uid) : array
     {
 
         try {
 
-            $stmt->execute([$eml, $uid, $pwd, $role, $cls]);
+            $stmt->execute([$uid]);
 
-            redirect("Templates/Commander/Users/_fetchusers.php", false);
+        } catch (PDOException $e) {
 
-        } catch (PDOException $exception) {
-
-            $_SESSION['error'] = $exception->getMessage();
+            echo "Couldn't execute statement: " . $e->getMessage() . "<br>";
 
         }
 
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     }
 
-    /**
-     * Returns a boolean that indicates if the user is an administrator or not.
-     * @param $user_id
-     * @return bool
-     */
-
-    protected function is_commander($user_id): bool
+    protected function getUsers($stmt) : array
     {
 
-        $stmt = $this->connect()->prepare('SELECT is_admin FROM users WHERE user_id=?;');
+        try {
 
-        $res = $this->get_user($stmt, $user_id);
+            $stmt->execute();
 
-        return $res[0]["is_admin"] === 1;
+        } catch (PDOException $e) {
+
+            echo "Couldn't execute statement: " . $e->getMessage() . "<br>";
+
+        }
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+    protected function createUser($stmt, $eml, $uid, $pwd)
+    {
+
+        try {
+
+            $stmt->execute([$eml, $uid, $pwd]);
+
+        } catch (PDOException $e) {
+
+            echo "Couldn't execute statement: " . $e->getMessage() . "<br>";
+
+        }
+
+        redirect("Templates/Commander/Users/_fetchusers.php", false);
 
     }
 
