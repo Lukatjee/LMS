@@ -7,16 +7,18 @@ session_start();
 require __DIR__ . "/Templates/Base/_header.php";
 require __DIR__ . "/Controllers/SignInController.php";
 
-// Handle form posts
+if (isset($_COOKIE["token"])) {
 
-if (isset($_POST["smt"])) {
 
-    unset($_SESSION['error']);
-
-    $cont = new sign_in_controller($_POST['uid'], $_POST['pwd']);
-    $cont->sign_in();
 
 }
+
+// Handle form posts
+
+$controller = new sign_in_controller();
+
+if (isset($_POST["smt"]))
+    $controller->signIn($_POST['uid'], $_POST['pwd']);
 
 ?>
 

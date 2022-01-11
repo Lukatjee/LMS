@@ -4,21 +4,13 @@ include __DIR__ . "/../Classes/dbh.class.php";
 
 class sign_in_controller extends dbh {
 
-    private string $uid, $pwd;
-
-    public function __construct(string $uid, string $pwd)
-    {
-        $this->uid = trim($uid);
-        $this->pwd = trim($pwd);
-    }
-
-    public function sign_in()
+    public function signIn(string $uid, string $pwd)
     {
 
-        if (empty($this->uid))
+        if (empty($uid))
             redirect("index.php", false);
 
-        if (empty($this->pwd))
+        if (empty($pwd))
             redirect("index.php", false);
 
         $qry = 'SELECT user_id, user_pwd FROM users WHERE user_uid = ?;';
@@ -28,28 +20,33 @@ class sign_in_controller extends dbh {
         if ($smt->rowCount() == 0);
             // TODO: Error handling regarding non-existant user.
 
-        $res = $this->getUser($smt, $this->uid);
+        $res = $this->getUser($smt, $uid);
 
-        $pwd = $res[0]["user_pwd"];
+        $hsh = $res[0]["user_pwd"];
 
-        if (!password_verify($this->pwd, $pwd));
+        if (!password_verify($pwd, $hsh));
             // TODO: Error handling regarding incorrect password.
 
-        // TODO: Create a cookie that contains a session token.
+        $token = $this->tokenGenerator();
+
+        $this->updateSession($uid, $token);
+        setcookie('token', $token, time() + 86400);
 
     }
 
     private function tokenGenerator() : string
     {
 
-        $bytes = "";
-
         try {
-            $bytes = random_bytes(32);
-        } catch (Exception $e) {
-        }
 
-        return bin2hex($bytes);
+            $bytes = random_bytes(32);
+            return bin2hex($bytes);
+
+        } catch (Exception $e) {
+
+            exit();
+
+        }
 
     }
 

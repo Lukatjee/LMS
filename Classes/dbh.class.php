@@ -92,4 +92,20 @@ class dbh
 
     }
 
+    protected function updateSession($uid, $token) {
+
+        try {
+
+            $smt = $this->connect()->prepare('UPDATE users SET token = ? WHERE user_uid = ?');
+            $smt->execute([$token, $uid]);
+
+        } catch (PDOException $e) {
+
+            echo "Couldn't execute statement: " . $e->getMessage() . "<br>";
+            die();
+
+        }
+
+    }
+
 }
