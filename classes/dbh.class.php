@@ -17,11 +17,11 @@ try {
 
 } catch (PDOException $e) {
 
-    throw new PDOException($e->getMessage(), (int) $e->getCode());
+    throw new PDOException($e->getMessage(), (int)$e->getCode());
 
 }
 
-function fetch($qry, $dta) : array
+function fetch($qry, $dta): array
 {
 
     global $pdo;

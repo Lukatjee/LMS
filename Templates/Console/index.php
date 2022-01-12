@@ -10,5 +10,3 @@ if (!isset($_SESSION['uid'])) {
 }
 
 include __DIR__ . '/../../controllers/console_cont.php';
-
-
