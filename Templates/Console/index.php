@@ -1,19 +1,14 @@
 <?php
 
-// Initialization
-
 session_start();
 
-require __DIR__ . "/../Base/_header.php";
-require __DIR__ . "/../../Controllers/console.cont.php";
+include __DIR__ . "/../Base/_header.php";
+include __DIR__ . "/../Base/_nav.php";
 
-if (!is_active())
-    redirect("index.php", true);
+if (!isset($_SESSION['uid'])) {
+    redirect('index.php');
+}
 
-$uid = $_SESSION["user_id"];
+include __DIR__ . '/../../controllers/console_cont.php';
 
-$console_controller = new console_controller($uid);
-$console_controller->get_is_commander(); 
-
-require __DIR__ . "/../Base/_nav.php";
 

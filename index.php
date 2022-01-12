@@ -1,24 +1,18 @@
 <?php
 
-// Initialization
-
 session_start();
 
 require __DIR__ . "/Templates/Base/_header.php";
-require __DIR__ . "/Controllers/SignInController.php";
 
-if (isset($_COOKIE["token"])) {
-
-
-
+if (isset($_SESSION['uid'])) {
+    redirect('Templates/Console/index.php');
 }
 
-// Handle form posts
+require __DIR__ . "/controllers/login_cont.php";
 
-$controller = new sign_in_controller();
-
-if (isset($_POST["smt"]))
-    $controller->signIn($_POST['uid'], $_POST['pwd']);
+if (isset($_POST["smt"])) {
+    log_in($_POST['uid'], $_POST['pwd']);
+}
 
 ?>
 
@@ -39,7 +33,5 @@ if (isset($_POST["smt"]))
         <input type="submit" class="btn btn-success" value="Inloggen" name="smt">
 
     </form>
-
-    <?php echo $_SESSION['error'] ?>
 
 </div>

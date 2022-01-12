@@ -1,12 +1,12 @@
 <?php
 
-session_start();
+/*session_start();
 
 unset($_SESSION['error']);
 
 require __DIR__ . "/../../Base/_header.php";
 require __DIR__ . "/../../Base/_navcmd.php";
-require __DIR__ . "/../../../Controllers/user.cont.php";
+require __DIR__ . "/../../../controllers/users_cont.php";
 
 if (!is_active())
     redirect("index.php", true);
@@ -18,7 +18,7 @@ $commander_controller = new commander_controller($uid);
 if (!$commander_controller->get_is_admin())
     redirect("Templates/Console/index.php", false);
 
-$users = $commander_controller->fetch();
+$users = $commander_controller->fetch_all();*/
 
 ?>
 
@@ -45,7 +45,7 @@ $users = $commander_controller->fetch();
 
                 <tbody>
 
-                <?php foreach ($users as $user) { ?>
+                <?php /*foreach ($users as $user) { ?>
 
                     <tr>
 
@@ -57,7 +57,7 @@ $users = $commander_controller->fetch();
                     </tr>
 
 
-                <?php } ?>
+                <?php }*/ ?>
 
                 </tbody>
 
@@ -74,7 +74,5 @@ $users = $commander_controller->fetch();
         </div>
 
     </div>
-
-    <?php echo $_SESSION['error'] ?>
 
 </div>

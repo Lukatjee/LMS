@@ -1,5 +1,7 @@
 <?php
 
+include __DIR__ . '/../../services/_functions.php'
+
 ?>
 
 <!DOCTYPE html>

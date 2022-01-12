@@ -1,12 +1,10 @@
 <?php
 
-// Initialization
-
-session_start();
+/*session_start();
 
 require __DIR__ . "/../../Base/_header.php";
 require __DIR__ . "/../../Base/_navcmd.php";
-require __DIR__ . "/../../../Controllers/user.cont.php";
+require __DIR__ . "/../../../controllers/users_cont.php";
 
 if (!is_active())
     redirect("index.php", true);
@@ -24,9 +22,9 @@ if (isset($_POST["smt"])) {
 
     unset($_SESSION['error']);
 
-    $commander_controller->createUser($_POST['eml'], $_POST['uid'], $_POST['pwd'], $_POST['role'], $_POST['cls']);
+    $commander_controller->create_user($_POST['eml'], $_POST['uid'], $_POST['pwd'], $_POST['role'], $_POST['cls']);
 
-}
+}*/
 
 ?>
 
