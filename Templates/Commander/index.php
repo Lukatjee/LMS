@@ -1,20 +1,15 @@
 <?php
 
-// Initialization
-
 session_start();
 
-require __DIR__ . "/../Base/_header.php";
-require __DIR__ . "/../Base/_navcmd.php";
-require __DIR__ . "/../../Controllers/commander.cont.php";
+include __DIR__ . "/../Base/_header.php";
 
-if (!is_active())
-    redirect("index", true);
+if (!isset($_SESSION['uid'])) {
+    redirect('index.php');
+}
 
-$uid = $_SESSION["user_id"];
+include __DIR__ . "/../Base/_nav.cmd.php";
 
-$commander_controller = new commander_controller($uid);
-
-if (!$commander_controller->get_is_admin())
-    redirect("Templates/Console/index.php", false);
-
+if (!is_cmd($_SESSION['uid'])) {
+    redirect('Templates/Console/index.php');
+}

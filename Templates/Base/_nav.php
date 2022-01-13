@@ -29,12 +29,13 @@
 
                 <?php
 
-                if ($_SESSION['is_commander'])
-                    echo '<a href="/Templates/Commander/index.php" class="btn btn-dark">Commander</a>'
+                if (is_cmd($_SESSION['uid'])) {
+                    echo '<a href="/Templates/Commander/index.php" class="btn btn-dark">Commander</a>';
+                }
 
                 ?>
 
-                <a href="/Services/signout.serv.php" class="btn btn-danger">Uitloggen</a>
+                <a href="/services/signout.serv.php" class="btn btn-danger">Uitloggen</a>
 
             </div>
 

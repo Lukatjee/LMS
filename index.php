@@ -1,24 +1,17 @@
 <?php
 
-// Initialization
-
 session_start();
 
-require __DIR__ . "/Templates/Base/_header.php";
-require __DIR__ . "/Controllers/signin.cont.php";
+include __DIR__ . "/Templates/Base/_header.php";
 
-if (is_active())
-    redirect("./Templates/Console/index.php", false);
+if (isset($_SESSION['uid'])) {
+    redirect('Templates/Console/index.php');
+}
 
-// Handle form posts
+include __DIR__ . "/controllers/login.cont.php";
 
 if (isset($_POST["smt"])) {
-
-    unset($_SESSION['error']);
-
-    $sign_in = new sign_in_controller($_POST['uid'], $_POST['pwd']);
-    $sign_in->validate();
-
+    log_in($_POST['uid'], $_POST['pwd']);
 }
 
 ?>
@@ -40,7 +33,5 @@ if (isset($_POST["smt"])) {
         <input type="submit" class="btn btn-success" value="Inloggen" name="smt">
 
     </form>
-
-    <?php echo $_SESSION['error'] ?>
 
 </div>

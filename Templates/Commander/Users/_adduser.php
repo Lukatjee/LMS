@@ -1,31 +1,23 @@
 <?php
 
-// Initialization
-
 session_start();
 
-require __DIR__ . "/../../Base/_header.php";
-require __DIR__ . "/../../Base/_navcmd.php";
-require __DIR__ . "/../../../Controllers/commander.cont.php";
+include __DIR__ . "/../../Base/_header.php";
 
-if (!is_active())
-    redirect("index.php", true);
+if (!isset($_SESSION['uid'])) {
+    redirect('index.php');
+}
 
-$uid = $_SESSION["user_id"];
+include __DIR__ . "/../../Base/_nav.cmd.php";
 
-$commander_controller = new commander_controller($uid);
+if (!is_cmd($_SESSION['uid'])) {
+    redirect('Templates/Console/index.php');
+}
 
-if (!$commander_controller->get_is_admin())
-    redirect("Templates/Console/index.php", false);
-
-// Handle form posts
+include __DIR__ . '/../../../controllers/commander.cont.php';
 
 if (isset($_POST["smt"])) {
-
-    unset($_SESSION['error']);
-
-    $commander_controller->new($_POST['eml'], $_POST['uid'], $_POST['pwd'], $_POST['role'], $_POST['cls']);
-
+    create_user([$_POST['eml'], $_POST['uid'], password_hash($_POST['pwd'], PASSWORD_DEFAULT), 1]);
 }
 
 ?>
@@ -107,7 +99,5 @@ if (isset($_POST["smt"])) {
         </div>
 
     </form>
-
-    <?php echo $_SESSION['error'] ?>
 
 </div>

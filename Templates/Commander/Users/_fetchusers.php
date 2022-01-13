@@ -2,23 +2,20 @@
 
 session_start();
 
-unset($_SESSION['error']);
+include __DIR__ . "/../../Base/_header.php";
 
-require __DIR__ . "/../../Base/_header.php";
-require __DIR__ . "/../../Base/_navcmd.php";
-require __DIR__ . "/../../../Controllers/commander.cont.php";
+if (!isset($_SESSION['uid'])) {
+    redirect('index.php');
+}
 
-if (!is_active())
-    redirect("index.php", true);
+include __DIR__ . "/../../Base/_nav.cmd.php";
 
-$uid = $_SESSION["user_id"];
+if (!is_cmd($_SESSION['uid'])) {
+    redirect('Templates/Console/index.php');
+}
 
-$commander_controller = new commander_controller($uid);
-
-if (!$commander_controller->get_is_admin())
-    redirect("Templates/Console/index.php", false);
-
-$users = $commander_controller->fetch();
+$qry = 'SELECT * FROM users';
+$res = fetch($qry, []);
 
 ?>
 
@@ -45,14 +42,14 @@ $users = $commander_controller->fetch();
 
                 <tbody>
 
-                <?php foreach ($users as $user) { ?>
+                <?php foreach ($res as $user) { ?>
 
                     <tr>
 
                         <td><?php echo $user['user_id'] ?></td>
                         <td><?php echo $user['email'] ?></td>
                         <td><?php echo $user['user_uid'] ?></td>
-                        <td><?php echo $user['role'] ?></td>
+                        <td><?php echo $user['role_id'] ?></td>
 
                     </tr>
 
@@ -74,7 +71,5 @@ $users = $commander_controller->fetch();
         </div>
 
     </div>
-
-    <?php echo $_SESSION['error'] ?>
 
 </div>

@@ -28,7 +28,7 @@
             <div class="d-grid gap-2 d-md-block">
 
                 <a href="/Templates/Console/index.php" class="btn btn-dark">Console</a>
-                <a href="/Services/signout.serv.php" class="btn btn-danger">Uitloggen</a>
+                <a href="/services/signout.serv.php" class="btn btn-danger">Uitloggen</a>
 
             </div>
 
