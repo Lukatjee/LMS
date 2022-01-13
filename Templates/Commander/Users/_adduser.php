@@ -16,10 +16,8 @@ if (!is_cmd($_SESSION['uid'])) {
 
 include __DIR__ . '/../../../controllers/commander.cont.php';
 
-// Handle form posts
-
 if (isset($_POST["smt"])) {
-    create_user([$_POST['eml'], $_POST['uid'], $_POST['pwd'], 1]);
+    create_user([$_POST['eml'], $_POST['uid'], password_hash($_POST['pwd'], PASSWORD_DEFAULT), 1]);
 }
 
 ?>
