@@ -1,7 +1,5 @@
 <?php
 
-include __DIR__ . "/../classes/dbh.class.php";
-
 function log_in(string $uid, string $pwd): void
 {
 

@@ -29,9 +29,9 @@
 
                 <?php
 
-                /*if ($_SESSION['is_commander']) {
+                if (is_cmd($_SESSION['uid'])) {
                     echo '<a href="/Templates/Commander/index.php" class="btn btn-dark">Commander</a>';
-                }*/
+                }
 
                 ?>
 

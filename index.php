@@ -2,13 +2,13 @@
 
 session_start();
 
-require __DIR__ . "/Templates/Base/_header.php";
+include __DIR__ . "/Templates/Base/_header.php";
 
 if (isset($_SESSION['uid'])) {
     redirect('Templates/Console/index.php');
 }
 
-require __DIR__ . "/controllers/login_cont.php";
+include __DIR__ . "/controllers/login.cont.php";
 
 if (isset($_POST["smt"])) {
     log_in($_POST['uid'], $_POST['pwd']);

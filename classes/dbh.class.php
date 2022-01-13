@@ -32,3 +32,13 @@ function fetch($qry, $dta): array
     return $smt->fetchAll(PDO::FETCH_ASSOC);
 
 }
+
+function insert($qry, $dta)
+{
+
+    global $pdo;
+
+    $smt = $pdo->prepare($qry);
+    $smt->execute($dta);
+
+}
