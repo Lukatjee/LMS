@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-dark">
 
-    <div class="container bg-danger bg-gradient py-2 px-5">
+    <div class="container bg-success bg-gradient py-2 px-5 rounded-1">
 
-        <a class="navbar-brand" href="./">
+        <a class="navbar-brand fw-bolder" href="./">
 
             Zorion-LMS
 
@@ -22,10 +22,10 @@
 
             </ul>
 
-            <div class="d-grid gap-2 d-md-block bg-dark p-2">
+            <div class="d-grid gap-2 d-md-block">
 
-                <a href="/Templates/Console/index.php" class="btn bg-dark border-secondary text-white rounded-0 shadow-none"><i class="bi bi-terminal"></i></a>
-                <a href="/services/signout.serv.php" class="btn bg-danger text-white rounded-0 shadow-none"><i class="bi bi-box-arrow-right"></i></a>
+                <a href="/Templates/Console/index.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-terminal"></i></a>
+                <a href="/services/_signout.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-box-arrow-right"></i></a>
 
             </div>
 

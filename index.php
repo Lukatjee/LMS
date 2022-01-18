@@ -22,7 +22,7 @@ if (isset($_POST["smt"])) {
 
         <div class="row justify-content-center">
 
-            <div class="col-10 col-md-8 col-lg-4 px-4 pt-4 pb-4 bg-danger bg-gradient bg-opacity-75">
+            <div class="col-10 col-md-8 col-lg-4 px-4 pt-4 pb-4 bg-success rounded-1 bg-gradient bg-opacity-75">
 
                 <div class="my-2">
 
