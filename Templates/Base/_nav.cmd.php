@@ -24,7 +24,7 @@
 
             <div class="d-grid gap-2 d-md-block">
 
-                <a href="/Templates/Console/index.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-terminal"></i></a>
+                <a href="/Templates/Console/index.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-person-circle"></i></a>
                 <a href="/services/_signout.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-box-arrow-right"></i></a>
 
             </div>
