@@ -34,7 +34,6 @@ $res = fetch($qry, []);
                     <th scope="col">ID</th>
                     <th scope="col">Email</th>
                     <th scope="col">UID</th>
-                    <th scope="col">Rol</th>
 
                 </tr>
 
@@ -47,9 +46,8 @@ $res = fetch($qry, []);
                     <tr>
 
                         <td><?php echo $user['user_id'] ?></td>
-                        <td><?php echo $user['email'] ?></td>
+                        <td><?php echo ($user['role_id'] === 0 ? $user['email'] . ' <i class="bi bi-star-fill text-warning fs-6"></i>' : $user['email']) ?></td>
                         <td><?php echo $user['user_uid'] ?></td>
-                        <td><?php echo $user['role_id'] ?></td>
 
                     </tr>
 
@@ -66,7 +64,7 @@ $res = fetch($qry, []);
 
         <div class="col-10 col-md-8">
 
-            <a href="/Templates/Commander/Users/_adduser.php" type="button" class="btn btn-success">Toevoegen</a>
+            <a href="/Templates/Commander/Users/_adduser.php" type="button" class="btn btn-primary rounded-0">Toevoegen</a>
 
         </div>
 

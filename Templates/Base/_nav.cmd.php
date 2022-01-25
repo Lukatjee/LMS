@@ -1,36 +1,59 @@
-<nav class="navbar navbar-expand-md navbar-dark">
+<header class="pb-3">
 
-    <div class="container bg-success bg-gradient py-2 px-5 rounded-1">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark border-secondary border-bottom">
 
-        <a class="navbar-brand fw-bolder" href="./">
+        <div class="container">
 
-            Zorion-LMS
+            <a class="navbar-brand fw-light" href="./">Zorion-LMS</a>
 
-        </a>
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-            <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white text-decoration-none"
+                           href="/Templates/Commander/Users/_fetchusers.php">
+                            <i class="bi bi-file-earmark-person-fill"></i> Gebruikers
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/Templates/Commander/Users/_fetchusers.php">Gebruikers</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white text-decoration-none"
+                           href="/Templates/Commander/Users/_fetchusers.php">
+                            <i class="bi bi-nut-fill"></i> Rollen
+                        </a>
+                    </li>
 
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link text-white text-decoration-none"
+                           href="/Templates/Commander/Users/_fetchusers.php">
+                            <i class="bi bi-bookmark-fill"></i> Groepen
+                        </a>
+                    </li>
 
-            <div class="d-grid gap-2 d-md-block">
+                </ul>
 
-                <a href="/Templates/Console/index.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-person-circle"></i></a>
-                <a href="/services/_signout.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-box-arrow-right"></i></a>
+                <form class="d-flex gap-2">
+
+                    <a href="/Templates/Console/index.php" class="btn bg-primary text-white shadow-none rounded-0 w-50">
+                        <i class="bi bi-person-workspace"></i>
+                    </a>
+
+                    <a href="/services/_signout.php" class="btn bg-danger text-white shadow-none rounded-0 w-50">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+
+                </form>
 
             </div>
 
         </div>
 
-    </div>
+    </nav>
 
-</nav>
+</header>

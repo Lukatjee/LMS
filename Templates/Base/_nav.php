@@ -1,42 +1,34 @@
-<nav class="navbar navbar-expand-md navbar-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark border-secondary border-bottom">
 
-    <div class="container bg-success bg-gradient py-2 px-5 rounded-1">
+    <div class="container">
 
-        <a class="navbar-brand fw-bolder" href="./index.php">
+        <a class="navbar-brand fw-light" href="./">Zorion-LMS</a>
 
-            Zorion-LMS
-
-        </a>
-
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <ul class="navbar-nav me-auto">
-
-                <!--
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/Templates/Console/index.php">Console</a>
-                </li>
-                -->
-
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- This feels weird, but I'll allow it. -->
             </ul>
 
-            <div class="d-grid gap-2 d-md-block">
+            <form class="d-flex gap-2">
 
                 <?php
 
                 if (is_cmd($_SESSION['uid'])) {
-                    echo '<a href="/Templates/Commander/index.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-gear-wide-connected"></i></a>';
+                    echo '<a href="/Templates/Commander/index.php" class="btn bg-primary text-white shadow-none rounded-0 w-50"><i class="bi bi-gear-wide-connected"></i></a>';
                 }
 
                 ?>
 
-                <a href="/services/_signout.php" class="btn bg-dark bg-gradient text-white rounded-pill shadow-none border-0"><i class="bi bi-box-arrow-right"></i></a>
+                <a href="/services/_signout.php" class="btn bg-danger text-white shadow-none rounded-0 w-50"><i
+                            class="bi bi-box-arrow-right"></i></a>
 
-            </div>
+            </form>
 
         </div>
 
