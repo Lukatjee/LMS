@@ -20,13 +20,17 @@
                 <?php
 
                 if (is_cmd($_SESSION['uid'])) {
+
                     echo '<a href="/Templates/Commander/index.php" class="btn bg-primary text-white shadow-none rounded-0 w-50"><i class="bi bi-gear-wide-connected"></i></a>';
+                    echo '<a href="/services/_signout.php" class="btn bg-danger text-white shadow-none rounded-0 w-50"><i class="bi bi-box-arrow-right"></i></a>';
+
+                } else {
+
+                    echo '<a href="/services/_signout.php" class="btn bg-danger text-white shadow-none rounded-0 w-100"><i class="bi bi-box-arrow-right"></i></a>';
+
                 }
 
                 ?>
-
-                <a href="/services/_signout.php" class="btn bg-danger text-white shadow-none rounded-0 w-50"><i
-                            class="bi bi-box-arrow-right"></i></a>
 
             </form>
 

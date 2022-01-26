@@ -58,13 +58,7 @@ $res = fetch($qry, []);
 
             </table>
 
-        </div>
-
-        <div class="w-100"></div>
-
-        <div class="col-10 col-md-8">
-
-            <a href="/Templates/Commander/Users/_adduser.php" type="button" class="btn btn-primary rounded-0">Toevoegen</a>
+            <?php echo is_cmd($_SESSION['uid']) ? '<a href="/Templates/Commander/Users/_adduser.php" type="button" class="btn btn-primary rounded-0">Toevoegen</a>' : ""; ?>
 
         </div>
 
