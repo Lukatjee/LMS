@@ -27,3 +27,18 @@ function is_cmd($uid): bool
     return false;
 
 }
+
+function is_empty($dta): bool
+{
+
+    foreach ($dta as $str) {
+
+        if (empty(trim($str))) {
+            return true;
+        }
+
+    }
+
+    return false;
+
+}

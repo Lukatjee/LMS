@@ -4,7 +4,7 @@
 
         <div class="container">
 
-            <a class="navbar-brand fw-light" href="./">Zorion-LMS</a>
+            <a class="navbar-brand fw-light" href="">Zorion-LMS</a>
 
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,24 +16,30 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                     <li class="nav-item">
+
                         <a class="nav-link text-white text-decoration-none"
-                           href="/Templates/Commander/Users/_fetchusers.php">
+                           href="/Templates/Commander/Users/_users.php">
                             <i class="bi bi-file-earmark-person-fill"></i> Gebruikers
                         </a>
+
                     </li>
 
                     <li class="nav-item">
+
                         <a class="nav-link text-white text-decoration-none"
-                           href="/Templates/Commander/Users/_fetchusers.php">
+                           href="/Templates/Commander/Roles/_roles.php">
                             <i class="bi bi-nut-fill"></i> Rollen
                         </a>
+
                     </li>
 
                     <li class="nav-item">
+
                         <a class="nav-link text-white text-decoration-none"
-                           href="/Templates/Commander/Users/_fetchusers.php">
+                           href="/Templates/Commander/Groups/_groups.php">
                             <i class="bi bi-bookmark-fill"></i> Groepen
                         </a>
+
                     </li>
 
                 </ul>

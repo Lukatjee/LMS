@@ -17,10 +17,51 @@ function create_user($dta)
     $qry = 'INSERT INTO users(email, user_uid, user_pwd, role_id) VALUES (?, ?, ?, ?)';
 
     insert($qry, $dta);
-    redirect('Templates/Commander/Users/_fetchusers.php');
+    redirect('Templates/Commander/Users/_users.php');
 
 }
 
+function create_group($dta)
+{
+
+    if (empty(trim($dta[0]))) {
+        return;
+    }
+
+    $qry = 'SELECT name FROM lms_groups WHERE name = ?';
+    $res = fetch($qry, $dta);
+
+    if (!(empty($res))) {
+        return;
+    }
+
+    $qry = 'INSERT INTO lms_groups(name) VALUES (?)';
+
+    insert($qry, $dta);
+    redirect('Templates/Commander/Groups/_groups.php');
+
+}
+
+function create_role($dta)
+{
+
+    if (is_empty($dta)) {
+        return;
+    }
+
+    $qry = 'SELECT * FROM lms_roles WHERE role_name = ?';
+    $res = fetch($qry, $dta);
+
+    if (!(empty($res))) {
+        return;
+    }
+
+    $qry = 'INSERT INTO lms_roles(role_name) VALUES (?)';
+
+    insert($qry, $dta);
+    redirect('Templates/Commander/Roles/_roles.php');
+
+}
 
 function password_is_valid($pwd): bool
 {
