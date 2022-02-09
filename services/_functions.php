@@ -18,7 +18,7 @@ function is_cmd($uid): bool
     $res = fetch($qry, [$uid]);
 
     foreach ($res as $role) {
-        if (in_array(0, $role, true)) {
+        if (in_array(0, $role)) {
             return true;
         }
     }
