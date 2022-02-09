@@ -10,32 +10,38 @@ if (!isset($_SESSION['uid'])) {
 
 require_once dirname(__FILE__) . "/../../includes/_nav.php";
 
+$qry = 'SELECT DISTINCT date FROM lms_events ORDER BY date;';
+$dates = fetch($qry, []);
+
 ?>
 
 <div class="container py-5">
 
-    <div class="row">
+    <table class="table">
 
-        <div class="col">
+    <?php
 
-            <ul class="nav nav-tabs">
+    foreach ($dates as $date) {
 
-                <li class="nav-item">
-                    <a class="nav-link text-secondary">maandag 31/01</a>
-                </li>
+        foreach ($date as $d) {
 
-                <li class="nav-item">
-                    <a class="nav-link text-secondary">dinsdag 01/02</a>
-                </li>
+            echo "<thead class='table-dark'><tr><th scope='col'>$d</th></tr></thead><tbody><tr>";
 
-                <li class="nav-item">
-                    <a class="nav-link text-secondary">woensdag 02/02</a>
-                </li>
+            $qry = 'SELECT * FROM lms_events WHERE date = ?';
+            $events = fetch($qry, [$d])[0];
 
-            </ul>
+            foreach ($events as $event) {
 
-        </div>
+                echo "<td>$event</td>";
 
-    </div>
+            }
+
+        }
+
+    }
+
+    ?>
+
+    </table>
 
 </div>
