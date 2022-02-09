@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/../../services/_functions.php'
+require_once dirname(__FILE__) . "/../services/_functions.php"
 
 ?>
 

@@ -1,3 +1,9 @@
+<?php
+
+require_once dirname(__FILE__) . "/../services/_functions.php";
+
+?>
+
 <header class="pb-3">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark border-secondary border-bottom">
@@ -18,7 +24,7 @@
                     <li class="nav-item">
 
                         <a class="nav-link text-white text-decoration-none"
-                           href="/Templates/Commander/Users/_users.php">
+                           href="/public/commander/_users.php">
                             <i class="bi bi-file-earmark-person-fill"></i> Gebruikers
                         </a>
 
@@ -27,7 +33,7 @@
                     <li class="nav-item">
 
                         <a class="nav-link text-white text-decoration-none"
-                           href="/Templates/Commander/Roles/_roles.php">
+                           href="/public/commander/_roles.php">
                             <i class="bi bi-nut-fill"></i> Rollen
                         </a>
 
@@ -36,7 +42,7 @@
                     <li class="nav-item">
 
                         <a class="nav-link text-white text-decoration-none"
-                           href="/Templates/Commander/Groups/_groups.php">
+                           href="/public/commander/_groups.php">
                             <i class="bi bi-bookmark-fill"></i> Groepen
                         </a>
 
@@ -46,7 +52,7 @@
 
                 <form class="d-flex gap-2">
 
-                    <a href="/Templates/Console/index.php" class="btn bg-primary text-white shadow-none rounded-0 w-50">
+                    <a href="/public/index.console.php" class="btn bg-primary text-white shadow-none rounded-0 w-50">
                         <i class="bi bi-person-workspace"></i>
                     </a>
 

@@ -2,16 +2,16 @@
 
 session_start();
 
-include __DIR__ . "/../../Base/_header.php";
+require_once dirname(__FILE__) . "/../../includes/_header.php";
 
 if (!isset($_SESSION['uid'])) {
-    redirect('index.php');
+    redirect('public/index.php');
 }
 
-include __DIR__ . "/../../Base/_nav.cmd.php";
+require_once dirname(__FILE__) . "/../../includes/_nav.cmd.php";
 
 if (!is_cmd($_SESSION['uid'])) {
-    redirect('Templates/Console/index.php');
+    redirect('public/index.console.php');
 }
 
 $qry = 'SELECT DISTINCT user_id, email, user_uid, group_id, role_id FROM users GROUP BY user_uid';
@@ -61,7 +61,7 @@ $res = fetch($qry, []);
 
             </table>
 
-            <?php echo is_cmd($_SESSION['uid']) ? '<a href="/Templates/Commander/Users/_adduser.php" type="button" class="btn btn-primary rounded-0">Toevoegen</a>' : ""; ?>
+            <?php echo is_cmd($_SESSION['uid']) ? '<a href="/public/Commander/Users/_adduser.php" type="button" class="btn disabled btn-primary rounded-0">Toevoegen</a>' : ""; ?>
 
         </div>
 

@@ -13,7 +13,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link text-light text-decoration-none" href="/Templates/Console/Calendar/_fetch.php"><i
+                    <a class="nav-link text-light text-decoration-none" href="/public/console/_calendar.php"><i
                                 class="bi bi-table"></i> Planning</a>
                 </li>
 
@@ -25,7 +25,7 @@
 
                 if (is_cmd($_SESSION['uid'])) {
 
-                    echo '<a href="/Templates/Commander/index.php" class="btn bg-primary text-light shadow-none rounded-0 w-50"><i class="bi bi-gear-wide-connected"></i></a>';
+                    echo '<a href="/public/index.commander.php" class="btn bg-primary text-light shadow-none rounded-0 w-50"><i class="bi bi-gear-wide-connected"></i></a>';
                     echo '<a href="/services/_signout.php" class="btn bg-danger text-white shadow-none rounded-0 w-50"><i class="bi bi-box-arrow-right"></i></a>';
 
                 } else {

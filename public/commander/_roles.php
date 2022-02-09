@@ -2,19 +2,19 @@
 
 session_start();
 
-include __DIR__ . "/../../Base/_header.php";
+require_once dirname(__FILE__) . "/../../includes/_header.php";
 
 if (!isset($_SESSION['uid'])) {
-    redirect('index.php');
+    redirect('public/index.php');
 }
 
-include __DIR__ . "/../../Base/_nav.cmd.php";
+require_once dirname(__FILE__) . "/../../includes/_nav.cmd.php";
 
 if (!is_cmd($_SESSION['uid'])) {
-    redirect('Templates/Console/index.php');
+    redirect('public/console/index.commander.php');
 }
 
-include __DIR__ . '/../../../controllers/commander.cont.php';
+require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
 
 $qry = 'SELECT * FROM lms_roles';
 $res = fetch($qry, []);

@@ -17,7 +17,7 @@ function create_user($dta)
     $qry = 'INSERT INTO users(email, user_uid, user_pwd, role_id) VALUES (?, ?, ?, ?)';
 
     insert($qry, $dta);
-    redirect('Templates/Commander/Users/_users.php');
+    redirect('public/commander/_users.php');
 
 }
 
@@ -38,7 +38,7 @@ function create_group($dta)
     $qry = 'INSERT INTO lms_groups(name) VALUES (?)';
 
     insert($qry, $dta);
-    redirect('Templates/Commander/Groups/_groups.php');
+    redirect('public/commander/_groups.php');
 
 }
 
@@ -49,7 +49,7 @@ function create_role($dta)
         return;
     }
 
-    $qry = 'SELECT * FROM lms_roles WHERE role_name = ?';
+    $qry = 'SELECT role_name FROM lms_roles WHERE role_name = ?';
     $res = fetch($qry, $dta);
 
     if (!(empty($res))) {
@@ -59,7 +59,7 @@ function create_role($dta)
     $qry = 'INSERT INTO lms_roles(role_name) VALUES (?)';
 
     insert($qry, $dta);
-    redirect('Templates/Commander/Roles/_roles.php');
+    redirect('public/commander/_roles.php');
 
 }
 

@@ -2,13 +2,13 @@
 
 session_start();
 
-include __DIR__ . "/../../Base/_header.php";
+require_once dirname(__FILE__) . "/../../includes/_header.php";
 
 if (!isset($_SESSION['uid'])) {
-    redirect('index.php');
+    redirect('index.commander.php');
 }
 
-include __DIR__ . "/../../Base/_nav.php";
+require_once dirname(__FILE__) . "/../../includes/_nav.php";
 
 ?>
 

@@ -1,13 +1,12 @@
 <?php
 
-include __DIR__ . '/../classes/dbh.class.php';
+require_once dirname(__FILE__) . "/_storage.php";
 
 function redirect($uri)
 {
 
-    define("ROOT_DIR", "/");
-
-    header("location: " . ROOT_DIR . $uri);
+    $ROOT = "/";
+    header("location:" . $ROOT . $uri);
     exit();
 
 }
