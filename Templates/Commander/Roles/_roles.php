@@ -98,10 +98,11 @@ if (isset($_POST["crt"])) {
 
                             <div class="modal-body input-group">
 
-                                <span class="input-group-text rounded-0 bg-success bg-opacity-25"><i
-                                            class="bi bi-pencil-square"></i></span>
-                                <input type="text" class="form-control rounded-0 shadow-none" aria-label="dpn"
-                                       name="dpn" id="dpn">
+                                <span class="input-group-text rounded-0 bg-success bg-opacity-25">
+                                    <i class="bi bi-pencil-square"></i>
+                                </span>
+
+                                <input type="text" class="form-control rounded-0 shadow-none" aria-label="dpn" name="dpn" id="dpn">
 
                             </div>
 

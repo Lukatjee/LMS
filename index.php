@@ -28,10 +28,11 @@ if (isset($_POST["smt"])) {
 
                     <div class="input-group mb-3">
 
-                        <span class="input-group-text rounded-0 border-0 bg-success bg-gradient text-light"><i
-                                    class="bi bi-person-circle"></i></span>
-                        <input type="text" id="uid" class="form-control rounded-0 border-0 shadow-none"
-                               aria-label="Gebruikersnaam" name="uid">
+                        <span class="input-group-text rounded-0 border-0 bg-success bg-gradient text-light">
+                            <i class="bi bi-person-circle"></i>
+                        </span>
+
+                        <input type="text" id="uid" class="form-control rounded-0 border-0 shadow-none" aria-label="Gebruikersnaam" name="uid">
 
                     </div>
 
@@ -41,13 +42,15 @@ if (isset($_POST["smt"])) {
 
                     <div class="input-group">
 
-                        <span class="input-group-text rounded-0 border-0 bg-success bg-gradient text-light"><i
-                                    class="bi bi-asterisk"></i></span>
-                        <input type="password" id="pwd"
-                               class="form-control rounded-0 border-0 shadow-none bg-opacity-50" aria-label="Paswoord"
-                               name="pwd">
-                        <button class="btn rounded-0 border-0 bg-success bg-gradient text-light" type="submit"
-                                name="smt"><i class="bi bi-arrow-return-right"></i></button>
+                        <span class="input-group-text rounded-0 border-0 bg-success bg-gradient text-light">
+                            <i class="bi bi-asterisk"></i>
+                        </span>
+
+                        <input type="password" id="pwd" class="form-control rounded-0 border-0 shadow-none bg-opacity-50" aria-label="Paswoord" name="pwd">
+
+                        <button class="btn rounded-0 border-0 bg-success bg-gradient text-light" type="submit" name="smt">
+                            <i class="bi bi-arrow-return-right"></i>
+                        </button>
 
                     </div>
 
