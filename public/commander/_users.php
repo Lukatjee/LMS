@@ -49,8 +49,7 @@ $res = fetch($qry, []);
                         <td><?php echo $user['user_id'] ?></td>
                         <td><?php echo(in_array(0, $user) ? $user['email'] . ' <i class="bi bi-star-fill text-warning fs-6"></i>' : $user['email']) ?></td>
                         <td><?php echo $user['user_uid'] ?></td>
-                        <td><?php $res = fetch('SELECT name FROM lms_groups WHERE id = ?', [$user['group_id']]);
-                            echo $res[0]['name'] ?></td>
+                        <td><?php $res = fetch('SELECT name FROM lms_groups WHERE id = ?', [$user['group_id']]); echo $res[0]['name'] ?></td>
 
                     </tr>
 

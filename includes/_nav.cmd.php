@@ -12,8 +12,7 @@ require_once dirname(__FILE__) . "/../services/_functions.php";
 
             <a class="navbar-brand fw-light" href="">Zorion-LMS</a>
 
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -23,8 +22,7 @@ require_once dirname(__FILE__) . "/../services/_functions.php";
 
                     <li class="nav-item">
 
-                        <a class="nav-link text-white text-decoration-none"
-                           href="/public/commander/_users.php">
+                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_users.php">
                             <i class="bi bi-file-earmark-person-fill"></i> Gebruikers
                         </a>
 
@@ -32,8 +30,7 @@ require_once dirname(__FILE__) . "/../services/_functions.php";
 
                     <li class="nav-item">
 
-                        <a class="nav-link text-white text-decoration-none"
-                           href="/public/commander/_roles.php">
+                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_roles.php">
                             <i class="bi bi-nut-fill"></i> Rollen
                         </a>
 
@@ -41,8 +38,7 @@ require_once dirname(__FILE__) . "/../services/_functions.php";
 
                     <li class="nav-item">
 
-                        <a class="nav-link text-white text-decoration-none"
-                           href="/public/commander/_groups.php">
+                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_groups.php">
                             <i class="bi bi-bookmark-fill"></i> Groepen
                         </a>
 
