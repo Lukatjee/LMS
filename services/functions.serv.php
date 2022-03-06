@@ -1,13 +1,12 @@
 <?php
 
-include __DIR__ . '/../classes/dbh.class.php';
+require_once dirname(__FILE__) . "/storage.serv.php";
 
 function redirect($uri)
 {
 
-    define("ROOT_DIR", "/");
-
-    header("location: " . ROOT_DIR . $uri);
+    $ROOT = "/";
+    header("location:" . $ROOT . $uri);
     exit();
 
 }
@@ -19,7 +18,7 @@ function is_cmd($uid): bool
     $res = fetch($qry, [$uid]);
 
     foreach ($res as $role) {
-        if (in_array(0, $role, true)) {
+        if (in_array(0, $role)) {
             return true;
         }
     }

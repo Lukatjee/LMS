@@ -2,26 +2,26 @@
 
 session_start();
 
-include __DIR__ . "/../../Base/_header.php";
+require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
 if (!isset($_SESSION['uid'])) {
-    redirect('index.php');
+    redirect('public/index.php');
 }
 
-include __DIR__ . "/../../Base/_nav.cmd.php";
+require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
 
 if (!is_cmd($_SESSION['uid'])) {
-    redirect('Templates/Console/index.php');
+    redirect('public/console/_commander.php');
 }
 
-include __DIR__ . '/../../../controllers/commander.cont.php';
+require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
 
-$qry = 'SELECT * FROM lms_groups';
+$qry = 'SELECT * FROM lms_roles';
 $res = fetch($qry, []);
 
 if (isset($_POST["crt"])) {
 
-    create_group([$_POST["dpn"]]);
+    create_role([$_POST["dpn"]]);
     unset($_POST);
 
 }
@@ -50,17 +50,17 @@ if (isset($_POST["crt"])) {
 
                 <tbody>
 
-                <?php foreach ($res as $group) { ?>
+                <?php foreach ($res as $role) { ?>
 
                     <tr>
 
-                        <td><?php echo $group['id'] ?></td>
-                        <td><?php echo $group['name'] ?></td>
+                        <td><?php echo $role['role_id'] ?></td>
+                        <td><?php echo $role['role_name'] ?></td>
                         <td>
 
                             <?php
 
-                            $res = fetch('SELECT DISTINCT COUNT(group_id) AS amount FROM users WHERE group_id = ? ORDER BY user_uid', [$group['id']]);
+                            $res = fetch('SELECT DISTINCT COUNT(role_id) AS amount FROM users WHERE role_id = ? ORDER BY user_uid', [$role['role_id']]);
 
                             if (!empty($res)) {
                                 echo $res[0]['amount'];
@@ -91,7 +91,7 @@ if (isset($_POST["crt"])) {
 
                             <div class="modal-header">
 
-                                <h5 class="modal-title">Groep aanmaken</h5>
+                                <h5 class="modal-title">Rol toevoegen</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 
                             </div>

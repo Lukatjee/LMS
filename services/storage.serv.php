@@ -1,6 +1,6 @@
 <?php
 
-$cred = parse_ini_file(__DIR__ . "/../config.ini");
+$cred = parse_ini_file(dirname(__FILE__) . "/../config.ini");
 
 $dsn = "mysql:host=" . $cred["hostname"] . ";dbname=" . $cred["database"] . ";charset=utf8mb4";
 $opt = [
@@ -33,12 +33,12 @@ function fetch($qry, $dta): array
 
 }
 
-function insert($qry, $dta)
+function insert($qry, $args)
 {
 
     global $pdo;
 
     $smt = $pdo->prepare($qry);
-    $smt->execute($dta);
+    $smt->execute($args);
 
 }
