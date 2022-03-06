@@ -2,16 +2,16 @@
 
 session_start();
 
-require_once dirname(__FILE__) . "/../../includes/_header.php";
+require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
 if (!isset($_SESSION['uid'])) {
     redirect('public/index.php');
 }
 
-require_once dirname(__FILE__) . "/../../includes/_nav.cmd.php";
+require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
 
 if (!is_cmd($_SESSION['uid'])) {
-    redirect('public/index.console.php');
+    redirect('public/_console.php');
 }
 
 $qry = 'SELECT DISTINCT user_id, email, user_uid, group_id, role_id FROM users GROUP BY user_uid';

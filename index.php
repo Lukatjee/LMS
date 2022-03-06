@@ -2,12 +2,12 @@
 
 session_start();
 
-require_once dirname(__FILE__) . "/includes/_header.php";
+require_once dirname(__FILE__) . "/includes/header.inc.php";
 
 if (isset($_SESSION['uid']))
-    redirect('public/index.console.php');
+    redirect('public/_console.php');
 
-require_once dirname(__FILE__) . "/controllers/login.cont.php";
+require_once dirname(__FILE__) . "/services/login.serv.php";
 
 if (isset($_POST["smt"])) {
     log_in($_POST['uid'], $_POST['pwd']);

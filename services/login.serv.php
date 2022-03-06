@@ -25,6 +25,6 @@ function log_in(string $uid, string $pwd): void
     }
 
     $_SESSION['uid'] = $res[0]['user_id'];
-    redirect("public/index.console.php");
+    redirect("public/_console.php");
 
 }

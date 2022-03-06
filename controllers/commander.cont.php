@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Creates a new account after checking if it doesn't exist yet.
+ * @param $dta
+ * credentials for the new account
+ * @return void
+ */
+
 function create_user($dta)
 {
 
@@ -20,6 +27,13 @@ function create_user($dta)
     redirect('public/commander/_users.php');
 
 }
+
+/**
+ * Creates a new group after checking if it doesn't exist yet.
+ * @param $dta
+ * properties for the new group
+ * @return void
+ */
 
 function create_group($dta)
 {
@@ -42,6 +56,13 @@ function create_group($dta)
 
 }
 
+/**
+ * Creates a new role after checking if it doesn't exist yet.
+ * @param $dta
+ * properties for the new role
+ * @return void
+ */
+
 function create_role($dta)
 {
 
@@ -63,16 +84,14 @@ function create_role($dta)
 
 }
 
-function password_is_valid($pwd): bool
-{
+/**
+ * Checks if password is strong enough using a regex pattern.
+ * @param $pwd
+ * password (not hashed)
+ * @return bool
+ * boolean based on strength
+ */
 
-    $upc = preg_match('/[A-Z]/', $pwd);
-    $lwc = preg_match('/[a-z]/', $pwd);
-    $dcl = preg_match('/\d/', $pwd);
-    $spc = preg_match('/[^\W]/', $pwd);
-
-    $len = strlen($pwd) >= 8;
-
-    return !(!$upc || !$lwc || !$dcl || !$spc || !$len);
-
+function password_is_valid($pwd): bool {
+	return preg_match("^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$", $pwd);
 }

@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . "/_storage.php";
+require_once dirname(__FILE__) . "/storage.serv.php";
 
 function redirect($uri)
 {

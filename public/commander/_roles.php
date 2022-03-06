@@ -2,16 +2,16 @@
 
 session_start();
 
-require_once dirname(__FILE__) . "/../../includes/_header.php";
+require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
 if (!isset($_SESSION['uid'])) {
     redirect('public/index.php');
 }
 
-require_once dirname(__FILE__) . "/../../includes/_nav.cmd.php";
+require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
 
 if (!is_cmd($_SESSION['uid'])) {
-    redirect('public/console/index.commander.php');
+    redirect('public/console/_commander.php');
 }
 
 require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
