@@ -87,12 +87,15 @@ for ($i = 0; $i < 5; $i++) {
                         <td colspan="1" class='border-end'>
                         
                             <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
+                                <u class="position-relative">TIb, F306</u>
+                            </div>
                             
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        
+                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
                                 <u>TIb, F306</u>
-                                <span class="badge p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden"></span>
-                                </span>
-                          
                             </div>
                             
                         </td>
@@ -100,12 +103,7 @@ for ($i = 0; $i < 5; $i++) {
                         <td colspan="1" class='border-end'>
                         
                             <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                            
-                                <u>TIb, F306</u> 
-                                <span class="badge p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden"></span>
-                                </span>
-                          
+                                <u>TIb, F306</u>
                             </div>
                             
                         </td>
@@ -113,25 +111,7 @@ for ($i = 0; $i < 5; $i++) {
                         <td colspan="1" class='border-end'>
                         
                             <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                            
-                                <u>TIb, F306</u> 
-                                <span class="badge p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden"></span>
-                                </span>
-                          
-                            </div>
-                            
-                        </td>
-                        
-                        <td colspan="1" class='border-end'>
-                        
-                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                            
-                                <u>TIb, F306</u> 
-                                <span class="badge p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden"></span>
-                                </span>
-                          
+                                <u>TIb, F306</u>
                             </div>
                             
                         </td>
@@ -139,12 +119,7 @@ for ($i = 0; $i < 5; $i++) {
                         <td colspan="1">
                         
                             <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                            
-                                <u>TIb, F306</u> 
-                                <span class="badge p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden"></span>
-                                </span>
-                          
+                                <u>TIb, F306</u>
                             </div>
                             
                         </td>
