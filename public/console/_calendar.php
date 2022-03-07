@@ -18,83 +18,172 @@ $rows = 9;
 
 $verticalHeading = [
 
-    '08:25 - 09:15',
-    '09:15 - 10:05',
-    '10:20 - 11:10',
-	'11:10 - 12:00',
-	'break' => '12:05 - 12:55',
-	'13:00 - 13:50',
-	'13:50 - 14:40',
-	'15:55 - 15:45',
-	'15:45 - 16:35',
+    '08:25<br>09:15',
+    '09:15<br>10:05',
+    '10:20<br>11:10',
+	'11:10<br>12:00',
+	'break' => '12:05<br>12:55',
+	'13:00<br>13:50',
+	'13:50<br>14:40',
+	'15:55<br>15:45',
+	'15:45<br>16:35',
 
 ];
 
-$currentDate = match(date('N')) {
+$d = match(date('N')) {
 
-    '6' => date('D d/m', strtotime('+2 days')),
-    '7' => date('D d/m', strtotime('+1 days')),
-    default => date('D d/m')
+    '6' => strtotime("+2 days"),
+    '7' => strtotime("+1 days"),
+    default => date(time())
 
 };
 
-$dates = [
+$dates = [];
 
-    $currentDate,
-    date('D d/m', strtotime($currentDate . '+1 days')),
-    date('D d/m', strtotime($currentDate . '+2 days'))
-
-]
+for ($i = 0; $i < 5; $i++) {
+    $dates[] = date('d/m/Y', strtotime("+$i days", $d));
+}
 
 ?>
 
 <div class="container table-responsive py-5">
 
-    <table class="table border-top">
+    <table class="table">
 
-        <tr>
+        <thead class="bg-dark text-white">
 
-            <th></th>
+            <tr class="border-top">
 
-	        <?php
+                <th></th>
+                <?php foreach ($dates as $date) { echo "<td>$date</td>"; } ?>
 
-            foreach ($dates as $date) {
+            </tr>
 
-                echo "<td>$date</td>";
+        </thead>
+
+        <tbody>
+
+            <?php
+
+            foreach ($verticalHeading as $block) {
+
+                $break = $verticalHeading['break'] === $block;
+
+                echo "<tr><th class=\"align-middle text-center border-end\" style='font-size: 12px; width: 3.5vw'>$block</th>";
+
+                if ($break) {
+
+                    for ($i = 0; $i < 5; $i++){
+                        echo '<td></td>';
+                    }
+                    echo '</tr>';
+
+                    continue;
+
+                }
+
+                echo <<< EOL
+                
+                        <td colspan="1" class='border-end'>
+                        
+                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
+                            
+                                <u>TIb, F306</u>
+                                <span class="badge p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden"></span>
+                                </span>
+                          
+                            </div>
+                            
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        
+                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
+                            
+                                <u>TIb, F306</u> 
+                                <span class="badge p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden"></span>
+                                </span>
+                          
+                            </div>
+                            
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        
+                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
+                            
+                                <u>TIb, F306</u> 
+                                <span class="badge p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden"></span>
+                                </span>
+                          
+                            </div>
+                            
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        
+                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
+                            
+                                <u>TIb, F306</u> 
+                                <span class="badge p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden"></span>
+                                </span>
+                          
+                            </div>
+                            
+                        </td>
+                        
+                        <td colspan="1">
+                        
+                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
+                            
+                                <u>TIb, F306</u> 
+                                <span class="badge p-1 bg-danger border border-light rounded-circle">
+                                    <span class="visually-hidden"></span>
+                                </span>
+                          
+                            </div>
+                            
+                        </td>
+                
+                EOL;
 
             }
 
             ?>
 
-        </tr>
-
-        <?php
-
-        foreach ($verticalHeading as $block) {
-
-            $break = $verticalHeading['break'] === $block;
-
-            echo "<tr><td class=\"align-middle border-end\" style='font-size: 12px; width: 3.5vw'>$block</td>";
-
-            if ($break) {
-	            echo '<td></td><td></td><td></td></tr>';
-                continue;
-            }
-
-            echo <<< EOL
-
-                    <td class="border-end"><b><u>TIb, Luka S., F306</u></b><br><span style="font-size: 14px">gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</span></td>
-                    <td class="border-end"><b><u>TIb, Luka S., F306</u></b><br><span style="font-size: 14px">gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</span></td>
-                    <td><b><u>TIb, Luka S., F306</u></b><br><span style="font-size: 14px">gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</span></td>
-              
-                </tr>
-
-            EOL;
-
-        }
-
-        ?>
+        </tbody>
 
     </table>
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="exampleSubject" tabindex="-1" aria-labelledby="exampleSubjectLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleSubjectLabel">TI Beheer, F306, Luka S.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
