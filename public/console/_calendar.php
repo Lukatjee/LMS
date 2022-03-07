@@ -30,10 +30,11 @@ $verticalHeading = [
 
 ];
 
-$currentDate = match (date('N')) {
+$currentDate = match(date('N')) {
 
     '6' => date('D d/m', strtotime('+2 days')),
-    '7' => date('D d/m', strtotime('+1 days'))
+    '7' => date('D d/m', strtotime('+1 days')),
+    default => date('D d/m')
 
 };
 
@@ -59,7 +60,7 @@ $dates = [
 
             foreach ($dates as $date) {
 
-                echo "<td>{$date}</td>";
+                echo "<td>$date</td>";
 
             }
 
@@ -73,7 +74,7 @@ $dates = [
 
             $break = $verticalHeading['break'] === $block;
 
-            echo "<tr><td class=\"align-middle border-end\" style='font-size: 12px; width: 3.5vw'>{$block}</td>";
+            echo "<tr><td class=\"align-middle border-end\" style='font-size: 12px; width: 3.5vw'>$block</td>";
 
             if ($break) {
 	            echo '<td></td><td></td><td></td></tr>';

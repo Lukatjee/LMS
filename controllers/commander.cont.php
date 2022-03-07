@@ -21,7 +21,7 @@ function create_user($dta)
         return;
     }
 
-    $qry = 'INSERT INTO users(email, user_uid, user_pwd, role_id) VALUES (?, ?, ?, ?)';
+    $qry = 'INSERT INTO users(email, user_uid, user_pwd, role_id, group_id) VALUES (?, ?, ?, ?, 1)';
 
     insert($qry, $dta);
     redirect('public/commander/_users.php');
