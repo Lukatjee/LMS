@@ -30,23 +30,16 @@ $verticalHeading = [
 
 ];
 
-$d = match(date('N')) {
-
-    '6' => strtotime("+2 days"),
-    '7' => strtotime("+1 days"),
-    default => date(time())
-
-};
-
 $dates = [];
 
-for ($i = 0; $i < 3; $i++) {
-    $dates[] = date('d/m/Y', strtotime("+$i days", $d));
+for ($i = 0; $i < 5; $i++) {
+    $dates[] = date('D d/m', is_weekend(strtotime("+$i days", is_weekend())));
+	$currentDate = $dates[$i];
 }
 
 ?>
 
-<div class="container table-responsive py-5">
+<div class="container-fluid table-responsive py-5">
 
     <table class="table">
 
@@ -73,7 +66,7 @@ for ($i = 0; $i < 3; $i++) {
 
                 if ($break) {
 
-                    for ($i = 0; $i < 3; $i++){
+                    for ($i = 0; $i < 5; $i++){
                         echo '<td></td>';
                     }
                     echo '</tr>';
@@ -85,27 +78,18 @@ for ($i = 0; $i < 3; $i++) {
                 echo <<< EOL
                 
                         <td colspan="1" class='border-end'>
-                        
-                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                                <u class="position-relative">TIb, F306</u>
-                            </div>
-                            
                         </td>
                         
                         <td colspan="1" class='border-end'>
-                        
-                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                                <u>TIb, F306</u>
-                            </div>
-                            
                         </td>
                         
                         <td colspan="1" class='border-end'>
+                        </td>
                         
-                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                                <u>TIb, F306</u>
-                            </div>
-                            
+                        <td colspan="1" class='border-end'>
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
                         </td>
                 
                 EOL;

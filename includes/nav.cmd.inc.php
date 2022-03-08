@@ -4,7 +4,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark border-secondary border-bottom">
 
-        <div class="container">
+        <div class="container-fluid">
 
             <a class="navbar-brand fw-light" href="/public/_commander.php">Zorion-LMS</a>
 
