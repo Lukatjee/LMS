@@ -14,22 +14,12 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                <!-- Timetable -->
-
-                <li class="nav-item">
-
-                    <a class="nav-link text-light text-decoration-none" href="/public/console/_timetable.php">
-                        <i class="bi bi-clock"></i> Lessenrooster
-                    </a>
-
-                </li>
-
                 <!-- Schedule -->
 
                 <li class="nav-item">
 
                     <a class="nav-link text-light text-decoration-none" href="/public/console/_calendar.php">
-                        <i class="bi bi-table"></i> Planning
+                        <i class="bi bi-table"></i> Kalender
                     </a>
 
                 </li>

@@ -40,7 +40,7 @@ $d = match(date('N')) {
 
 $dates = [];
 
-for ($i = 0; $i < 5; $i++) {
+for ($i = 0; $i < 3; $i++) {
     $dates[] = date('d/m/Y', strtotime("+$i days", $d));
 }
 
@@ -73,7 +73,7 @@ for ($i = 0; $i < 5; $i++) {
 
                 if ($break) {
 
-                    for ($i = 0; $i < 5; $i++){
+                    for ($i = 0; $i < 3; $i++){
                         echo '<td></td>';
                     }
                     echo '</tr>';
@@ -107,22 +107,6 @@ for ($i = 0; $i < 5; $i++) {
                             </div>
                             
                         </td>
-                        
-                        <td colspan="1" class='border-end'>
-                        
-                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                                <u>TIb, F306</u>
-                            </div>
-                            
-                        </td>
-                        
-                        <td colspan="1">
-                        
-                            <div data-bs-toggle="modal" data-bs-target="#exampleSubject">
-                                <u>TIb, F306</u>
-                            </div>
-                            
-                        </td>
                 
                 EOL;
 
@@ -134,7 +118,9 @@ for ($i = 0; $i < 5; $i++) {
 
     </table>
 
-    <!-- Modal -->
+    <button data-bs-toggle="modal" data-bs-target="#addEvent" class="btn btn-disabled btn-primary rounded-0">Inplannen</button>
+
+    <!-- Subject Modal -->
 
     <div class="modal fade" id="exampleSubject" tabindex="-1" aria-labelledby="exampleSubjectLabel" aria-hidden="true">
 
@@ -153,6 +139,59 @@ for ($i = 0; $i < 5; $i++) {
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Add Event Modal -->
+
+    <div class="modal fade" id="addEvent" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEventLabel">Event inplannen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <div class="mb-3">
+                            <label for="eventCourse" class="form-label">Leervak</label>
+                            <input type="email" class="form-control" id="eventCourse">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="eventDeadline" class="form-label">Inleverdatum</label>
+                            <input type="date" class="form-control" id="eventDeadline">
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label for="eventType" class="form-label">Type</label>
+
+                            <select class="form-select" id="eventType">
+                                <option selected value="task">Taak</option>
+                                <option value="test">Toets</option>
+                            </select>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Opslaan</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sluit</button>
                 </div>
 
             </div>
