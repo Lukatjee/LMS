@@ -3,11 +3,7 @@
 function log_in(string $uid, string $pwd): void
 {
 
-    if (empty($uid)) {
-        redirect("index.php");
-    }
-
-    if (empty($pwd)) {
+    if (is_empty([$uid, $pwd])) {
         redirect("index.php");
     }
 
