@@ -10,9 +10,6 @@ if (!isset($_SESSION['uid'])) {
 
 require_once dirname(__FILE__) . "/../../includes/nav.inc.php";
 
-$qry = 'SELECT DISTINCT date FROM lms_events ORDER BY date;';
-$dates = fetch($qry, []);
-
 
 $rows = 9;
 

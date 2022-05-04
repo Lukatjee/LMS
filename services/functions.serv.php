@@ -14,7 +14,7 @@ function redirect($uri)
 function is_cmd($uid): bool
 {
 
-    $qry = 'SELECT role_id FROM users WHERE user_id = ?';
+    $qry = 'SELECT admin FROM user WHERE id = ?';
     $res = fetch($qry, [$uid]);
 
     foreach ($res as $role) {

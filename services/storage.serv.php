@@ -33,7 +33,7 @@ function fetch($qry, $dta): array
 
 }
 
-function insert($qry, $args)
+function edit($qry, $args): void
 {
 
     global $pdo;

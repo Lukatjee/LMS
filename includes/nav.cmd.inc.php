@@ -18,22 +18,22 @@
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+                    <!-- Controls -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_controls.php">
+                            <i class="bi bi-menu-button-wide"></i> Controls
+                        </a>
+
+                    </li>
+
                     <!-- Users -->
 
                     <li class="nav-item">
 
                         <a class="nav-link text-white text-decoration-none" href="/public/commander/_users.php">
                             <i class="bi bi-file-earmark-person-fill"></i> Gebruikers
-                        </a>
-
-                    </li>
-
-                    <!-- Roles -->
-
-                    <li class="nav-item">
-
-                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_roles.php">
-                            <i class="bi bi-nut-fill"></i> Rollen
                         </a>
 
                     </li>

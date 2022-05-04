@@ -12,7 +12,6 @@ require_once dirname(__FILE__) . "/services/login.serv.php";
 if (isset($_POST["smt"])) {
     log_in($_POST['uid'], $_POST['pwd']);
 }
-
 ?>
 
 <div class="container position-absolute top-50 start-50 translate-middle">

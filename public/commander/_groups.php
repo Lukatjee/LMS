@@ -16,12 +16,12 @@ if (!is_cmd($_SESSION['uid'])) {
 
 require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
 
-$qry = 'SELECT * FROM lms_groups';
+$qry = 'SELECT * FROM classlist';
 $res = fetch($qry, []);
 
 if (isset($_POST["crt"])) {
 
-    create_group([$_POST["dpn"]]);
+    create_group([$_POST["dpn"], $_POST["grd"]]);
     unset($_POST);
 
 }
@@ -41,8 +41,8 @@ if (isset($_POST["crt"])) {
                 <tr>
 
                     <th scope="col">ID</th>
-                    <th scope="col">NAME</th>
-                    <th scope="col">USERS</th>
+                    <th scope="col">NAAM</th>
+                    <th scope="col">GRAAD</th>
 
                 </tr>
 
@@ -56,19 +56,7 @@ if (isset($_POST["crt"])) {
 
                         <td><?php echo $group['id'] ?></td>
                         <td><?php echo $group['name'] ?></td>
-                        <td>
-
-                            <?php
-
-                            $res = fetch('SELECT DISTINCT COUNT(group_id) AS amount FROM users WHERE group_id = ? ORDER BY user_uid', [$group['id']]);
-
-                            if (!empty($res)) {
-                                echo $res[0]['amount'];
-                            }
-
-                            ?>
-
-                        </td>
+                        <td><?php echo $group['grade'] ?></td>
 
                     </tr>
 
@@ -103,6 +91,12 @@ if (isset($_POST["crt"])) {
                                 </span>
 
                                 <input type="text" class="form-control rounded-0 shadow-none" aria-label="dpn" name="dpn" id="dpn">
+
+                                <span class="input-group-text rounded-0 bg-success bg-opacity-25">
+                                    <i class="bi bi-123"></i>
+                                </span>
+
+                                <input type="text" class="form-control rounded-0 shadow-none" aria-label="grd" name="grd" id="grd">
 
                             </div>
 
