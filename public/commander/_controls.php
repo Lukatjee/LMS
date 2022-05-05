@@ -80,42 +80,6 @@
 
                         </div>
 
-                        <script>
-
-                            $(document).ready(function() {
-
-                                let i = 1;
-                                $('#add').click(function() {
-
-                                    i++;
-
-                                    $('#input_fields').append('<tr id="row'+i+'"><td><div class="input-group mb-3"><input type="time" class="form-control rounded-0" aria-label="start" name="blocks[]"><span class="input-group-text"><i class="bi bi-arrow-right"></i></span> <input type="time" class="form-control" aria-label="end" name="blocks[]"> <button name="remove" id="'+i+'" class="btn btn-remove btn-danger shadow-none rounded-0" type="button"><i class="bi bi-dash-circle-dotted"></i></button> </div> </td></tr>');
-
-                                })
-
-                                $(document).on('click', '.btn-remove', function () {
-
-                                    const button_id = $(this).attr("id");
-                                    $("#row"+button_id+"").remove();
-
-                                })
-
-                                $("#submit").click(function() {
-
-                                    $.ajax({
-
-                                        url: "_controls.php",
-                                        method: "POST",
-                                        data: $('#add_periods').serialize(),
-
-                                    })
-
-                                })
-
-                            })
-
-                        </script>
-
                     </form>
 
                 </div>
@@ -179,3 +143,39 @@
 	</div>
 
 </div>
+
+<script>
+
+    $(document).ready(function() {
+
+        let i = 1;
+        $('#add').click(function() {
+
+            i++;
+
+            $('#input_fields').append('<tr id="row'+i+'"><td><div class="input-group mb-3"><input type="time" class="form-control rounded-0" aria-label="start" name="blocks[]"><span class="input-group-text"><i class="bi bi-arrow-right"></i></span> <input type="time" class="form-control" aria-label="end" name="blocks[]"> <button name="remove" id="'+i+'" class="btn btn-remove btn-danger shadow-none rounded-0" type="button"><i class="bi bi-dash-circle-dotted"></i></button> </div> </td></tr>');
+
+        })
+
+        $(document).on('click', '.btn-remove', function () {
+
+            const button_id = $(this).attr("id");
+            $("#row"+button_id+"").remove();
+
+        })
+
+        $("#submit").click(function() {
+
+            $.ajax({
+
+                url: "_controls.php",
+                method: "POST",
+                data: $('#add_periods').serialize(),
+
+            })
+
+        })
+
+    })
+
+</script>
