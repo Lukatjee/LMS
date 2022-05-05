@@ -16,6 +16,8 @@
 
 	require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
 
+    $_periods = empty(fetch("SELECT * FROM period", []));
+
 ?>
 
 <div class="container">
@@ -24,23 +26,21 @@
 
         <div class="col-sm-4">
 
-            <div class="card rounded-0">
+            <div class="card">
 
-                <div class="card-header">
+                <div class="card-header bg-dark text-light">
                     Lesblokken
                 </div>
 
                 <div class="card-body">
 
-                    <p class="card-text placeholder-glow">
+                    <div class="d-grid gap-2">
 
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
+                        <button class="btn btn-sm btn-primary rounded-0 shadow-none" data-bs-toggle="modal" data-bs-target="<?php echo $_periods ? "#editPeriods" : "#viewPeriods" ?>">
+                            <?php echo $_periods ? "Instellen" : "Bekijken" ?>
+                        </button>
 
-                    </p>
+                    </div>
 
                 </div>
 
@@ -50,9 +50,9 @@
 
         <div class="col-sm-4">
 
-            <div class="card rounded-0">
+            <div class="card">
 
-                <div class="card-header placeholder-glow">
+                <div class="card-header placeholder-glow bg-dark text-light">
                     <span class="placeholder col-6"></span>
                 </div>
 
@@ -78,7 +78,7 @@
 
             <div class="card rounded-0">
 
-                <div class="card-header placeholder-glow">
+                <div class="card-header placeholder-glow bg-dark text-light">
                     <span class="placeholder col-6"></span>
                 </div>
 
