@@ -48,6 +48,82 @@
 
         </div>
 
+        <div class="modal fade" id="editPeriods" tabindex="-1" aria-hidden="true">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content rounded-0 border-0">
+
+                    <form method="post" id="add_periods">
+
+                        <div class="modal-header">
+
+                            <h5 class="modal-title">Lesblokken instellen</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                        </div>
+
+                        <div class="modal-body input-group">
+
+                            <p>Stel een lesblok in en druk op '+' om meerdere lesblokken toe te voegen.</p>
+
+                            <table class="table table-borderless" id="input_fields">
+
+                            </table>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button name="add" id="add" class="btn btn-success shadow-none rounded-0" type="button"><i class="bi bi-plus-circle-dotted"></i></button>
+                            <button id="submit" type="submit" name="crt" class="btn btn-primary rounded-0">Opslaan</button>
+
+                        </div>
+
+                        <script>
+
+                            $(document).ready(function() {
+
+                                let i = 1;
+                                $('#add').click(function() {
+
+                                    i++;
+
+                                    $('#input_fields').append('<tr id="row'+i+'"><td><div class="input-group mb-3"><input type="time" class="form-control rounded-0" aria-label="start" name="blocks[]"><span class="input-group-text"><i class="bi bi-arrow-right"></i></span> <input type="time" class="form-control" aria-label="end" name="blocks[]"> <button name="remove" id="'+i+'" class="btn btn-remove btn-danger shadow-none rounded-0" type="button"><i class="bi bi-dash-circle-dotted"></i></button> </div> </td></tr>');
+
+                                })
+
+                                $(document).on('click', '.btn-remove', function () {
+
+                                    const button_id = $(this).attr("id");
+                                    $("#row"+button_id+"").remove();
+
+                                })
+
+                                $("#submit").click(function() {
+
+                                    $.ajax({
+
+                                        url: "_controls.php",
+                                        method: "POST",
+                                        data: $('#add_periods').serialize(),
+
+                                    })
+
+                                })
+
+                            })
+
+                        </script>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
         <div class="col-sm-4">
 
             <div class="card">
