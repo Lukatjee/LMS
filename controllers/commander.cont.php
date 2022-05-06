@@ -56,6 +56,30 @@ function create_group($dta) : void
 
 }
 
+function create_periods($dta) : void
+{
+
+    foreach ($dta as $period) {
+
+            if (!is_empty([$period[0], $period[1]])) {
+                $periods[] = [$period[0], $period[1]];
+            }
+
+        }
+
+    if (isset($periods)) {
+
+        foreach ($periods as $period) {
+
+            $qry = "INSERT INTO period(start, end) VALUES (?, ?)";
+            edit($qry, [$period[0], $period[1]]);
+
+        }
+
+    }
+
+}
+
 /**
  * Checks if password is strong enough using a regex pattern.
  * @param $pwd

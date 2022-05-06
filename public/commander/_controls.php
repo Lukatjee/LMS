@@ -18,6 +18,25 @@
 
     $_periods = empty(fetch("SELECT * FROM period", []));
 
+    if (isset($_POST['blocks'])) {
+
+        $blocks = array_chunk($_POST['blocks'], 2);
+        foreach ($blocks as $block) {
+
+            if (!is_empty([$block[0], $block[1]])) {
+                $periods[] = [$block[0], $block[1]];
+            }
+
+        }
+
+        if (isset($periods)) {
+            create_periods($periods);
+        }
+
+        unset($_POST);
+
+    }
+
 ?>
 
 <div class="container">
@@ -157,7 +176,7 @@
 
         })
 
-        $(document).on('click', '.btn-remove', function () {
+        $(document).on('click', '.btn-remove', function() {
 
             const button_id = $(this).attr("id");
             $("#row"+button_id+"").remove();
