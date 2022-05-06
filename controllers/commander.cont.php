@@ -76,6 +76,8 @@ function create_periods($dta) : void
         return;
     }
 
+    $i = 0;
+
     while ($limits[0] <= $limits[1]) {
 
         if (!is_weekend($limits[0])) {
@@ -86,8 +88,6 @@ function create_periods($dta) : void
                 $blocks[] = [$limits[0] . ' ' . $period[0], $limits[0] . ' ' . $period[1]];
             }
 
-            print_r($blocks);
-
             $qry = 'INSERT INTO period(start, end) VALUES (?, ?)';
             edit($qry, [$blocks[0][0], $blocks[0][1]]);
 
@@ -96,6 +96,8 @@ function create_periods($dta) : void
         $limits[0] = date('Y-m-d',
             strtotime('+1 day', strtotime($limits[0]))
         );
+
+        $i++;
 
     }
 
