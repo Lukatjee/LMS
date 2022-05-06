@@ -42,12 +42,7 @@ function is_empty($dta): bool
 
 }
 
-function is_weekend($timestamp = null) : string
+function is_weekend($timestamp = null) : bool
 {
-
-	return $timestamp === null ? in_array(date('N'), ['6', '7'])
-		? strtotime('next monday') : time() : (in_array(date('N', $timestamp), ['6', '7'])
-		? strtotime('next monday', $timestamp) : $timestamp);
-
-
+    return $timestamp === null ? in_array(date('N'), ['6', '7']) : (in_array(date('N', strtotime($timestamp)), ['6', '7']));
 }

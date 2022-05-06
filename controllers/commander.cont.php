@@ -59,22 +59,43 @@ function create_group($dta) : void
 function create_periods($dta) : void
 {
 
+    $periods = array();
+    $limits = ['2022-01-01', '2022-12-30'];
+
     foreach ($dta as $period) {
 
-            if (!is_empty([$period[0], $period[1]])) {
-                $periods[] = [$period[0], $period[1]];
+        $timestamps = [$period[0], $period[1]];
+
+        if (!is_empty($timestamps)) {
+            $periods[] = $timestamps;
+        }
+
+    }
+
+    if (empty($periods)) {
+        return;
+    }
+
+    while ($limits[0] <= $limits[1]) {
+
+        if (!is_weekend($limits[0])) {
+
+            $blocks = array();
+
+            foreach ($periods as $period) {
+                $blocks[] = [$limits[0] . ' ' . $period[0], $limits[0] . ' ' . $period[1]];
             }
 
-        }
+            print_r($blocks);
 
-    if (isset($periods)) {
-
-        foreach ($periods as $period) {
-
-            $qry = "INSERT INTO period(start, end) VALUES (?, ?)";
-            edit($qry, [$period[0], $period[1]]);
+            $qry = 'INSERT INTO period(start, end) VALUES (?, ?)';
+            edit($qry, [$blocks[0][0], $blocks[0][1]]);
 
         }
+
+        $limits[0] = date('Y-m-d',
+            strtotime('+1 day', strtotime($limits[0]))
+        );
 
     }
 

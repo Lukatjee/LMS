@@ -19,22 +19,7 @@
     $_periods = empty(fetch("SELECT * FROM period", []));
 
     if (isset($_POST['blocks'])) {
-
-        $blocks = array_chunk($_POST['blocks'], 2);
-        foreach ($blocks as $block) {
-
-            if (!is_empty([$block[0], $block[1]])) {
-                $periods[] = [$block[0], $block[1]];
-            }
-
-        }
-
-        if (isset($periods)) {
-            create_periods($periods);
-        }
-
-        unset($_POST);
-
+        create_periods(array_chunk($_POST['blocks'], 2));
     }
 
 ?>
