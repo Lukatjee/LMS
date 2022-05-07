@@ -59,47 +59,45 @@ function create_group($dta) : void
 function create_periods($dta) : void
 {
 
-    $periods = array();
-    $limits = ['2022-01-01', '2022-12-30'];
+    $limits = ['2022-01-03', '2022-01-07'];
 
-    foreach ($dta as $period) {
+    foreach ($dta as $input) {
 
-        $timestamps = [$period[0], $period[1]];
+		$t = [$input[0], $input[1]];
 
-        if (!is_empty($timestamps)) {
-            $periods[] = $timestamps;
+        if (!is_empty($t)) {
+            $timestamps[] = $t;
         }
 
     }
 
-    if (empty($periods)) {
+    if (empty($timestamps)) {
         return;
     }
 
-    $i = 0;
+	$periods = array();
 
     while ($limits[0] <= $limits[1]) {
 
-        if (!is_weekend($limits[0])) {
-
-            $blocks = array();
-
-            foreach ($periods as $period) {
-                $blocks[] = [$limits[0] . ' ' . $period[0], $limits[0] . ' ' . $period[1]];
-            }
-
-            $qry = 'INSERT INTO period(start, end) VALUES (?, ?)';
-            edit($qry, [$blocks[0][0], $blocks[0][1]]);
-
+        if (is_weekend($limits[0])) {
+	        $limits[0]++;
+	        continue;
         }
 
-        $limits[0] = date('Y-m-d',
-            strtotime('+1 day', strtotime($limits[0]))
-        );
+	    foreach ($timestamps as $timestamp) {
+		    $periods[] = [$limits[0] . ' ' . $timestamp[0], $limits[0] . ' ' . $timestamp[1]];
+	    }
 
-        $i++;
+        $limits[0]++;
 
     }
+
+	$qry = 'INSERT INTO period(start, end) VALUES (?, ?)';
+
+	foreach ($periods as $period) {
+		edit($qry, $period);
+	}
+	redirect('public/commander/_settings.php');
 
 }
 

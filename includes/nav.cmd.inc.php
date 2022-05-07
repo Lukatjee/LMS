@@ -18,12 +18,12 @@
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                    <!-- Controls -->
+                    <!-- Settings -->
 
                     <li class="nav-item">
 
-                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_controls.php">
-                            <i class="bi bi-menu-button-wide"></i> Controls
+                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_settings.php">
+                            <i class="bi bi-sliders"></i> Instellingen
                         </a>
 
                     </li>
