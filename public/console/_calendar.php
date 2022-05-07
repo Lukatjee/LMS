@@ -1,38 +1,38 @@
 <?php
 
-session_start();
+	session_start();
 
-require_once dirname(__FILE__) . "/../../includes/header.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
-if (!isset($_SESSION['uid'])) {
-    redirect('_commander.php');
-}
+	if (!isset($_SESSION['uid'])) {
+		redirect('_commander.php');
+	}
 
-require_once dirname(__FILE__) . "/../../includes/nav.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/nav.inc.php";
 
 
-$rows = 9;
+	$rows = 9;
 
-$verticalHeading = [
+	$verticalHeading = [
 
-    '08:25<br>09:15',
-    '09:15<br>10:05',
-    '10:20<br>11:10',
-	'11:10<br>12:00',
-	'break' => '12:05<br>12:55',
-	'13:00<br>13:50',
-	'13:50<br>14:40',
-	'15:55<br>15:45',
-	'15:45<br>16:35',
+		'08:25<br>09:15',
+		'09:15<br>10:05',
+		'10:20<br>11:10',
+		'11:10<br>12:00',
+		'break' => '12:05<br>12:55',
+		'13:00<br>13:50',
+		'13:50<br>14:40',
+		'15:55<br>15:45',
+		'15:45<br>16:35',
 
-];
+	];
 
-$dates = [];
+	$dates = [];
 
-for ($i = 0; $i < 5; $i++) {
-    $dates[] = date('D d/m', is_weekend(strtotime("+$i days", is_weekend())));
-	$currentDate = $dates[$i];
-}
+	for ($i = 0; $i < 5; $i++) {
+		$dates[] = date('D d/m', is_weekend(strtotime("+$i days", is_weekend())));
+		$currentDate = $dates[$i];
+	}
 
 ?>
 
@@ -42,37 +42,39 @@ for ($i = 0; $i < 5; $i++) {
 
         <thead class="bg-dark text-white">
 
-            <tr class="border-top">
+        <tr class="border-top">
 
-                <th></th>
-                <?php foreach ($dates as $date) { echo "<td>$date</td>"; } ?>
+            <th></th>
+			<?php foreach ($dates as $date) {
+				echo "<td>$date</td>";
+			} ?>
 
-            </tr>
+        </tr>
 
         </thead>
 
         <tbody>
 
-            <?php
+		<?php
 
-            foreach ($verticalHeading as $block) {
+			foreach ($verticalHeading as $block) {
 
-                $break = $verticalHeading['break'] === $block;
+				$break = $verticalHeading['break'] === $block;
 
-                echo "<tr><th class=\"align-middle text-center border-end\" style='font-size: 12px; width: 3.5vw'>$block</th>";
+				echo "<tr><th class=\"align-middle text-center border-end\" style='font-size: 12px; width: 3.5vw'>$block</th>";
 
-                if ($break) {
+				if ($break) {
 
-                    for ($i = 0; $i < 5; $i++){
-                        echo '<td></td>';
-                    }
-                    echo '</tr>';
+					for ($i = 0; $i < 5; $i++) {
+						echo '<td></td>';
+					}
+					echo '</tr>';
 
-                    continue;
+					continue;
 
-                }
+				}
 
-                echo <<< EOL
+				echo <<< EOL
                 
                         <td colspan="1" class='border-end'>
                         </td>
@@ -91,9 +93,9 @@ for ($i = 0; $i < 5; $i++) {
                 
                 EOL;
 
-            }
+			}
 
-            ?>
+		?>
 
         </tbody>
 

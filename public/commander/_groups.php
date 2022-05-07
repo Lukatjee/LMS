@@ -1,30 +1,30 @@
 <?php
 
-session_start();
+	session_start();
 
-require_once dirname(__FILE__) . "/../../includes/header.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
-if (!isset($_SESSION['uid'])) {
-    redirect('index.php');
-}
+	if (!isset($_SESSION['uid'])) {
+		redirect('index.php');
+	}
 
-require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
 
-if (!is_cmd($_SESSION['uid'])) {
-    redirect('public/_console.php');
-}
+	if (!is_cmd($_SESSION['uid'])) {
+		redirect('public/_console.php');
+	}
 
-require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
+	require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
 
-$qry = 'SELECT * FROM classlist';
-$res = fetch($qry, []);
+	$qry = 'SELECT * FROM classlist';
+	$res = fetch($qry, []);
 
-if (isset($_POST["crt"])) {
+	if (isset($_POST["crt"])) {
 
-    create_group([$_POST["dpn"], $_POST["grd"]]);
-    unset($_POST);
+		create_group([$_POST["dpn"], $_POST["grd"]]);
+		unset($_POST);
 
-}
+	}
 
 ?>
 
@@ -50,7 +50,7 @@ if (isset($_POST["crt"])) {
 
                 <tbody>
 
-                <?php foreach ($res as $group) { ?>
+				<?php foreach ($res as $group) { ?>
 
                     <tr>
 
@@ -61,13 +61,13 @@ if (isset($_POST["crt"])) {
                     </tr>
 
 
-                <?php } ?>
+				<?php } ?>
 
                 </tbody>
 
             </table>
 
-            <?php echo is_cmd($_SESSION['uid']) ? '<button type="button" class="btn rounded-0 shadow-none btn-primary" data-bs-toggle="modal" data-bs-target="#addGroup">Toevoegen</button>' : ""; ?>
+			<?php echo is_cmd($_SESSION['uid']) ? '<button type="button" class="btn rounded-0 shadow-none btn-primary" data-bs-toggle="modal" data-bs-target="#addGroup">Toevoegen</button>' : ""; ?>
 
             <div class="modal fade" id="addGroup" tabindex="-1" aria-hidden="true">
 

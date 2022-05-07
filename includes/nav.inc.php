@@ -30,20 +30,20 @@
 
                 <!-- Commander & Signout -->
 
-                <?php
+				<?php
 
-                if (is_cmd($_SESSION['uid'])) {
+					if (is_cmd($_SESSION['uid'])) {
 
-                    echo '<a href="/public/_commander.php" class="btn bg-primary text-light shadow-none rounded-0 w-50"><i class="bi bi-gear-wide-connected"></i></a>';
-                    echo '<a href="/services/signout.serv.php" class="btn bg-danger text-white shadow-none rounded-0 w-50"><i class="bi bi-box-arrow-right"></i></a>';
+						echo '<a href="/public/_commander.php" class="btn bg-primary text-light shadow-none rounded-0 w-50"><i class="bi bi-gear-wide-connected"></i></a>';
+						echo '<a href="/services/signout.serv.php" class="btn bg-danger text-white shadow-none rounded-0 w-50"><i class="bi bi-box-arrow-right"></i></a>';
 
-                } else {
+					} else {
 
-                    echo '<a href="/services/signout.serv.php" class="btn bg-danger text-light shadow-none rounded-0 w-100"><i class="bi bi-box-arrow-right"></i></a>';
+						echo '<a href="/services/signout.serv.php" class="btn bg-danger text-light shadow-none rounded-0 w-100"><i class="bi bi-box-arrow-right"></i></a>';
 
-                }
+					}
 
-                ?>
+				?>
 
             </form>
 

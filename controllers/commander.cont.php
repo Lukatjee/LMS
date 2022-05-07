@@ -1,114 +1,168 @@
 <?php
 
-/**
- * Creates a new account after checking if it doesn't exist yet.
- * @param $dta
- * credentials for the new account
- * @return void
+	/**
+	 * Creates a new account after checking if it doesn't exist yet.
+	 * @param $dta
+	 * credentials for the new account
+	 * @return void
+	 *
+	 *
+	 * function create_user($dta) : void
+	 * {
+	 *
+	 * $qry = 'SELECT user_id FROM user WHERE user_uid = ? OR email = ?';
+	 * $res = fetch($qry, [$dta[1], $dta[0]]);
+	 *
+	 * if (!(empty($res))) {
+	 * return;
+	 * }
+	 *
+	 * if (!password_is_valid($dta[2])) {
+	 * return;
+	 * }
+	 *
+	 * $qry = 'INSERT INTO user(email, user_uid, user_pwd, role_id, group_id) VALUES (?, ?, ?, ?, 1)';
+	 *
+	 * insert($qry, $dta);
+	 * redirect('public/commander/_users.php');
+	 *
+	 * }*/
 
+	/**
+	 * Creates a new group after checking if it doesn't exist yet.
+	 * @param $dta
+	 * properties for the new group
+	 * @return void
+	 */
 
-function create_user($dta) : void
-{
+	function create_group($dta): void
+	{
 
-    $qry = 'SELECT user_id FROM user WHERE user_uid = ? OR email = ?';
-    $res = fetch($qry, [$dta[1], $dta[0]]);
+		if (empty(trim($dta[0]))) {
+			return;
+		}
 
-    if (!(empty($res))) {
-        return;
-    }
+		$qry = 'SELECT name FROM classlist WHERE name = ?';
+		$res = fetch($qry, [$dta[0]]);
 
-    if (!password_is_valid($dta[2])) {
-        return;
-    }
+		if (!(empty($res))) {
+			return;
+		}
 
-    $qry = 'INSERT INTO user(email, user_uid, user_pwd, role_id, group_id) VALUES (?, ?, ?, ?, 1)';
+		$qry = 'INSERT INTO classlist(name, grade) VALUES (?, ?)';
 
-    insert($qry, $dta);
-    redirect('public/commander/_users.php');
+		edit($qry, $dta);
+		redirect('public/commander/_groups.php');
 
-}*/
-
-/**
- * Creates a new group after checking if it doesn't exist yet.
- * @param $dta
- * properties for the new group
- * @return void
- */
-
-function create_group($dta) : void
-{
-
-    if (empty(trim($dta[0]))) {
-        return;
-    }
-
-    $qry = 'SELECT name FROM classlist WHERE name = ?';
-    $res = fetch($qry, [$dta[0]]);
-
-    if (!(empty($res))) {
-        return;
-    }
-
-    $qry = 'INSERT INTO classlist(name, grade) VALUES (?, ?)';
-
-    edit($qry, $dta);
-    redirect('public/commander/_groups.php');
-
-}
-
-function create_periods($dta) : void
-{
-
-    $limits = ['2022-01-03', '2022-01-07'];
-
-    foreach ($dta as $input) {
-
-		$t = [$input[0], $input[1]];
-
-        if (!is_empty($t)) {
-            $timestamps[] = $t;
-        }
-
-    }
-
-    if (empty($timestamps)) {
-        return;
-    }
-
-	$periods = array();
-
-    while ($limits[0] <= $limits[1]) {
-
-        if (is_weekend($limits[0])) {
-	        $limits[0]++;
-	        continue;
-        }
-
-	    foreach ($timestamps as $timestamp) {
-		    $periods[] = [$limits[0] . ' ' . $timestamp[0], $limits[0] . ' ' . $timestamp[1]];
-	    }
-
-        $limits[0]++;
-
-    }
-
-	$qry = 'INSERT INTO period(start, end) VALUES (?, ?)';
-
-	foreach ($periods as $period) {
-		edit($qry, $period);
 	}
-	redirect('public/commander/_settings.php');
 
-}
+	/**
+	 * Generates an array of dates with a set of periods and stores them in the databse.
+	 * @param $dta
+	 * timestamps given by the user
+	 * @param $limits
+	 * two dates in which between all periods will be set
+	 * @return void
+	 */
 
-/**
- * Checks if password is strong enough using a regex pattern.
- * @param $pwd
- * password (not hashed)
- * @return bool
- * boolean based on strength
- */
+	function create_periods($dta, $limits): void
+	{
 
-function password_is_valid($pwd): bool {
-	return preg_match("^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$", $pwd);
-}
+		$min = date_create($limits['start']);
+		$max = date_create($limits['end']);
+
+		foreach ($dta as $input) {
+
+			$t = [$input[0], $input[1]];
+
+			if (!is_empty($t)) {
+				$timestamps[] = $t;
+			}
+
+		}
+
+		if (empty($timestamps)) {
+			return;
+		}
+
+		$periods = array();
+		$dintval = new DateInterval("P1D");
+
+		while ($min <= $max) {
+
+			if (is_weekend(date_to_string($min))) {
+				date_add($min, $dintval);
+				continue;
+			}
+
+			foreach ($timestamps as $timestamp) {
+				$periods[] = [date_to_string($min) . ' ' . $timestamp[0], date_to_string($min) . ' ' . $timestamp[1]];
+			}
+
+			date_add($min, $dintval);
+
+		}
+
+		$qry = 'INSERT INTO period(start, end) VALUES (?, ?)';
+
+		foreach ($periods as $period) {
+			edit($qry, $period);
+		}
+
+		redirect('public/commander/_settings.php');
+
+	}
+
+	/**
+	 * Updates the settings table once the user clicks save
+	 * @param array $dta
+	 * new data submitted by the user
+	 * @return void
+	 */
+
+	function update_options(array $dta): void
+	{
+
+		if (is_empty($dta)) {
+			return;
+		}
+
+		$s = date_create($dta[0]);
+		$e = date_create($dta[1]);
+
+		if ($s >= $e) {
+			return;
+		}
+
+		$qry = "UPDATE settings SET start = ?, end = ?;";
+		edit($qry, $dta);
+
+		redirect('public/commander/_settings.php');
+
+	}
+
+	/**
+	 * Converts a DateTime object to a string object.
+	 * @param DateTime $date
+	 * the DateTime object
+	 * @return string
+	 */
+
+	function date_to_string(DateTime $date): string
+	{
+		return date('Y-m-d', date_timestamp_get($date));
+	}
+
+	/**
+	 * Checks if password is strong enough using a regex pattern.
+	 * @param $pwd
+	 * password (not hashed)
+	 * @return bool
+	 * boolean based on strength
+	 *
+	 *
+	 * function password_is_valid($pwd): bool
+	 * {
+	 * return preg_match("^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$", $pwd);
+	 * }
+	 */

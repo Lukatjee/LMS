@@ -1,17 +1,17 @@
 <?php
 
-session_start();
+	session_start();
 
-require_once dirname(__FILE__) . "/includes/header.inc.php";
+	require_once dirname(__FILE__) . "/includes/header.inc.php";
 
-if (isset($_SESSION['uid']))
-    redirect('public/_console.php');
+	if (isset($_SESSION['uid']))
+		redirect('public/_console.php');
 
-require_once dirname(__FILE__) . "/services/login.serv.php";
+	require_once dirname(__FILE__) . "/services/login.serv.php";
 
-if (isset($_POST["smt"])) {
-    log_in($_POST['uid'], $_POST['pwd']);
-}
+	if (isset($_POST["smt"])) {
+		log_in($_POST['uid'], $_POST['pwd']);
+	}
 ?>
 
 <div class="container position-absolute top-50 start-50 translate-middle">

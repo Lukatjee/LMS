@@ -16,74 +16,68 @@
 
 	require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
 
-    $_periods = empty(fetch("SELECT * FROM period", []));
+	if (empty(fetch("SELECT * FROM settings", []))) {
+		edit("INSERT INTO settings VALUES ();", []);
+	}
 
-    if (isset($_POST['blocks'])) {
+	$limits = (fetch("SELECT * FROM settings", []))[0];
 
-        create_periods(array_chunk($_POST['blocks'], 2));
-        unset($_POST);
+	$is_periods_table_empty = empty(fetch("SELECT * FROM period", []));
 
-    }
+	if (isset($_POST['periods'])) {
+
+		create_periods(array_chunk($_POST['periods'], 2), $limits);
+		unset($_POST);
+
+	}
+
+	if (isset($_POST['settings'])) {
+
+		update_options([
+			$_POST['settings_startDate'],
+			$_POST['settings_endDate']
+		]);
+		unset($_POST);
+
+	}
 
 ?>
 
 <div class="container">
 
-	<div class="row justify-content-center py-5">
+    <div class="row justify-content-center py-5">
 
-        <div class="col-sm-4">
+        <div class="col">
 
-            <div class="card">
+            <!-- General Settings -->
 
-                <div class="card-header bg-dark text-light">
-                    Lesblokken
+            <div class="card rounded-0 mb-3">
+
+                <div class="card-header rounded-0 bg-dark text-light">
+                    Algemene instellingen
+                    <p class="card-subtitle mb-2 text-light text-muted"><sub>Bekijk en/of bewerk de algemene instellingen van uw <strong>Learning Management System℠</strong>-applicatie.</sub></p>
                 </div>
 
                 <div class="card-body">
 
-                    <div id="btn-periods" class="d-grid gap-2">
+                    <form method="post">
 
-                        <button class="btn btn-sm btn-primary rounded-0 shadow-none" data-bs-toggle="modal" data-bs-target="<?php echo $_periods ? "#setupPeriods" : "#viewPeriods" ?>">
-                            <?php echo $_periods ? "Instellen" : "Bekijken" ?>
-                        </button>
+                        <label for="start" class="form-label">Begin- en einddatum schooljaar:</label>
 
-                    </div>
+                        <div class="input-group" aria-describedby="dateHelp">
 
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="modal fade" id="setupPeriods" tabindex="-1" aria-hidden="true">
-
-            <div class="modal-dialog">
-
-                <div class="modal-content rounded-0 border-0">
-
-                    <form method="post" id="addPeriods">
-
-                        <div class="modal-header">
-
-                            <h5 class="modal-title">Lesblokken instellen</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <input type="text" name="settings_startDate" id="start" onfocus="(this.type='date')" class="form-control rounded-0" value="<?php echo $limits['start'] ?>" aria-label="start">
+                            <span class="input-group-text"><i class="bi bi-dash-lg"></i></span>
+                            <input type="text" name="settings_endDate" id="end" onfocus="(this.type='date')" class="form-control rounded-0" value="<?php echo $limits['end'] ?>" aria-label="end">
 
                         </div>
 
-                        <div class="modal-body input-group">
+                        <div id="dateHelp" class="form-text mb-1">Lesblokken worden gegenereerd aan de hand van deze 2 datums.</div>
 
-                            <p>Klik op '+' om lesblokken aan te maken.</p>
+                        <hr class="bg-dark border-secondary border-bottom">
 
-                            <table class="table table-borderless" id="periodFields">
-                            </table>
-
-                        </div>
-
-                        <div class="modal-footer">
-
-                            <button id="addPeriodField" class="btn btn-outline-success btn-sm shadow-none rounded-0" type="button"><i class="bi bi-plus-lg"></i></button>
-                            <button id="submitPeriods" type="submit" class="btn btn-success shadow-none rounded-0"><i class="bi bi-check-lg"></i></button>
-
+                        <div class="d-grid gap-2 justify-content-md-end">
+                            <button type="submit" name="settings" class="btn btn-sm btn-primary rounded-0 shadow-none">Opslaan</button>
                         </div>
 
                     </form>
@@ -94,91 +88,82 @@
 
         </div>
 
-        <div class="col-sm-4">
+        <!-- Periods Setup -->
 
-            <div class="card">
+		<?php if ($is_periods_table_empty) { ?>
 
-                <div class="card-header placeholder-glow bg-dark text-light">
-                    <span class="placeholder col-6"></span>
-                </div>
+            <div class="col-sm-5">
 
-                <div class="card-body">
+                <div class="card rounded-0 mb-3">
 
-                    <p class="card-text placeholder-glow">
+                    <div class="card-header rounded-0 bg-dark text-light">
+                        Lesblokken
+                        <p class="card-subtitle mb-2 text-light text-muted"><sub>Stel hier uw lesblok(ken) in, deze worden gebruikt voor de <b>schoolagenda</b> & <b>groepen</b>.</sub></p>
+                    </div>
 
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
+                    <div class="card-body">
 
-                    </p>
+                        <form method="post" id="addPeriods">
 
-                </div>
+                            <div class="input-group">
 
-            </div>
+                                <table class="table table-borderless" id="periodFields">
+                                </table>
 
-        </div>
+                            </div>
 
-        <div class="col-sm-4">
+                            <hr class="bg-dark border-bottom border-secondary m-0 mb-3">
 
-            <div class="card rounded-0">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
-                <div class="card-header placeholder-glow bg-dark text-light">
-                    <span class="placeholder col-6"></span>
-                </div>
+                                <button id="addPeriodField" class="btn btn-outline-primary btn-sm shadow-none rounded-0" type="button"><i class="bi bi-plus-lg"></i></button>
+                                <button id="submitPeriods" type="submit" class="btn btn-primary btn-sm shadow-none rounded-0">Opslaan</button>
 
-                <div class="card-body">
+                            </div>
 
-                    <p class="card-text placeholder-glow">
+                        </form>
 
-                        <span class="placeholder col-7"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-4"></span>
-                        <span class="placeholder col-6"></span>
-                        <span class="placeholder col-8"></span>
-
-                    </p>
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+		<?php } ?>
 
-	</div>
+    </div>
 
 </div>
 
 <script>
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         let i = 1;
-        $('#addPeriodField').click(function() {
+        $('#addPeriodField').click(function () {
 
             i++;
-
-            $('#periodFields').append('<tr id="row'+i+'"><td><div class="input-group mb-3"><input type="time" class="form-control rounded-0" aria-label="start" name="blocks[]"><span class="input-group-text"><i class="bi bi-arrow-right"></i></span> <input type="time" class="form-control" aria-label="end" name="blocks[]"> <button id="'+i+'" class="btn btn-remove btn-danger shadow-none rounded-0" type="button"><i class="bi bi-dash-lg"></i></button> </div> </td></tr>');
+            $('#periodFields').append('<tr id="row' + i + '"><td><div class="input-group"><input type="time" class="form-control rounded-0" aria-label="start" name="periods[]"><span class="input-group-text"><i class="bi bi-arrow-right"></i></span> <input type="time" class="form-control" aria-label="end" name="periods[]"> <button id="' + i + '" class="btn btn-remove btn-danger shadow-none rounded-0" type="button"><i class="bi bi-dash-lg"></i></button> </div> </td></tr>');
 
         })
 
-        $(document).on('click', '.btn-remove', function() {
+        $(document).on('click', '.btn-remove', function () {
 
             const button_id = $(this).attr("id");
-            $("#row"+button_id+"").remove();
+            $("#row" + button_id + "").remove();
 
         })
 
-        $("#submitPeriods").click(function() {
+        $("#submitPeriods").click(function () {
 
-            $("#submitPeriods").html('<div class="spinner-border spinner-border-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>')
+            $("#submitPeriods").html('<div class="spinner-border spinner-border-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>');
+            $("#addPeriodField").remove();
 
             $.ajax({
 
-                url: "_controls.php",
+                url: "_settings.php",
                 method: "POST",
-                data: $('#setupPeriods').serialize(),
+                data: $('#setupPeriods').serialize()
 
             })
 
