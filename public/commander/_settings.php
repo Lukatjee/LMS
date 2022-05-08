@@ -1,29 +1,19 @@
 <?php
 
-	session_start();
+	require_once dirname(__FILE__) . "/../../includes/cmd.inc.php";
 
-	require_once dirname(__FILE__) . "/../../includes/header.inc.php";
-
-	if (!isset($_SESSION['uid'])) {
-		redirect('index.php');
-	}
-
-	require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
-
-	if (!is_cmd($_SESSION['uid'])) {
-		redirect('public/_console.php');
-	}
-
-	require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
-
-	if (empty(fetch("SELECT * FROM settings", []))) {
+	# Set up default configuration options and store them in the database
+	if (empty(fetch("SELECT * FROM settings;", []))) {
 		edit("INSERT INTO settings VALUES ();", []);
 	}
 
-	$limits = (fetch("SELECT * FROM settings", []))[0];
+	# Fetch the start and end date which in between the periods should be created
+	$limits = (fetch("SELECT * FROM settings;", []))[0];
 
-	$is_periods_table_empty = empty(fetch("SELECT * FROM period", []));
+	# Check if periods table is completly empty in case we need to show the card to create them
+	$is_periods_table_empty = empty(fetch("SELECT * FROM period;", []));
 
+	# Create periods once the user presses the button
 	if (isset($_POST['periods'])) {
 
 		create_periods(array_chunk($_POST['periods'], 2), $limits);
@@ -31,6 +21,7 @@
 
 	}
 
+	# Update the settings
 	if (isset($_POST['settings'])) {
 
 		update_options([
@@ -49,13 +40,13 @@
 
         <div class="col">
 
-            <!-- General Settings -->
-
             <div class="card rounded-0 mb-3">
 
                 <div class="card-header rounded-0 bg-dark text-light">
+
                     Algemene instellingen
                     <p class="card-subtitle mb-2 text-light text-muted"><sub>Bekijk en/of bewerk de algemene instellingen van uw <strong>Learning Management System℠</strong>-applicatie.</sub></p>
+
                 </div>
 
                 <div class="card-body">
@@ -72,7 +63,7 @@
 
                         </div>
 
-                        <div id="dateHelp" class="form-text mb-1">Lesblokken worden gegenereerd aan de hand van deze 2 datums.</div>
+                        <div id="dateHelp" class="form-text mb-1">Lesblokken worden gegenereerd aan de hand van deze 2 datums. Zorg er dus voor dat u deze op voorhand instelt.</div>
 
                         <hr class="bg-dark border-secondary border-bottom">
 
@@ -88,8 +79,6 @@
 
         </div>
 
-        <!-- Periods Setup -->
-
 		<?php if ($is_periods_table_empty) { ?>
 
             <div class="col-sm-5">
@@ -97,13 +86,15 @@
                 <div class="card rounded-0 mb-3">
 
                     <div class="card-header rounded-0 bg-dark text-light">
+
                         Lesblokken
                         <p class="card-subtitle mb-2 text-light text-muted"><sub>Stel hier uw lesblok(ken) in, deze worden gebruikt voor de <b>schoolagenda</b> & <b>groepen</b>.</sub></p>
+
                     </div>
 
                     <div class="card-body">
 
-                        <form method="post" id="addPeriods">
+                        <form id="addPeriods">
 
                             <div class="input-group">
 
@@ -137,9 +128,11 @@
 
 <script>
 
-    $(document).ready(function () {
+    $(document).ready(function () { // Only run once the page has fully loaded
 
         let i = 1;
+
+        // Add a field when the #addPeriodField button has been pressed
         $('#addPeriodField').click(function () {
 
             i++;
@@ -147,6 +140,7 @@
 
         })
 
+        // Remove a field on clicking the .btn-remove button
         $(document).on('click', '.btn-remove', function () {
 
             const button_id = $(this).attr("id");
@@ -154,6 +148,7 @@
 
         })
 
+        // Serialize data and create a post request
         $("#submitPeriods").click(function () {
 
             $("#submitPeriods").html('<div class="spinner-border spinner-border-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>');
@@ -163,7 +158,7 @@
 
                 url: "_settings.php",
                 method: "POST",
-                data: $('#setupPeriods').serialize()
+                data: $('#addPeriods').serialize()
 
             })
 

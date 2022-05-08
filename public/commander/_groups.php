@@ -1,38 +1,33 @@
 <?php
 
-	session_start();
+	require_once dirname(__FILE__) . "/../../includes/cmd.inc.php";
 
-	require_once dirname(__FILE__) . "/../../includes/header.inc.php";
+	# Fetch the current groups from the database
+	$res = fetch('SELECT * FROM classlist;', []);
 
-	if (!isset($_SESSION['uid'])) {
-		redirect('index.php');
-	}
+	# Fetch users that are not in a group yet so they can be assigned during the creation process
+	$users = fetch('SELECT u.id, u.username FROM user AS u LEFT JOIN student s on u.id = s.user_id WHERE s.classlist_id IS NULL;', []);
 
-	require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
+	# Create a group on pressing the create group button
+	if (isset($_POST["create_group"])) {
 
-	if (!is_cmd($_SESSION['uid'])) {
-		redirect('public/_console.php');
-	}
+		$dta = [$_POST["group_name"], $_POST["group_grade"]];
+		$dta[] = $_POST['members'] ?? [];
 
-	require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
-
-	$qry = 'SELECT * FROM classlist';
-	$res = fetch($qry, []);
-
-	if (isset($_POST["crt"])) {
-
-		create_group([$_POST["dpn"], $_POST["grd"]]);
-		unset($_POST);
+		# Create a group with the given data
+		create_group($dta);
 
 	}
+
+	unset($_POST);
 
 ?>
 
 <div class="container">
 
-    <div class="row justify-content-center">
+    <div class="row py-5 justify-content-center">
 
-        <div class="col-10 col-md-8 gy-5 table-responsive">
+        <div class="col table-responsive">
 
             <table class="table text-center">
 
@@ -40,7 +35,8 @@
 
                 <tr>
 
-                    <th scope="col">Klas</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Klasnaam</th>
                     <th scope="col">Graad</th>
 
                 </tr>
@@ -53,11 +49,11 @@
 
                     <tr>
 
+                        <td><?php echo $group['id'] ?></td>
                         <td><?php echo "<a href=./group?id=" . $group['id'] . ">" . $group['name'] . "</a>" ?></td>
                         <td><?php echo $group['grade'] ?></td>
 
                     </tr>
-
 
 				<?php } ?>
 
@@ -65,48 +61,54 @@
 
             </table>
 
-            <button type="button" class="btn rounded-0 shadow-none btn-primary" data-bs-toggle="modal" data-bs-target="#addGroup">Toevoegen</button>
+        </div>
 
-            <div class="modal fade" id="addGroup" tabindex="-1" aria-hidden="true">
+        <div class="col-sm-4">
 
-                <div class="modal-dialog">
+            <div class="card rounded-0 mb-3">
 
-                    <div class="modal-content rounded-0 border-0">
+                <div class="card-header bg-dark text-light rounded-0">
+                    Groep aanmaken
+                    <p class="card-subtitle mb-2 text-light text-muted"><sub>Maak een nieuwe klasgroep aan en voeg leerlingen toe.</sub></p>
+                </div>
 
-                        <form method="post">
+                <div class="card-body">
 
-                            <div class="modal-header">
+                    <form method="post">
 
-                                <h5 class="modal-title">Groep aanmaken</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <div class="row mb-3">
 
+                            <div class="col">
+                                <label for="name" class="form-label">Klasnaam</label>
+                                <input type="text" name="group_name" class="form-control rounded-0 shadow-none" aria-label="name">
                             </div>
 
-                            <div class="modal-body input-group">
-
-                                <span class="input-group-text rounded-0 bg-success bg-opacity-25">
-                                    <i class="bi bi-pencil-square"></i>
-                                </span>
-
-                                <input type="text" class="form-control rounded-0 shadow-none" aria-label="dpn" name="dpn" id="dpn">
-
-                                <span class="input-group-text rounded-0 bg-success bg-opacity-25">
-                                    <i class="bi bi-123"></i>
-                                </span>
-
-                                <input type="text" class="form-control rounded-0 shadow-none" aria-label="grd" name="grd" id="grd">
-
+                            <div class="col">
+                                <label for="grade" class="form-label">Graad</label>
+                                <input type="number" name="group_grade" class="form-control rounded-0 shadow-none" aria-label="grade">
                             </div>
 
-                            <div class="modal-footer">
+                        </div>
 
-                                <button type="submit" name="crt" class="btn btn-primary rounded-0">Opslaan</button>
+						<?php if (!empty($users)) { ?>
 
-                            </div>
+                            <select id="students" name="members[]" class="form-select" multiple="multiple" aria-label="students">
 
-                        </form>
+								<?php foreach ($users as $user) {
+									echo '<option value="' . $user['id'] . '">' . $user['username'] . '</option>';
+								} ?>
 
-                    </div>
+                            </select>
+
+						<?php } ?>
+
+                        <hr class="bg-dark border-secondary border-bottom">
+
+                        <div class="d-grid gap-2 justify-content-md-end">
+                            <button type="submit" name="create_group" class="btn btn-sm btn-primary rounded-0 shadow-none">Toevoegen</button>
+                        </div>
+
+                    </form>
 
                 </div>
 
@@ -117,4 +119,12 @@
     </div>
 
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        $('#students').select2(); // Initalize the select input field with the Select2 library
+    })
+
+</script>
 

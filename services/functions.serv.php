@@ -27,6 +27,14 @@
 
 	}
 
+	function is_teacher($id): bool
+	{
+
+		$qry = 'SELECT * FROM teacher WHERE user_id = ?';
+		return !empty(fetch($qry, [$id]));
+
+	}
+
 	function is_empty($dta): bool
 	{
 

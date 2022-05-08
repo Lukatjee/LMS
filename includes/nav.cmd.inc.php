@@ -43,7 +43,17 @@
                     <li class="nav-item">
 
                         <a class="nav-link text-white text-decoration-none" href="/public/commander/_groups.php">
-                            <i class="bi bi-bookmark-fill"></i> Groepen
+                            <i class="bi bi-people-fill"></i> Klassen
+                        </a>
+
+                    </li>
+
+                    <!-- Courses -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_courses.php">
+                            <i class="bi bi-journals"></i> Vakken
                         </a>
 
                     </li>
