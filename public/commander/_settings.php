@@ -66,9 +66,9 @@
 
                         <div class="input-group" aria-describedby="dateHelp">
 
-                            <input type="text" name="settings_startDate" id="start" onfocus="(this.type='date')" class="form-control rounded-0" value="<?php echo $limits['start'] ?>" aria-label="start">
+                            <input type="text" name="settings_startDate" onfocus="(this.type='date')" class="form-control rounded-0" value="<?php echo $limits['start'] ?>" aria-label="start">
                             <span class="input-group-text"><i class="bi bi-dash-lg"></i></span>
-                            <input type="text" name="settings_endDate" id="end" onfocus="(this.type='date')" class="form-control rounded-0" value="<?php echo $limits['end'] ?>" aria-label="end">
+                            <input type="text" name="settings_endDate" onfocus="(this.type='date')" class="form-control rounded-0" value="<?php echo $limits['end'] ?>" aria-label="end">
 
                         </div>
 

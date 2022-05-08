@@ -18,7 +18,7 @@
 		$res = fetch($qry, [$uid]);
 
 		foreach ($res as $role) {
-			if (in_array(0, $role)) {
+			if (in_array(1, $role)) {
 				return true;
 			}
 		}

@@ -34,15 +34,14 @@
 
         <div class="col-10 col-md-8 gy-5 table-responsive">
 
-            <table class="table table-light">
+            <table class="table text-center">
 
-                <thead>
+                <thead class="bg-dark text-light">
 
                 <tr>
 
-                    <th scope="col">ID</th>
-                    <th scope="col">NAAM</th>
-                    <th scope="col">GRAAD</th>
+                    <th scope="col">Klas</th>
+                    <th scope="col">Graad</th>
 
                 </tr>
 
@@ -54,8 +53,7 @@
 
                     <tr>
 
-                        <td><?php echo $group['id'] ?></td>
-                        <td><?php echo $group['name'] ?></td>
+                        <td><?php echo "<a href=./group?id=" . $group['id'] . ">" . $group['name'] . "</a>" ?></td>
                         <td><?php echo $group['grade'] ?></td>
 
                     </tr>
@@ -67,7 +65,7 @@
 
             </table>
 
-			<?php echo is_cmd($_SESSION['uid']) ? '<button type="button" class="btn rounded-0 shadow-none btn-primary" data-bs-toggle="modal" data-bs-target="#addGroup">Toevoegen</button>' : ""; ?>
+            <button type="button" class="btn rounded-0 shadow-none btn-primary" data-bs-toggle="modal" data-bs-target="#addGroup">Toevoegen</button>
 
             <div class="modal fade" id="addGroup" tabindex="-1" aria-hidden="true">
 

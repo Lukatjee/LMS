@@ -114,6 +114,26 @@
 	}
 
 	/**
+	 * Adds one or multiple users to a group.
+	 * @param $dta
+	 * group and an array of users
+	 * @return void
+	 */
+
+	function add_user_to_group($dta): void
+	{
+
+		$qry = 'UPDATE student AS s SET s.classlist_id = ? WHERE s.user_id = ?;';
+
+		foreach ($dta[1] as $user) {
+			edit($qry, [$dta[0], $user]);
+		}
+
+		redirect('public/commander/group?id=' . $dta[0]);
+
+	}
+
+	/**
 	 * Updates the settings table once the user clicks save
 	 * @param array $dta
 	 * new data submitted by the user
@@ -138,6 +158,20 @@
 		edit($qry, $dta);
 
 		redirect('public/commander/_settings.php');
+
+	}
+
+	function update_group($id, array $dta): void
+	{
+
+		if (is_empty($dta)) {
+			return;
+		}
+
+		$qry = 'UPDATE classlist SET name = ?, grade = ? WHERE id = ?';
+		edit($qry, [$dta[0], $dta[1], $id]);
+
+		redirect('public/commander/group?id=' . $id);
 
 	}
 
