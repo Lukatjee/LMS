@@ -1,21 +1,21 @@
 <?php
 
-session_start();
+	session_start();
 
-require_once dirname(__FILE__) . "/../../includes/header.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
-if (!isset($_SESSION['uid'])) {
-    redirect('public/index.php');
-}
+	if (!isset($_SESSION['uid'])) {
+		redirect('public/index.php');
+	}
 
-require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
 
-if (!is_cmd($_SESSION['uid'])) {
-    redirect('public/_console.php');
-}
+	if (!is_cmd($_SESSION['uid'])) {
+		redirect('public/_console.php');
+	}
 
-$qry = 'SELECT DISTINCT user_id, email, user_uid, group_id, role_id FROM users GROUP BY user_uid';
-$res = fetch($qry, []);
+	$qry = 'SELECT DISTINCT s.user_id, u.username, cl.name FROM student AS s LEFT JOIN user u on u.id = s.user_id LEFT JOIN classlist cl on cl.id = s.classlist_id GROUP BY u.username;';
+	$res = fetch($qry, []);
 
 ?>
 
@@ -32,9 +32,8 @@ $res = fetch($qry, []);
                 <tr>
 
                     <th scope="col">ID</th>
-                    <th scope="col">E-MAIL</th>
-                    <th scope="col">UID</th>
-                    <th scope="col">GROUP</th>
+                    <th scope="col">GEBRUIKERSNAAM</th>
+                    <th scope="col">KLAS</th>
 
                 </tr>
 
@@ -42,25 +41,24 @@ $res = fetch($qry, []);
 
                 <tbody>
 
-                <?php foreach ($res as $user) { ?>
+				<?php foreach ($res as $user) { ?>
 
                     <tr>
 
                         <td><?php echo $user['user_id'] ?></td>
-                        <td><?php echo(in_array(0, $user) ? $user['email'] . ' <i class="bi bi-star-fill text-warning fs-6"></i>' : $user['email']) ?></td>
-                        <td><?php echo $user['user_uid'] ?></td>
-                        <td><?php $res = fetch('SELECT name FROM lms_groups WHERE id = ?', [$user['group_id']]); echo $res[0]['name'] ?></td>
+                        <td><?php echo $user['username'] ?></td>
+                        <td><?php echo $user['name'] ?></td>
 
                     </tr>
 
 
-                <?php } ?>
+				<?php } ?>
 
                 </tbody>
 
             </table>
 
-            <?php echo is_cmd($_SESSION['uid']) ? '<a href="/public/Commander/Users/_adduser.php" type="button" class="btn disabled btn-primary rounded-0">Toevoegen</a>' : ""; ?>
+			<?php echo is_cmd($_SESSION['uid']) ? '<a href="" type="button" class="btn disabled btn-primary rounded-0">Toevoegen</a>' : ""; ?>
 
         </div>
 

@@ -1,30 +1,30 @@
 <?php
 
-session_start();
+	session_start();
 
-require_once dirname(__FILE__) . "/../../includes/header.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
-if (!isset($_SESSION['uid'])) {
-    redirect('index.php');
-}
+	if (!isset($_SESSION['uid'])) {
+		redirect('index.php');
+	}
 
-require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/nav.cmd.inc.php";
 
-if (!is_cmd($_SESSION['uid'])) {
-    redirect('public/_console.php');
-}
+	if (!is_cmd($_SESSION['uid'])) {
+		redirect('public/_console.php');
+	}
 
-require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
+	require_once dirname(__FILE__) . "/../../controllers/commander.cont.php";
 
-$qry = 'SELECT * FROM lms_groups';
-$res = fetch($qry, []);
+	$qry = 'SELECT * FROM classlist';
+	$res = fetch($qry, []);
 
-if (isset($_POST["crt"])) {
+	if (isset($_POST["crt"])) {
 
-    create_group([$_POST["dpn"]]);
-    unset($_POST);
+		create_group([$_POST["dpn"], $_POST["grd"]]);
+		unset($_POST);
 
-}
+	}
 
 ?>
 
@@ -34,15 +34,14 @@ if (isset($_POST["crt"])) {
 
         <div class="col-10 col-md-8 gy-5 table-responsive">
 
-            <table class="table table-light">
+            <table class="table text-center">
 
-                <thead>
+                <thead class="bg-dark text-light">
 
                 <tr>
 
-                    <th scope="col">ID</th>
-                    <th scope="col">NAME</th>
-                    <th scope="col">USERS</th>
+                    <th scope="col">Klas</th>
+                    <th scope="col">Graad</th>
 
                 </tr>
 
@@ -50,36 +49,23 @@ if (isset($_POST["crt"])) {
 
                 <tbody>
 
-                <?php foreach ($res as $group) { ?>
+				<?php foreach ($res as $group) { ?>
 
                     <tr>
 
-                        <td><?php echo $group['id'] ?></td>
-                        <td><?php echo $group['name'] ?></td>
-                        <td>
-
-                            <?php
-
-                            $res = fetch('SELECT DISTINCT COUNT(group_id) AS amount FROM users WHERE group_id = ? ORDER BY user_uid', [$group['id']]);
-
-                            if (!empty($res)) {
-                                echo $res[0]['amount'];
-                            }
-
-                            ?>
-
-                        </td>
+                        <td><?php echo "<a href=./group?id=" . $group['id'] . ">" . $group['name'] . "</a>" ?></td>
+                        <td><?php echo $group['grade'] ?></td>
 
                     </tr>
 
 
-                <?php } ?>
+				<?php } ?>
 
                 </tbody>
 
             </table>
 
-            <?php echo is_cmd($_SESSION['uid']) ? '<button type="button" class="btn rounded-0 shadow-none btn-primary" data-bs-toggle="modal" data-bs-target="#addGroup">Toevoegen</button>' : ""; ?>
+            <button type="button" class="btn rounded-0 shadow-none btn-primary" data-bs-toggle="modal" data-bs-target="#addGroup">Toevoegen</button>
 
             <div class="modal fade" id="addGroup" tabindex="-1" aria-hidden="true">
 
@@ -103,6 +89,12 @@ if (isset($_POST["crt"])) {
                                 </span>
 
                                 <input type="text" class="form-control rounded-0 shadow-none" aria-label="dpn" name="dpn" id="dpn">
+
+                                <span class="input-group-text rounded-0 bg-success bg-opacity-25">
+                                    <i class="bi bi-123"></i>
+                                </span>
+
+                                <input type="text" class="form-control rounded-0 shadow-none" aria-label="grd" name="grd" id="grd">
 
                             </div>
 

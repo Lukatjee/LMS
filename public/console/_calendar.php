@@ -1,99 +1,186 @@
 <?php
 
-session_start();
+	session_start();
 
-require_once dirname(__FILE__) . "/../../includes/header.inc.php";
+	require_once dirname(__FILE__) . "/../../includes/header.inc.php";
 
-if (!isset($_SESSION['uid'])) {
-    redirect('_commander.php');
-}
+	if (!isset($_SESSION['uid'])) {
+		redirect('_commander.php');
+	}
 
-require_once dirname(__FILE__) . "/../../includes/nav.inc.php";
-
-$qry = 'SELECT DISTINCT date FROM lms_events ORDER BY date;';
-$dates = fetch($qry, []);
+	require_once dirname(__FILE__) . "/../../includes/nav.inc.php";
 
 
-$rows = 9;
+	$rows = 9;
 
-$verticalHeading = [
+	$verticalHeading = [
 
-    '08:25 - 09:15',
-    '09:15 - 10:05',
-    '10:20 - 11:10',
-	'11:10 - 12:00',
-	'break' => '12:05 - 12:55',
-	'13:00 - 13:50',
-	'13:50 - 14:40',
-	'15:55 - 15:45',
-	'15:45 - 16:35',
+		'08:25<br>09:15',
+		'09:15<br>10:05',
+		'10:20<br>11:10',
+		'11:10<br>12:00',
+		'break' => '12:05<br>12:55',
+		'13:00<br>13:50',
+		'13:50<br>14:40',
+		'15:55<br>15:45',
+		'15:45<br>16:35',
 
-];
+	];
 
-$currentDate = match (date('N')) {
+	$dates = [];
 
-    '6' => date('D d/m', strtotime('+2 days')),
-    '7' => date('D d/m', strtotime('+1 days'))
-
-};
-
-$dates = [
-
-    $currentDate,
-    date('D d/m', strtotime($currentDate . '+1 days')),
-    date('D d/m', strtotime($currentDate . '+2 days'))
-
-]
+	for ($i = 0; $i < 5; $i++) {
+		$dates[] = date('D d/m', is_weekend(strtotime("+$i days", is_weekend())));
+		$currentDate = $dates[$i];
+	}
 
 ?>
 
-<div class="container table-responsive py-5">
+<div class="container-fluid table-responsive py-5">
 
-    <table class="table border-top">
+    <table class="table">
 
-        <tr>
+        <thead class="bg-dark text-white">
+
+        <tr class="border-top">
 
             <th></th>
-
-	        <?php
-
-            foreach ($dates as $date) {
-
-                echo "<td>{$date}</td>";
-
-            }
-
-            ?>
+			<?php foreach ($dates as $date) {
+				echo "<td>$date</td>";
+			} ?>
 
         </tr>
 
-        <?php
+        </thead>
 
-        foreach ($verticalHeading as $block) {
+        <tbody>
 
-            $break = $verticalHeading['break'] === $block;
+		<?php
 
-            echo "<tr><td class=\"align-middle border-end\" style='font-size: 12px; width: 3.5vw'>{$block}</td>";
+			foreach ($verticalHeading as $block) {
 
-            if ($break) {
-	            echo '<td></td><td></td><td></td></tr>';
-                continue;
-            }
+				$break = $verticalHeading['break'] === $block;
 
-            echo <<< EOL
+				echo "<tr><th class=\"align-middle text-center border-end\" style='font-size: 12px; width: 3.5vw'>$block</th>";
 
-                    <td class="border-end"><b><u>TIb, Luka S., F306</u></b><br><span style="font-size: 14px">gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</span></td>
-                    <td class="border-end"><b><u>TIb, Luka S., F306</u></b><br><span style="font-size: 14px">gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</span></td>
-                    <td><b><u>TIb, Luka S., F306</u></b><br><span style="font-size: 14px">gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</span></td>
-              
-                </tr>
+				if ($break) {
 
-            EOL;
+					for ($i = 0; $i < 5; $i++) {
+						echo '<td></td>';
+					}
+					echo '</tr>';
 
-        }
+					continue;
 
-        ?>
+				}
+
+				echo <<< EOL
+                
+                        <td colspan="1" class='border-end'>
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        </td>
+                        
+                        <td colspan="1" class='border-end'>
+                        </td>
+                
+                EOL;
+
+			}
+
+		?>
+
+        </tbody>
 
     </table>
+
+    <button data-bs-toggle="modal" data-bs-target="#addEvent" class="btn btn-disabled btn-primary rounded-0">Inplannen</button>
+
+    <!-- Subject Modal -->
+
+    <div class="modal fade" id="exampleSubject" tabindex="-1" aria-labelledby="exampleSubjectLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleSubjectLabel">TI Beheer, F306, Luka S.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Add Event Modal -->
+
+    <div class="modal fade" id="addEvent" tabindex="-1" aria-labelledby="addEventLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEventLabel">Event inplannen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <div class="mb-3">
+                            <label for="eventCourse" class="form-label">Leervak</label>
+                            <input type="email" class="form-control" id="eventCourse">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="eventDeadline" class="form-label">Inleverdatum</label>
+                            <input type="date" class="form-control" id="eventDeadline">
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label for="eventType" class="form-label">Type</label>
+
+                            <select class="form-select" id="eventType">
+                                <option selected value="task">Taak</option>
+                                <option value="test">Toets</option>
+                            </select>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Opslaan</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Sluit</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>

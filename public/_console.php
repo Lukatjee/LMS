@@ -1,10 +1,10 @@
 <?php
 
-session_start();
+	session_start();
 
-require_once dirname(__FILE__) . "/../includes/header.inc.php";
+	require_once dirname(__FILE__) . "/../includes/header.inc.php";
 
-if (!isset($_SESSION['uid']))
-    redirect('index.php');
+	if (!isset($_SESSION['uid']))
+		redirect('index.php');
 
-require_once dirname(__FILE__) . "/../includes/nav.inc.php";
+	require_once dirname(__FILE__) . "/../includes/nav.inc.php";

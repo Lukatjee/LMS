@@ -4,7 +4,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark border-secondary border-bottom">
 
-        <div class="container">
+        <div class="container-fluid">
 
             <a class="navbar-brand fw-light" href="/public/_commander.php">Zorion-LMS</a>
 
@@ -18,22 +18,22 @@
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+                    <!-- Settings -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_settings.php">
+                            <i class="bi bi-sliders"></i> Instellingen
+                        </a>
+
+                    </li>
+
                     <!-- Users -->
 
                     <li class="nav-item">
 
                         <a class="nav-link text-white text-decoration-none" href="/public/commander/_users.php">
                             <i class="bi bi-file-earmark-person-fill"></i> Gebruikers
-                        </a>
-
-                    </li>
-
-                    <!-- Roles -->
-
-                    <li class="nav-item">
-
-                        <a class="nav-link text-white text-decoration-none" href="/public/commander/_roles.php">
-                            <i class="bi bi-nut-fill"></i> Rollen
                         </a>
 
                     </li>
