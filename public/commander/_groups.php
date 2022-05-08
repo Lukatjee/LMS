@@ -6,7 +6,7 @@
 	$res = fetch('SELECT * FROM classlist;', []);
 
 	# Fetch users that are not in a group yet so they can be assigned during the creation process
-	$users = fetch('SELECT u.id, u.username FROM user AS u LEFT JOIN student s on u.id = s.user_id WHERE s.classlist_id IS NULL;', []);
+	$users = fetch('SELECT s.user_id, u.username FROM student s LEFT JOIN user u on u.id = s.user_id WHERE s.classlist_id IS NULL;', []);
 
 	# Create a group on pressing the create group button
 	if (isset($_POST["create_group"])) {
@@ -95,7 +95,7 @@
                             <select id="students" name="members[]" class="form-select" multiple="multiple" aria-label="students">
 
 								<?php foreach ($users as $user) {
-									echo '<option value="' . $user['id'] . '">' . $user['username'] . '</option>';
+									echo '<option value="' . $user['user_id'] . '">' . $user['username'] . '</option>';
 								} ?>
 
                             </select>

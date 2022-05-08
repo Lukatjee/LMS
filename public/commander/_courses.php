@@ -82,7 +82,7 @@
 
                 <div class="card-body">
 
-                    <form id="addCourses">
+                    <form method="post" id="addCourses">
 
                         <div class="input-group">
 
@@ -135,7 +135,9 @@
         })
 
         // Serialize data and create a post request
-        $("#submitCourses").click(function () {
+        $("#submitCourses").click(function (element) {
+
+            element.preventDefault();
 
             $("#submitCourses").html('<div class="spinner-border spinner-border-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>');
             $("#addCourseField").remove();
@@ -144,7 +146,10 @@
 
                 url: "_courses.php",
                 method: "POST",
-                data: $('#addCourses').serialize()
+                data: $('#addCourses').serialize(),
+                success: function () {
+                    location.reload()
+                }
 
             })
 

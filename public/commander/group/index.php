@@ -103,7 +103,7 @@
 
 					<?php if (!empty($members)) { ?>
 
-                        <table class="table text-center">
+                        <table class="table">
 
                             <thead>
 
@@ -111,7 +111,7 @@
 
                                 <th scope="col">Id</th>
                                 <th scope="col">Gebruikersnaam</th>
-                                <th scope="col">Acties</th>
+                                <th scope="col"></th>
 
                             </tr>
 
@@ -126,7 +126,7 @@
                                     <td><?php echo $member['id'] ?></td>
                                     <td><?php echo $member['username'] ?></td>
 
-                                    <td>
+                                    <td class="text-center">
 
                                         <form method="post">
 

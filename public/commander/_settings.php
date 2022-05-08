@@ -94,7 +94,7 @@
 
                     <div class="card-body">
 
-                        <form id="addPeriods">
+                        <form method="post" id="addPeriods">
 
                             <div class="input-group">
 
@@ -149,7 +149,9 @@
         })
 
         // Serialize data and create a post request
-        $("#submitPeriods").click(function () {
+        $("#submitPeriods").click(function (element) {
+
+            element.preventDefault()
 
             $("#submitPeriods").html('<div class="spinner-border spinner-border-sm text-light" role="status"><span class="visually-hidden">Loading...</span></div>');
             $("#addPeriodField").remove();
@@ -158,7 +160,10 @@
 
                 url: "_settings.php",
                 method: "POST",
-                data: $('#addPeriods').serialize()
+                data: $('#addPeriods').serialize(),
+                success: function() {
+                    location.reload();
+                }
 
             })
 

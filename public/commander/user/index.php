@@ -68,6 +68,8 @@
 
         </div>
 
+        <?php if (!is_teacher($data['id'])) { ?>
+
         <div class="col-sm-5">
 
             <div class="card rounded-0 mb-3">
@@ -84,6 +86,8 @@
             </div>
 
         </div>
+
+        <?php } ?>
 
     </div>
 
