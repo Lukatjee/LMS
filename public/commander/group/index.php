@@ -40,7 +40,7 @@
 
 <div class="container">
 
-    <div class="row justify-content-center py-5">
+    <div class="row justify-content-center pt-5">
 
         <div class="col-sm-5">
 
@@ -48,7 +48,7 @@
 
                 <div class="card-header bg-dark text-light rounded-0">
                     Eigenschappen
-                    <p class="card-subtitle mb-2 text-light text-muted"><sub>Bekijk en/of bewerk de eigenschappen van <strong><?php echo $res['name'] ?></strong></sub></p>
+                    <p class="card-subtitle mb-2 text-light text-muted"><sub>Bekijk en/of bewerk de eigenschappen van <strong><?php echo $res['name'] ?></strong>.</sub></p>
                 </div>
 
                 <div class="card-body">
@@ -174,6 +174,35 @@
                         </form>
 
 					<?php } ?>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-5">
+
+            <div class="card rounded-0 mb-3">
+
+                <div class="card-header bg-dark text-light rounded-0">
+                    Lessenrooster
+                    <p class="card-subtitle mb-2 text-light text-muted"><sub>Bewerk of stel het lessenrooster op voor <strong><?php echo $res['name'] ?></strong>.</sub></p>
+                </div>
+
+                <div class="card-body">
+
+                    <p class="card-text text-center text-muted">Er is nog geen lessenrooster ingesteld.</p>
+
+                    <hr class="bg-dark border-secondary border-bottom">
+
+                    <div class="d-grid d-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-sm btn-primary rounded-0 shadow-none">Instellen</button>
+                    </div>
 
                 </div>
 
