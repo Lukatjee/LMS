@@ -315,6 +315,16 @@
 	 * @return void
 	 */
 
+	function add_class(array $dta): void {
+
+		$periods = fetch("SELECT id FROM period WHERE TIME_FORMAT(start, '%H:%i') = ? AND WEEKDAY(start) = ?", [$dta[1], $dta[0]]);
+
+		foreach ($periods as $period) {
+			edit('INSERT INTO class(subject_id, period_id, classlist_id) VALUE (?, ?, ?);', [$dta[2], $period['id'], $dta[3]]);
+		}
+
+	}
+
 	function update_options(array $dta): void
 	{
 

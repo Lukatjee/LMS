@@ -14,6 +14,10 @@
 	# Fetch all the users that are not in a group yet
 	$users = fetch('SELECT s.user_id, u.username FROM student s LEFT JOIN user u on u.id = s.user_id WHERE s.classlist_id IS NULL;', []);
 
+    $hours = fetch("SELECT TIME_FORMAT(start, '%H:%i') AS hour FROM period WHERE CAST(start AS DATE) = CURRENT_DATE;", []);
+
+    $courses = fetch('SELECT * FROM subject;', []);
+
 	# Purges the group and all the associated data in other tables
 	if (isset($_POST['delete_group'])) {
 		delete_group($id);
@@ -33,6 +37,10 @@
 	if (isset($_POST['remove_user'])) {
 		remove_user_from_group($id, $_POST['remove_user']);
 	}
+
+    if (isset($_POST['class'])) {
+        add_class([$_POST['day_of_week'], $_POST['hour'], $_POST['course'], $id]);
+    }
 
 	unset($_POST);
 
@@ -164,7 +172,6 @@
 										echo '<option value="' . $user['user_id'] . '">' . $user['username'] . '</option>';
 									} ?>
 
-
                                 </select>
 
                                 <button type="submit" name="add_users" class="btn btn-sm btn-primary rounded-0 shadow-none">Toevoegen</button>
@@ -196,13 +203,45 @@
 
                 <div class="card-body">
 
-                    <p class="card-text text-center text-muted">Er is nog geen lessenrooster ingesteld.</p>
+                    <form method="post">
 
-                    <hr class="bg-dark border-secondary border-bottom">
+                        <div class="d-grid gap-2 d-md-flex">
 
-                    <div class="d-grid d-flex justify-content-md-end">
-                        <button type="submit" class="btn btn-sm btn-primary rounded-0 shadow-none">Instellen</button>
-                    </div>
+                            <select id="day_of_week" name="day_of_week" class="form-select shadow-none" aria-label="day_of_week">
+
+                                <option value="0">Maandag</option>
+                                <option value="1">Dinsdag</option>
+                                <option value="2">Woensdag</option>
+                                <option value="3">Donderdag</option>
+                                <option value="4">Vrijdag</option>
+
+                            </select>
+
+                            <select id="hour" name="hour" class="form-select shadow-none" aria-label="hour">
+
+                                <?php foreach ($hours as $hour) {
+                                    echo '<option value="' . $hour['hour'] . '">' . $hour['hour'] . '</option>';
+                                }?>
+
+                            </select>
+
+                            <select id="course" name="course" class="form-select shadow-none" aria-label="course">
+
+		                        <?php foreach ($courses as $course) {
+			                        echo '<option value="' . $course['id'] . '">' . $course['name'] . '</option>';
+		                        }?>
+
+                            </select>
+
+                        </div>
+
+                        <hr class="bg-dark border-secondary border-bottom">
+
+                        <div class="d-grid d-flex justify-content-md-end">
+                            <button name="class" type="submit" class="btn btn-sm btn-primary rounded-0 shadow-none">Instellen</button>
+                        </div>
+
+                    </form>
 
                 </div>
 

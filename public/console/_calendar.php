@@ -10,29 +10,21 @@
 
 	require_once dirname(__FILE__) . "/../../includes/nav.inc.php";
 
+	$dates = fetch("SELECT DISTINCT DATE_FORMAT(CAST(start AS DATE), '%a %d/%c') AS date, CAST(start AS DATE) AS date_raw FROM period WHERE CURRENT_DATE <= CAST(start AS DATE) LIMIT 5;", []);
 
-	$rows = 9;
+	$blocks = fetch("SELECT id, CONCAT(TIME_FORMAT(start, '%H:%i'), '<br>', TIME_FORMAT(end, '%H:%i')) AS block, TIME_FORMAT(start, '%H:%i') AS block_raw_start FROM period WHERE CAST(start AS DATE) = CURRENT_DATE;", []);
 
-	$verticalHeading = [
+	$classes = array();
 
-		'08:25<br>09:15',
-		'09:15<br>10:05',
-		'10:20<br>11:10',
-		'11:10<br>12:00',
-		'break' => '12:05<br>12:55',
-		'13:00<br>13:50',
-		'13:50<br>14:40',
-		'15:55<br>15:45',
-		'15:45<br>16:35',
+	foreach ($dates as $date) {
 
-	];
+		foreach ($blocks as $block) {
+			$classes[] = fetch("SELECT * FROM class WHERE period_id = (SELECT id FROM period WHERE TIME_FORMAT(CAST(start AS TIME), '%H:%i') = ? AND CAST(start AS DATE) = ?);", [$block['block_raw_start'], $date['date_raw']])[0];
+		}
 
-	$dates = [];
-
-	for ($i = 0; $i < 5; $i++) {
-		$dates[] = date('D d/m', is_weekend(strtotime("+$i days", is_weekend())));
-		$currentDate = $dates[$i];
 	}
+
+	$classes = array_chunk($classes, 5);
 
 ?>
 
@@ -46,7 +38,7 @@
 
             <th></th>
 			<?php foreach ($dates as $date) {
-				echo "<td>$date</td>";
+				echo "<th>" . $date['date'] . "</th>";
 			} ?>
 
         </tr>
@@ -57,41 +49,16 @@
 
 		<?php
 
-			foreach ($verticalHeading as $block) {
+			$i = 0;
+			foreach ($blocks as $block) {
 
-				$break = $verticalHeading['break'] === $block;
+				echo '<tr><th class="align-middle text-center border-end" style="font-size: 12px; width: 3.5vw">' . $block['block'] . '</th>';
 
-				echo "<tr><th class=\"align-middle text-center border-end\" style='font-size: 12px; width: 3.5vw'>$block</th>";
-
-				if ($break) {
-
-					for ($i = 0; $i < 5; $i++) {
-						echo '<td></td>';
-					}
-					echo '</tr>';
-
-					continue;
-
+				foreach ($classes[$i] as $class) {
+					echo '<td colspan="1" class="border-end">' . fetch('SELECT name FROM subject WHERE id = ?', [$class['subject_id']])[0]['name'] . '</td>';
 				}
 
-				echo <<< EOL
-                
-                        <td colspan="1" class='border-end'>
-                        </td>
-                        
-                        <td colspan="1" class='border-end'>
-                        </td>
-                        
-                        <td colspan="1" class='border-end'>
-                        </td>
-                        
-                        <td colspan="1" class='border-end'>
-                        </td>
-                        
-                        <td colspan="1" class='border-end'>
-                        </td>
-                
-                EOL;
+				$i++;
 
 			}
 
@@ -102,33 +69,6 @@
     </table>
 
     <button data-bs-toggle="modal" data-bs-target="#addEvent" class="btn btn-disabled btn-primary rounded-0">Inplannen</button>
-
-    <!-- Subject Modal -->
-
-    <div class="modal fade" id="exampleSubject" tabindex="-1" aria-labelledby="exampleSubjectLabel" aria-hidden="true">
-
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleSubjectLabel">TI Beheer, F306, Luka S.</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <div class="modal-body">
-                    <p>gip - verderwerken aan groot individueel project + bezoek van extern jurylid mr. Janssens</p>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sluit</button>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
 
     <!-- Add Event Modal -->
 
